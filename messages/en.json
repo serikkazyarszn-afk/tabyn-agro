@@ -1,0 +1,274 @@
+{
+  "nav": {
+    "animals": "Browse Animals",
+    "howItWorks": "How It Works",
+    "login": "Log In",
+    "signup": "Get Started",
+    "dashboard": "Dashboard",
+    "farmerDashboard": "My Farm",
+    "logout": "Log Out"
+  },
+  "hero": {
+    "badge": "Agricultural Investment Platform",
+    "title": "Invest in Farm Animals,",
+    "titleAccent": "Earn Real Returns",
+    "subtitle": "Connect with verified Kazakhstani farmers. Fund livestock, track growth, and share in the profits — all without owning a single animal.",
+    "cta": "Start Investing",
+    "ctaSecondary": "How It Works",
+    "stats": {
+      "investors": "Active Investors",
+      "animals": "Animals Funded",
+      "return": "Avg. Annual Return",
+      "farmers": "Verified Farmers"
+    }
+  },
+  "howItWorks": {
+    "badge": "Simple Process",
+    "title": "How Tabyn Argo Works",
+    "subtitle": "Three simple steps from investment to profit",
+    "step1": {
+      "title": "Choose an Animal",
+      "description": "Browse verified livestock listings from trusted farmers across Kazakhstan. See expected returns, duration, and full farmer profiles."
+    },
+    "step2": {
+      "title": "Invest Your Capital",
+      "description": "Select how much you want to invest. The farmer raises and maintains the animal — you track progress from your dashboard."
+    },
+    "step3": {
+      "title": "Share the Profit",
+      "description": "When the animal is sold, 70% of the profit goes to you. The farmer receives 30% for their work. Simple, transparent, fair."
+    }
+  },
+  "benefits": {
+    "investors": {
+      "badge": "For Investors",
+      "title": "Grow Your Money with Agriculture",
+      "items": {
+        "passive": {
+          "title": "Passive Income",
+          "description": "Your capital works while farmers do the work. No farm management required."
+        },
+        "transparent": {
+          "title": "Transparent Returns",
+          "description": "Clear profit-sharing ratios. See exactly what you earn before you invest."
+        },
+        "lowEntry": {
+          "title": "Low Entry Point",
+          "description": "Start investing from as little as ₸50,000. Diversify across multiple animals."
+        },
+        "tracked": {
+          "title": "Fully Tracked",
+          "description": "Real-time status updates on your animals' health, growth, and sale progress."
+        }
+      }
+    },
+    "farmers": {
+      "badge": "For Farmers",
+      "title": "Access Capital, Grow Your Farm",
+      "items": {
+        "capital": {
+          "title": "Access to Capital",
+          "description": "Get funding for livestock without bank loans or collateral requirements."
+        },
+        "noUpfront": {
+          "title": "No Upfront Costs",
+          "description": "Investors cover the purchase price. Focus on what you do best — raising animals."
+        },
+        "fair": {
+          "title": "Fair Profit Share",
+          "description": "Earn 30% of the profit for your expertise and hard work. Plus you keep your farm."
+        },
+        "grow": {
+          "title": "Scale Your Herd",
+          "description": "Use the platform to grow your livestock numbers without increasing your own risk."
+        }
+      }
+    }
+  },
+  "featuredAnimals": {
+    "badge": "Live Opportunities",
+    "title": "Available Now",
+    "subtitle": "Browse active investment opportunities from verified farmers",
+    "viewAll": "View All Animals",
+    "invest": "Invest Now",
+    "available": "Available",
+    "growing": "Growing",
+    "ready": "Ready for Sale",
+    "sold": "Sold",
+    "expectedReturn": "Expected Return",
+    "duration": "Duration",
+    "months": "months",
+    "slotsFilled": "slots filled",
+    "perSlot": "per slot",
+    "farmer": "Farmer"
+  },
+  "profitSharing": {
+    "badge": "Profit Sharing",
+    "title": "Transparent 70/30 Split",
+    "subtitle": "Every investment follows the same clear formula",
+    "investor": "Investor Share",
+    "farmer": "Farmer Share",
+    "investorDesc": "You receive 70% of all profits from the animal sale",
+    "farmerDesc": "The farmer earns 30% for their expertise and care",
+    "example": {
+      "title": "Example Calculation",
+      "invested": "Invested",
+      "salePrice": "Sale Price",
+      "profit": "Profit",
+      "yourEarnings": "Your Earnings (70%)",
+      "farmerEarnings": "Farmer Earnings (30%)"
+    }
+  },
+  "trust": {
+    "badge": "Why Trust Us",
+    "title": "Built on Transparency",
+    "items": {
+      "verified": {
+        "title": "Verified Farmers",
+        "description": "Every farmer is vetted, ID-checked, and reviewed before listing animals."
+      },
+      "legal": {
+        "title": "Legal Agreements",
+        "description": "Investment contracts are legally binding and documented for your protection."
+      },
+      "updates": {
+        "title": "Regular Updates",
+        "description": "Farmers post status updates. You always know how your animal is doing."
+      },
+      "support": {
+        "title": "Dedicated Support",
+        "description": "Our team is available to help investors and farmers at every step."
+      }
+    }
+  },
+  "footer": {
+    "tagline": "Agricultural investment for everyone.",
+    "platform": "Platform",
+    "animals": "Browse Animals",
+    "howItWorks": "How It Works",
+    "forFarmers": "For Farmers",
+    "company": "Company",
+    "about": "About Us",
+    "contact": "Contact",
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Service",
+    "rights": "All rights reserved."
+  },
+  "auth": {
+    "login": {
+      "title": "Welcome Back",
+      "subtitle": "Log in to your Tabyn Argo account",
+      "email": "Email Address",
+      "password": "Password",
+      "submit": "Log In",
+      "noAccount": "Don't have an account?",
+      "signup": "Sign Up",
+      "loading": "Logging in..."
+    },
+    "signup": {
+      "title": "Create Account",
+      "subtitle": "Join Tabyn Argo and start investing",
+      "name": "Full Name",
+      "email": "Email Address",
+      "password": "Password",
+      "role": "I want to",
+      "investor": "Invest in animals",
+      "farmer": "List my animals",
+      "submit": "Create Account",
+      "hasAccount": "Already have an account?",
+      "login": "Log In",
+      "loading": "Creating account..."
+    }
+  },
+  "dashboard": {
+    "title": "My Portfolio",
+    "subtitle": "Track your investments and earnings",
+    "totalInvested": "Total Invested",
+    "expectedReturn": "Expected Return",
+    "activeInvestments": "Active Investments",
+    "completedInvestments": "Completed",
+    "walletBalance": "Wallet Balance",
+    "topUp": "Top Up",
+    "myInvestments": "My Investments",
+    "noInvestments": "No investments yet. Browse available animals to get started.",
+    "browseAnimals": "Browse Animals",
+    "investedOn": "Invested on",
+    "expectedOn": "Expected return",
+    "profit": "Profit",
+    "status": {
+      "active": "Active",
+      "completed": "Completed"
+    }
+  },
+  "farmer": {
+    "dashboard": {
+      "title": "My Farm",
+      "subtitle": "Manage your animal listings",
+      "totalAnimals": "Total Listings",
+      "funded": "Fully Funded",
+      "active": "Growing",
+      "sold": "Sold",
+      "addAnimal": "Add Animal",
+      "myAnimals": "My Animals",
+      "noAnimals": "No animals listed yet.",
+      "updateStatus": "Update Status",
+      "investors": "investors",
+      "fullyFunded": "Fully Funded"
+    },
+    "addAnimal": {
+      "title": "Add New Animal",
+      "subtitle": "List a new animal for investors",
+      "name": "Animal Name",
+      "type": "Animal Type",
+      "price": "Price per Slot (₸)",
+      "expectedReturn": "Expected Return (%)",
+      "duration": "Duration (months)",
+      "slots": "Total Investment Slots",
+      "description": "Description",
+      "image": "Image URL",
+      "submit": "List Animal",
+      "loading": "Listing...",
+      "success": "Animal listed successfully!"
+    }
+  },
+  "animals": {
+    "title": "Browse Animals",
+    "subtitle": "Discover investment opportunities from verified farmers",
+    "filter": {
+      "all": "All Types",
+      "cow": "Cows",
+      "sheep": "Sheep",
+      "horse": "Horses",
+      "goat": "Goats",
+      "camel": "Camels",
+      "status": "All Status",
+      "available": "Available",
+      "growing": "Growing"
+    },
+    "noResults": "No animals found matching your filters.",
+    "detail": {
+      "invest": "Invest Now",
+      "loginToInvest": "Log in to Invest",
+      "slots": "Investment Slots",
+      "slotsRemaining": "slots remaining",
+      "aboutFarmer": "About the Farmer",
+      "verified": "Verified Farmer",
+      "investModal": {
+        "title": "Invest in",
+        "amount": "Investment Amount (₸)",
+        "balance": "Your balance",
+        "expectedReturn": "Expected return",
+        "confirm": "Confirm Investment",
+        "cancel": "Cancel",
+        "loading": "Processing..."
+      }
+    }
+  },
+  "common": {
+    "tenge": "₸",
+    "perAnnum": "p.a.",
+    "loading": "Loading...",
+    "error": "Something went wrong",
+    "back": "Back"
+  }
+}
