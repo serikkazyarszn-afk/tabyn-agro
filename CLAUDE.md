@@ -5,6 +5,7 @@
 Agricultural investment platform where investors fund farm animals and share profit with farmers after sale. Built as an MVP/prototype — demo data drives listings, Supabase handles auth and production DB.
 
 **Live URL**: https://tabyn-agro.vercel.app
+**GitHub repo**: https://github.com/serikkazyarszn-afk/Tabyn_Project
 **Vercel project**: `serikkazyarszn-afks-projects/tabyn-agro`
 **Supabase project**: `https://fsmbwtpgzcubbquoavlj.supabase.co`
 
