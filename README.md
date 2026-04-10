@@ -1,4 +1,4 @@
-# TabynAgro
+# TabynAgro (инфо про то как запустить проект ниже ребят)
 
 TabynAgro is a web platform that connects **investors** with **farmers**.
 
