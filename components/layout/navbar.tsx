@@ -107,7 +107,17 @@ export default function Navbar({ locale, user: initialUser }: NavbarProps) {
                   : 'text-muted hover:text-foreground'
               }`}
             >
-              RU
+              РУС
+            </button>
+            <button
+              onClick={() => switchLocale('kk')}
+              className={`text-xs px-2.5 py-1 rounded-md transition-all ${
+                locale === 'kk'
+                  ? 'bg-accent text-black font-semibold'
+                  : 'text-muted hover:text-foreground'
+              }`}
+            >
+              ҚАЗ
             </button>
           </div>
 
