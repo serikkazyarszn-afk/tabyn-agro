@@ -64,16 +64,12 @@ export default function Navbar({ locale, user: initialUser }: NavbarProps) {
     >
       <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
         {/* Logo */}
-        <Link href={navLink('/')} className="flex items-center gap-2.5 group">
-          <div className="w-8 h-8 relative">
-            <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
-              <path d="M16 2L16 8M16 8L12 12M16 8L20 12M12 12L12 20M20 12L20 20M12 20L16 24M20 20L16 24M16 24L16 30" stroke="#a8e63d" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
-              <path d="M8 14L4 18M24 14L28 18" stroke="#a8e63d" strokeWidth="2" strokeLinecap="round"/>
-            </svg>
-          </div>
-          <span className="text-foreground font-bold text-lg tracking-tight group-hover:text-accent transition-colors">
-            Tabyn<span className="text-accent">Argo</span>
-          </span>
+        <Link href={navLink('/')} className="flex items-center group">
+          <img
+            src="/logo.png"
+            alt="Tabyn"
+            className="h-63 w-auto object-contain"
+          />
         </Link>
 
         {/* Nav links */}

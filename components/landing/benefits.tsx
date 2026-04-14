@@ -40,25 +40,25 @@ export default function Benefits() {
               ))}
             </div>
           </div>
-          <div className="relative h-80 rounded-2xl overflow-hidden">
+          <div className="rounded-2xl overflow-hidden self-stretch min-h-80">
             <img
-              src="https://images.unsplash.com/photo-1607863680198-23d4b2565df0?w=800&q=80"
+              src="/invest.jpg"
               alt="Investor"
-              className="w-full h-full object-cover"
+              className="w-full h-full object-cover object-center"
+              style={{ display: 'block' }}
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-background/60 to-transparent" />
           </div>
         </div>
 
         {/* Farmers */}
         <div className="grid grid-cols-2 gap-16 items-center">
-          <div className="relative h-80 rounded-2xl overflow-hidden">
+          <div className="rounded-2xl overflow-hidden self-stretch min-h-80">
             <img
-              src="https://images.unsplash.com/photo-1500937386664-56d1dfef3854?w=800&q=80"
+              src="/investferm.jpg"
               alt="Farmer"
-              className="w-full h-full object-cover"
+              className="w-full h-full object-cover object-center"
+              style={{ display: 'block' }}
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-background/60 to-transparent" />
           </div>
           <div>
             <span className="inline-block text-accent text-sm font-semibold uppercase tracking-widest mb-3">
