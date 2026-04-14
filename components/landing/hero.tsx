@@ -19,7 +19,7 @@ export default function Hero({ locale }: HeroProps) {
       <div
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"
         style={{
-          backgroundImage: `url('https://images.unsplash.com/photo-1500595046743-cd271d694d30?w=1920&q=80')`,
+          backgroundImage: `url('/dashboard.jpg')`,
         }}
       />
       <div className="absolute inset-0 bg-gradient-to-r from-background via-background/85 to-background/40" />
