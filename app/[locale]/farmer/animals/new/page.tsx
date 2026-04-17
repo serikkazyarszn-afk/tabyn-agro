@@ -20,6 +20,7 @@ export default function NewAnimalPage({ params }: { params: Promise<{ locale: st
   const [form, setForm] = useState({
     name: '',
     type: 'cow',
+    breed: '',
     price: '',
     expected_return_pct: '',
     duration_months: '',
@@ -89,6 +90,8 @@ export default function NewAnimalPage({ params }: { params: Promise<{ locale: st
               </select>
             </div>
           </div>
+
+          <Input id="breed" label="Порода" value={form.breed} onChange={set('breed')} placeholder="e.g. Меринос (тонкорунная)" />
 
           <div className="grid grid-cols-2 gap-5">
             <Input id="price" label={t('price')} type="number" value={form.price} onChange={set('price')} placeholder="250000" required min={0} />

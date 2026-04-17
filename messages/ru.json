@@ -24,7 +24,7 @@
   },
   "howItWorks": {
     "badge": "Простой процесс",
-    "title": "Как работает Tabyn Argo",
+    "title": "Как работает Tabyn",
     "subtitle": "Три простых шага от инвестиции до прибыли",
     "step1": {
       "title": "Выберите животное",
@@ -98,8 +98,8 @@
     "expectedReturn": "Ожидаемый доход",
     "duration": "Срок",
     "months": "мес.",
-    "slotsFilled": "мест занято",
-    "perSlot": "за место",
+    "slotsFilled": "долей занято",
+    "perSlot": "за долю",
     "farmer": "Фермер"
   },
   "profitSharing": {
@@ -157,7 +157,7 @@
   "auth": {
     "login": {
       "title": "С возвращением",
-      "subtitle": "Войдите в ваш аккаунт Tabyn Argo",
+      "subtitle": "Войдите в ваш аккаунт Tabyn",
       "email": "Электронная почта",
       "password": "Пароль",
       "submit": "Войти",
@@ -167,7 +167,7 @@
     },
     "signup": {
       "title": "Создать аккаунт",
-      "subtitle": "Присоединяйтесь к Tabyn Argo",
+      "subtitle": "Присоединяйтесь к Tabyn",
       "name": "Полное имя",
       "email": "Электронная почта",
       "password": "Пароль",

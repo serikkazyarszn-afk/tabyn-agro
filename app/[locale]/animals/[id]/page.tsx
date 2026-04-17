@@ -93,7 +93,7 @@ export default function AnimalDetailPage({
             <h2 className="font-bold text-xl mb-1">{animal.name}</h2>
             <div className="flex items-center gap-2 text-muted text-sm mb-4">
               <span className="text-lg">{ANIMAL_EMOJIS[animal.type]}</span>
-              <span className="capitalize">{animal.type}</span>
+              <span className="capitalize">{animal.type}{animal.breed && ` — ${animal.breed}`}</span>
             </div>
             {animal.description && (
               <p className="text-muted text-sm leading-relaxed">{animal.description}</p>

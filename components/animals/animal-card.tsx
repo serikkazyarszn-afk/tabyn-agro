@@ -68,6 +68,11 @@ export default function AnimalCard({ animal, locale }: AnimalCardProps) {
           <div className="flex items-start justify-between mb-3">
             <div>
               <h3 className="font-bold text-base mb-0.5">{animal.name}</h3>
+              {animal.breed && (
+                <p className="text-xs text-accent font-medium mb-0.5 capitalize">
+                  {animal.type} — {animal.breed}
+                </p>
+              )}
               <div className="flex items-center gap-1 text-xs text-muted">
                 <MapPin className="w-3 h-3" />
                 <span>{animal.farmer?.location || '—'}</span>

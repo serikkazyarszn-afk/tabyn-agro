@@ -31,6 +31,7 @@ export interface Animal {
   farmer_id: string;
   name: string;
   type: AnimalType;
+  breed?: string;
   price: number;
   expected_return_pct: number;
   duration_months: number;

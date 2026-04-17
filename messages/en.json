@@ -24,7 +24,7 @@
   },
   "howItWorks": {
     "badge": "Simple Process",
-    "title": "How Tabyn Argo Works",
+    "title": "How Tabyn Works",
     "subtitle": "Three simple steps from investment to profit",
     "step1": {
       "title": "Choose an Animal",
@@ -98,8 +98,8 @@
     "expectedReturn": "Expected Return",
     "duration": "Duration",
     "months": "months",
-    "slotsFilled": "slots filled",
-    "perSlot": "per slot",
+    "slotsFilled": "shares filled",
+    "perSlot": "per share",
     "farmer": "Farmer"
   },
   "profitSharing": {
@@ -157,7 +157,7 @@
   "auth": {
     "login": {
       "title": "Welcome Back",
-      "subtitle": "Log in to your Tabyn Argo account",
+      "subtitle": "Log in to your Tabyn account",
       "email": "Email Address",
       "password": "Password",
       "submit": "Log In",
@@ -167,7 +167,7 @@
     },
     "signup": {
       "title": "Create Account",
-      "subtitle": "Join Tabyn Argo and start investing",
+      "subtitle": "Join Tabyn and start investing",
       "name": "Full Name",
       "email": "Email Address",
       "password": "Password",
