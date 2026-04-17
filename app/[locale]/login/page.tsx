@@ -51,11 +51,8 @@ export default function LoginPage({ params }: { params: Promise<{ locale: string
       <div className="w-full max-w-md">
         {/* Logo mark */}
         <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-12 h-12 bg-accent/10 border border-accent/20 rounded-2xl mb-4">
-            <svg viewBox="0 0 32 32" fill="none" className="w-7 h-7">
-              <path d="M16 2L16 8M16 8L12 12M16 8L20 12M12 12L12 20M20 12L20 20M12 20L16 24M20 20L16 24M16 24L16 30" stroke="#a8e63d" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
-              <path d="M8 14L4 18M24 14L28 18" stroke="#a8e63d" strokeWidth="2" strokeLinecap="round"/>
-            </svg>
+          <div className="flex justify-center mb-4">
+            <img src="/logo.png" alt="Tabyn" className="h-16 w-auto object-contain" />
           </div>
           <h1 className="text-2xl font-bold">{t('title')}</h1>
           <p className="text-muted text-sm mt-1">{t('subtitle')}</p>
