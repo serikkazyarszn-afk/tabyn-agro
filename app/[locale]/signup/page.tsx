@@ -35,7 +35,7 @@ export default function SignupPage({ params }: { params: Promise<{ locale: strin
     });
 
     if (authError) {
-      setError('Sign up failed. Please check your details and try again.');
+      setError(authError.message);
       setLoading(false);
       return;
     }
