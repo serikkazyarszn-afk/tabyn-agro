@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { useTranslations } from 'next-intl';
 import { DEMO_ANIMALS } from '@/lib/demo-data';
 import { notFound } from 'next/navigation';
@@ -54,7 +54,10 @@ export default function AnimalDetailPage({
     })();
   }, []);
   const parsedAmount = Number(amount);
-  const expectedReturn = Math.round(parsedAmount * (1 + animal.expected_return_pct / 100));
+  const expectedReturn = useMemo(
+    () => Math.round(parsedAmount * (1 + animal.expected_return_pct / 100)),
+    [parsedAmount, animal.expected_return_pct]
+  );
   const slotsRemaining = animal.slots_total - animal.slots_filled;
   const fillPct = Math.round((animal.slots_filled / animal.slots_total) * 100);
 
@@ -69,7 +72,7 @@ export default function AnimalDetailPage({
       return;
     }
     setInvesting(true);
-    await new Promise((r) => setTimeout(r, 1200));
+    await new Promise((r) => setTimeout(r, 1000));
     setInvesting(false);
     setSuccess(true);
     setTimeout(() => {

@@ -293,7 +293,12 @@
       "farmName": "Farm Name",
       "location": "Location",
       "type": "Type",
-      "price": "Price"
+      "price": "Price",
+      "farmers": "Farmers",
+      "noUsers": "No users found.",
+      "noFarmers": "No farmers found.",
+      "noAnimals": "No animals found.",
+      "noInvestments": "No investments found."
     }
   },
   "common": {

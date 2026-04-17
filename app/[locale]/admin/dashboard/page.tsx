@@ -214,7 +214,7 @@ export default function AdminDashboard({ params }: { params: Promise<{ locale: s
               ))}
             </tbody>
           </table>
-          {users.length === 0 && <p className="text-muted text-sm mt-4">No users found.</p>}
+          {users.length === 0 && <p className="text-muted text-sm mt-4">{t('noUsers')}</p>}
         </div>
       )}
 
@@ -252,7 +252,7 @@ export default function AdminDashboard({ params }: { params: Promise<{ locale: s
               ))}
             </tbody>
           </table>
-          {farmers.length === 0 && <p className="text-muted text-sm mt-4">No farmers found.</p>}
+          {farmers.length === 0 && <p className="text-muted text-sm mt-4">{t('noFarmers')}</p>}
         </div>
       )}
 
@@ -294,7 +294,7 @@ export default function AdminDashboard({ params }: { params: Promise<{ locale: s
               ))}
             </tbody>
           </table>
-          {animals.length === 0 && <p className="text-muted text-sm mt-4">No animals found.</p>}
+          {animals.length === 0 && <p className="text-muted text-sm mt-4">{t('noAnimals')}</p>}
         </div>
       )}
 
@@ -331,7 +331,7 @@ export default function AdminDashboard({ params }: { params: Promise<{ locale: s
               ))}
             </tbody>
           </table>
-          {investments.length === 0 && <p className="text-muted text-sm mt-4">No investments found.</p>}
+          {investments.length === 0 && <p className="text-muted text-sm mt-4">{t('noInvestments')}</p>}
         </div>
       )}
     </div>
