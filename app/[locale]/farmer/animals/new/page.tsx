@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
 import { useRouter } from 'next/navigation';
 import Input from '@/components/ui/input';
@@ -8,14 +8,27 @@ import Button from '@/components/ui/button';
 import { use } from 'react';
 import { ArrowLeft, CheckCircle } from 'lucide-react';
 import Link from 'next/link';
+import { createClient } from '@/lib/supabase';
 
 const ANIMAL_TYPES = ['cow', 'sheep', 'horse', 'goat', 'camel'] as const;
+const supabase = createClient();
 
 export default function NewAnimalPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = use(params);
   const t = useTranslations('farmer.addAnimal');
   const tAnimals = useTranslations('animals.filter');
   const router = useRouter();
+  const [authChecked, setAuthChecked] = useState(false);
+
+  useEffect(() => {
+    (async () => {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) { router.push(`/${locale}/login`); return; }
+      const { data: profile } = await supabase.from('profiles').select('role').eq('id', user.id).single();
+      if (profile?.role !== 'farmer') { router.push(`/${locale}/`); return; }
+      setAuthChecked(true);
+    })();
+  }, [locale, router]);
 
   const [form, setForm] = useState({
     name: '',
@@ -42,6 +55,14 @@ export default function NewAnimalPage({ params }: { params: Promise<{ locale: st
     setSuccess(true);
     setTimeout(() => router.push(`/${locale}/farmer/dashboard`), 2000);
   };
+
+  if (!authChecked) {
+    return (
+      <div className="min-h-[calc(100vh-4rem)] flex items-center justify-center">
+        <div className="text-muted text-sm">Loading...</div>
+      </div>
+    );
+  }
 
   if (success) {
     return (

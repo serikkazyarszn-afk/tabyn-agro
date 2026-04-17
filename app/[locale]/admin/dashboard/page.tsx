@@ -57,6 +57,8 @@ export default function AdminDashboard({ params }: { params: Promise<{ locale: s
   const [farmers, setFarmers] = useState<FarmerRow[]>([]);
   const [animals, setAnimals] = useState<AnimalRow[]>([]);
   const [investments, setInvestments] = useState<InvestmentRow[]>([]);
+  const [fetchError, setFetchError] = useState<string | null>(null);
+  const [tabLoading, setTabLoading] = useState(false);
 
   useEffect(() => {
     (async () => {
@@ -82,43 +84,59 @@ export default function AdminDashboard({ params }: { params: Promise<{ locale: s
   }, [authorized, activeTab]);
 
   const fetchTab = async (tab: TabKey) => {
-    if (tab === 'users') {
-      const { data } = await supabase.from('profiles').select('*').order('created_at', { ascending: false });
-      setUsers((data as UserRow[]) ?? []);
-    } else if (tab === 'farmers') {
-      const { data } = await supabase
-        .from('farmers')
-        .select('id, farm_name, location, verified, profile:profiles(full_name, email)')
-        .order('farm_name');
-      setFarmers((data as unknown as FarmerRow[]) ?? []);
-    } else if (tab === 'animals') {
-      const { data } = await supabase
-        .from('animals')
-        .select('id, name, type, price, status, farmer:farmers(farm_name)')
-        .order('created_at', { ascending: false });
-      setAnimals((data as unknown as AnimalRow[]) ?? []);
-    } else if (tab === 'investments') {
-      const { data } = await supabase
-        .from('investments')
-        .select('id, amount, status, invested_at, profile:profiles(full_name, email), animal:animals(name)')
-        .order('invested_at', { ascending: false });
-      setInvestments((data as unknown as InvestmentRow[]) ?? []);
+    setFetchError(null);
+    setTabLoading(true);
+    try {
+      if (tab === 'users') {
+        const { data, error } = await supabase.from('profiles').select('*').order('created_at', { ascending: false });
+        if (error) throw error;
+        setUsers((data as UserRow[]) ?? []);
+      } else if (tab === 'farmers') {
+        const { data, error } = await supabase
+          .from('farmers')
+          .select('id, farm_name, location, verified, profile:profiles(full_name, email)')
+          .order('farm_name');
+        if (error) throw error;
+        setFarmers((data as unknown as FarmerRow[]) ?? []);
+      } else if (tab === 'animals') {
+        const { data, error } = await supabase
+          .from('animals')
+          .select('id, name, type, price, status, farmer:farmers(farm_name)')
+          .order('created_at', { ascending: false });
+        if (error) throw error;
+        setAnimals((data as unknown as AnimalRow[]) ?? []);
+      } else if (tab === 'investments') {
+        const { data, error } = await supabase
+          .from('investments')
+          .select('id, amount, status, invested_at, profile:profiles(full_name, email), animal:animals(name)')
+          .order('invested_at', { ascending: false });
+        if (error) throw error;
+        setInvestments((data as unknown as InvestmentRow[]) ?? []);
+      }
+    } catch (err) {
+      setFetchError('Failed to load data. Please try again.');
+      console.error('Admin fetchTab error:', err);
+    } finally {
+      setTabLoading(false);
     }
   };
 
   const changeRole = async (userId: string, newRole: Role) => {
-    await supabase.from('profiles').update({ role: newRole }).eq('id', userId);
+    const { error } = await supabase.from('profiles').update({ role: newRole }).eq('id', userId);
+    if (error) { alert('Failed to update role. Please try again.'); return; }
     setUsers(prev => prev.map(u => u.id === userId ? { ...u, role: newRole } : u));
   };
 
   const toggleVerified = async (farmerId: string, current: boolean) => {
-    await supabase.from('farmers').update({ verified: !current }).eq('id', farmerId);
+    const { error } = await supabase.from('farmers').update({ verified: !current }).eq('id', farmerId);
+    if (error) { alert('Failed to update verification. Please try again.'); return; }
     setFarmers(prev => prev.map(f => f.id === farmerId ? { ...f, verified: !current } : f));
   };
 
   const deleteAnimal = async (animalId: string) => {
     if (!window.confirm(t('confirmDelete'))) return;
-    await supabase.from('animals').delete().eq('id', animalId);
+    const { error } = await supabase.from('animals').delete().eq('id', animalId);
+    if (error) { alert('Failed to delete animal. Please try again.'); return; }
     setAnimals(prev => prev.filter(a => a.id !== animalId));
   };
 
@@ -137,6 +155,12 @@ export default function AdminDashboard({ params }: { params: Promise<{ locale: s
       <div className="mb-8">
         <h1 className="text-3xl font-bold">{t('title')}</h1>
       </div>
+
+      {fetchError && (
+        <div className="mb-6 px-4 py-3 bg-red-500/10 border border-red-500/20 rounded-xl text-red-400 text-sm">
+          {fetchError}
+        </div>
+      )}
 
       {/* Tabs */}
       <div className="flex gap-2 mb-8 border-b border-border">

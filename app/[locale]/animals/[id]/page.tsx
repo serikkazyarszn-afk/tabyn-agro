@@ -39,13 +39,24 @@ export default function AnimalDetailPage({
   const [amount, setAmount] = useState(animal.price.toString());
   const [investing, setInvesting] = useState(false);
   const [success, setSuccess] = useState(false);
+  const [investError, setInvestError] = useState('');
 
   const DEMO_BALANCE = 500000;
-  const expectedReturn = Math.round(Number(amount) * (1 + animal.expected_return_pct / 100));
+  const parsedAmount = Number(amount);
+  const expectedReturn = Math.round(parsedAmount * (1 + animal.expected_return_pct / 100));
   const slotsRemaining = animal.slots_total - animal.slots_filled;
   const fillPct = Math.round((animal.slots_filled / animal.slots_total) * 100);
 
   const handleInvest = async () => {
+    setInvestError('');
+    if (isNaN(parsedAmount) || parsedAmount < animal.price) {
+      setInvestError(`Minimum investment is ₸${animal.price.toLocaleString()}`);
+      return;
+    }
+    if (parsedAmount > DEMO_BALANCE) {
+      setInvestError('Insufficient balance');
+      return;
+    }
     setInvesting(true);
     await new Promise((r) => setTimeout(r, 1200));
     setInvesting(false);
@@ -229,6 +240,11 @@ export default function AnimalDetailPage({
                     <span className="text-accent font-semibold">₸{expectedReturn.toLocaleString()}</span>
                   </div>
                 </div>
+                {investError && (
+                  <p className="text-sm text-destructive bg-destructive/10 border border-destructive/20 rounded-lg px-4 py-2.5 mb-2">
+                    {investError}
+                  </p>
+                )}
                 <div className="flex gap-3">
                   <Button variant="secondary" size="md" className="flex-1" onClick={() => setShowModal(false)}>
                     {t('investModal.cancel')}
