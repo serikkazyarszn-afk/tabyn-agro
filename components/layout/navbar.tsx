@@ -143,7 +143,8 @@ export default function Navbar({ locale, user: initialUser }: NavbarProps) {
                 variant="ghost"
                 size="sm"
                 onClick={async () => {
-                  await supabase.auth.signOut();
+                  const { error } = await supabase.auth.signOut();
+                  if (error) console.error('Logout failed:', error.message);
                   router.push(navLink('/'));
                   router.refresh();
                 }}

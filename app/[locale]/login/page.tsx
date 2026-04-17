@@ -24,7 +24,7 @@ export default function LoginPage({ params }: { params: Promise<{ locale: string
     setError('');
 
     const supabase = createClient();
-    const { data, error: authError } = await supabase.auth.signInWithPassword({ email, password });
+    const { data, error: authError } = await supabase.auth.signInWithPassword({ email: email.trim(), password });
 
     if (authError) {
       setError('Invalid email or password. Please try again.');

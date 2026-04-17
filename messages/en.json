@@ -229,7 +229,9 @@
       "image": "Image URL",
       "submit": "List Animal",
       "loading": "Listing...",
-      "success": "Animal listed successfully!"
+      "success": "Animal listed successfully!",
+      "backToDashboard": "Back to Dashboard",
+      "redirecting": "Redirecting to your dashboard..."
     }
   },
   "animals": {

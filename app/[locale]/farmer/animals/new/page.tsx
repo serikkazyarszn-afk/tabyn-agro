@@ -43,12 +43,22 @@ export default function NewAnimalPage({ params }: { params: Promise<{ locale: st
   });
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
+  const [formError, setFormError] = useState('');
 
   const set = (key: string) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) =>
     setForm((prev) => ({ ...prev, [key]: e.target.value }));
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setFormError('');
+    const price = Number(form.price);
+    const returnPct = Number(form.expected_return_pct);
+    const duration = Number(form.duration_months);
+    const slots = Number(form.slots_total);
+    if (price < 1000) { setFormError('Price must be at least ₸1,000'); return; }
+    if (returnPct < 1 || returnPct > 100) { setFormError('Expected return must be between 1% and 100%'); return; }
+    if (duration < 1 || duration > 240) { setFormError('Duration must be between 1 and 240 months'); return; }
+    if (slots < 1 || slots > 100) { setFormError('Slots must be between 1 and 100'); return; }
     setLoading(true);
     await new Promise((r) => setTimeout(r, 1000));
     setLoading(false);
@@ -72,7 +82,7 @@ export default function NewAnimalPage({ params }: { params: Promise<{ locale: st
             <CheckCircle className="w-8 h-8 text-success" />
           </div>
           <h2 className="text-2xl font-bold mb-2">{t('success')}</h2>
-          <p className="text-muted text-sm">Redirecting to your dashboard...</p>
+          <p className="text-muted text-sm">{t('redirecting')}</p>
         </div>
       </div>
     );
@@ -82,7 +92,7 @@ export default function NewAnimalPage({ params }: { params: Promise<{ locale: st
     <div className="max-w-2xl mx-auto px-6 py-12">
       <Link href={`/${locale}/farmer/dashboard`} className="inline-flex items-center gap-2 text-muted hover:text-foreground transition-colors mb-8 text-sm">
         <ArrowLeft className="w-4 h-4" />
-        Back to Dashboard
+        {t('backToDashboard')}
       </Link>
 
       <div className="mb-8">
@@ -138,6 +148,11 @@ export default function NewAnimalPage({ params }: { params: Promise<{ locale: st
 
           <Input id="image_url" label={t('image')} type="url" value={form.image_url} onChange={set('image_url')} placeholder="https://..." />
 
+          {formError && (
+            <p className="text-sm text-destructive bg-destructive/10 border border-destructive/20 rounded-lg px-4 py-2.5">
+              {formError}
+            </p>
+          )}
           <Button type="submit" variant="primary" size="lg" loading={loading} className="w-full mt-2">
             {loading ? t('loading') : t('submit')}
           </Button>

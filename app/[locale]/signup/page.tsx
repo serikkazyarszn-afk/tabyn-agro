@@ -27,15 +27,15 @@ export default function SignupPage({ params }: { params: Promise<{ locale: strin
 
     const supabase = createClient();
     const { error: authError } = await supabase.auth.signUp({
-      email,
+      email: email.trim(),
       password,
       options: {
-        data: { full_name: name, role },
+        data: { full_name: name.trim(), role },
       },
     });
 
     if (authError) {
-      setError(authError.message);
+      setError('Sign up failed. Please check your details and try again.');
       setLoading(false);
       return;
     }
