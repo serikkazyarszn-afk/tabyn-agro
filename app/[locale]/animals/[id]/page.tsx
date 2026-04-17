@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
 import { DEMO_ANIMALS } from '@/lib/demo-data';
 import { notFound } from 'next/navigation';
@@ -10,6 +10,9 @@ import Input from '@/components/ui/input';
 import { use } from 'react';
 import { MapPin, Clock, TrendingUp, Users, CheckCircle, ArrowLeft, X } from 'lucide-react';
 import Link from 'next/link';
+import { createClient } from '@/lib/supabase';
+
+const supabase = createClient();
 
 const STATUS_VARIANTS = {
   available: 'accent',
@@ -40,8 +43,16 @@ export default function AnimalDetailPage({
   const [investing, setInvesting] = useState(false);
   const [success, setSuccess] = useState(false);
   const [investError, setInvestError] = useState('');
+  const [balance, setBalance] = useState(0);
 
-  const DEMO_BALANCE = 500000;
+  useEffect(() => {
+    (async () => {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) return;
+      const { data: profile } = await supabase.from('profiles').select('balance').eq('id', user.id).single();
+      if (profile) setBalance(profile.balance ?? 0);
+    })();
+  }, []);
   const parsedAmount = Number(amount);
   const expectedReturn = Math.round(parsedAmount * (1 + animal.expected_return_pct / 100));
   const slotsRemaining = animal.slots_total - animal.slots_filled;
@@ -53,7 +64,7 @@ export default function AnimalDetailPage({
       setInvestError(`Minimum investment is ₸${animal.price.toLocaleString()}`);
       return;
     }
-    if (parsedAmount > DEMO_BALANCE) {
+    if (parsedAmount > balance) {
       setInvestError('Insufficient balance');
       return;
     }
@@ -233,7 +244,7 @@ export default function AnimalDetailPage({
                   />
                   <div className="flex justify-between text-sm text-muted">
                     <span>{t('investModal.balance')}</span>
-                    <span className="text-foreground font-medium">₸{DEMO_BALANCE.toLocaleString()}</span>
+                    <span className="text-foreground font-medium">₸{balance.toLocaleString()}</span>
                   </div>
                   <div className="flex justify-between text-sm">
                     <span className="text-muted">{t('investModal.expectedReturn')}</span>

@@ -1,5 +1,6 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
 import Link from 'next/link';
 import { DEMO_INVESTMENTS } from '@/lib/demo-data';
@@ -7,6 +8,9 @@ import Badge from '@/components/ui/badge';
 import Button from '@/components/ui/button';
 import { use } from 'react';
 import { TrendingUp, Wallet, BarChart3, CheckCircle, Clock, ArrowRight, MapPin } from 'lucide-react';
+import { createClient } from '@/lib/supabase';
+
+const supabase = createClient();
 
 const ANIMAL_EMOJIS: Record<string, string> = {
   cow: '🐄', sheep: '🐑', horse: '🐴', goat: '🐐', camel: '🐪',
@@ -16,7 +20,16 @@ export default function DashboardPage({ params }: { params: Promise<{ locale: st
   const { locale } = use(params);
   const t = useTranslations('dashboard');
 
-  const DEMO_BALANCE = 305000;
+  const [balance, setBalance] = useState(0);
+
+  useEffect(() => {
+    (async () => {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) return;
+      const { data: profile } = await supabase.from('profiles').select('balance').eq('id', user.id).single();
+      if (profile) setBalance(profile.balance ?? 0);
+    })();
+  }, []);
   const totalInvested = DEMO_INVESTMENTS.reduce((s, i) => s + i.amount, 0);
   const expectedReturn = DEMO_INVESTMENTS.filter(i => i.status === 'active').reduce((s, i) => s + i.expected_return, 0);
   const activeCount = DEMO_INVESTMENTS.filter(i => i.status === 'active').length;
@@ -66,7 +79,7 @@ export default function DashboardPage({ params }: { params: Promise<{ locale: st
             <Wallet className="w-4 h-4" />
             {t('walletBalance')}
           </div>
-          <div className="text-2xl font-bold">₸{DEMO_BALANCE.toLocaleString()}</div>
+          <div className="text-2xl font-bold">₸{balance.toLocaleString()}</div>
           <button className="text-xs text-accent hover:underline mt-1">{t('topUp')}</button>
         </div>
       </div>
@@ -91,7 +104,10 @@ export default function DashboardPage({ params }: { params: Promise<{ locale: st
                 ? (inv.actual_return ?? 0) - inv.amount
                 : inv.expected_return - inv.amount;
               const profitPct = ((profit / inv.amount) * 100).toFixed(1);
-              const monthsLeft = animal.duration_months - 2;
+              const monthsElapsed = Math.floor(
+                (Date.now() - new Date(inv.invested_at).getTime()) / (1000 * 60 * 60 * 24 * 30)
+              );
+              const monthsLeft = Math.max(0, animal.duration_months - monthsElapsed);
 
               return (
                 <div key={inv.id} className="bg-surface border border-border rounded-2xl p-5 flex items-center gap-6 hover:border-muted-2 transition-colors">
