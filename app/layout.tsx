@@ -8,7 +8,7 @@ const geistSans = Geist({
 });
 
 export const metadata: Metadata = {
-  title: 'TabynArgo — Agricultural Investment Platform',
+  title: 'Tabyn — Agricultural Investment Platform',
   description: 'Invest in farm animals, earn real returns. Connect with verified Kazakhstani farmers.',
 };
 

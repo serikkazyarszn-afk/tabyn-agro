@@ -1,4 +1,4 @@
-# TabynArgo — CLAUDE.md
+# Tabyn — CLAUDE.md
 
 ## Project Overview
 

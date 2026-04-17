@@ -44,7 +44,7 @@ export default function Footer({ locale }: FooterProps) {
         </div>
 
         <div className="border-t border-border pt-6 flex items-center justify-between">
-          <p className="text-xs text-muted">© {new Date().getFullYear()} TabynArgo. {t('rights')}</p>
+          <p className="text-xs text-muted">© {new Date().getFullYear()} Tabyn. {t('rights')}</p>
         </div>
       </div>
     </footer>
