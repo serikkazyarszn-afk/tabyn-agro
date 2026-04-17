@@ -39,7 +39,9 @@ export default function LoginPage({ params }: { params: Promise<{ locale: string
       .eq('id', data.user.id)
       .single();
 
-    if (profile?.role === 'farmer') {
+    if (profile?.role === 'admin') {
+      router.push(`/${locale}/admin/dashboard`);
+    } else if (profile?.role === 'farmer') {
       router.push(`/${locale}/farmer/dashboard`);
     } else {
       router.push(`/${locale}/dashboard`);
