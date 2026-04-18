@@ -24,22 +24,29 @@ export default function LoginPage({ params }: { params: Promise<{ locale: string
     setError('');
 
     const supabase = createClient();
-    const { data, error: authError } = await supabase.auth.signInWithPassword({ email, password });
+    const { data, error: authError } = await supabase.auth.signInWithPassword({ email: email.trim(), password });
 
     if (authError) {
-      setError(authError.message);
+      setError('Invalid email or password. Please try again.');
       setLoading(false);
       return;
     }
 
-    // Get role from profile
+    if (!data.user) {
+      setError('Login failed. Please try again.');
+      setLoading(false);
+      return;
+    }
+
     const { data: profile } = await supabase
       .from('profiles')
       .select('role')
       .eq('id', data.user.id)
       .single();
 
-    if (profile?.role === 'farmer') {
+    if (profile?.role === 'admin') {
+      router.push(`/${locale}/admin/dashboard`);
+    } else if (profile?.role === 'farmer') {
       router.push(`/${locale}/farmer/dashboard`);
     } else {
       router.push(`/${locale}/dashboard`);

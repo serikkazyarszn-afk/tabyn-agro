@@ -27,10 +27,10 @@ export default function SignupPage({ params }: { params: Promise<{ locale: strin
 
     const supabase = createClient();
     const { error: authError } = await supabase.auth.signUp({
-      email,
+      email: email.trim(),
       password,
       options: {
-        data: { full_name: name, role },
+        data: { full_name: name.trim(), role },
       },
     });
 

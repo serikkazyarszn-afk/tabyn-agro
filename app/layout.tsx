@@ -8,7 +8,7 @@ const geistSans = Geist({
 });
 
 export const metadata: Metadata = {
-  title: 'Tabyn — Инвестиции в животноводство',
+title: 'Tabyn — Инвестиции в животноводство',
   description: 'Инвестируйте в скот, получайте реальный доход. Работайте с проверенными фермерами Казахстана.',
 };
 

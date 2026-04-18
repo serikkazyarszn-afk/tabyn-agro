@@ -124,16 +124,27 @@ export default function Navbar({ locale, user: initialUser }: NavbarProps) {
           {user ? (
             <div className="flex items-center gap-3">
               <Link
-                href={navLink(user.role === 'farmer' ? '/farmer/dashboard' : '/dashboard')}
+                href={navLink(
+                  user.role === 'admin'
+                    ? '/admin/dashboard'
+                    : user.role === 'farmer'
+                    ? '/farmer/dashboard'
+                    : '/dashboard'
+                )}
                 className="text-sm text-muted hover:text-foreground transition-colors"
               >
-                {user.role === 'farmer' ? t('farmerDashboard') : t('dashboard')}
+                {user.role === 'admin'
+                  ? t('adminDashboard')
+                  : user.role === 'farmer'
+                  ? t('farmerDashboard')
+                  : t('dashboard')}
               </Link>
               <Button
                 variant="ghost"
                 size="sm"
                 onClick={async () => {
-                  await supabase.auth.signOut();
+                  const { error } = await supabase.auth.signOut();
+                  if (error) console.error('Logout failed:', error.message);
                   router.push(navLink('/'));
                   router.refresh();
                 }}

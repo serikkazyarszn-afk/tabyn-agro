@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { useTranslations } from 'next-intl';
 import { DEMO_ANIMALS } from '@/lib/demo-data';
 import { notFound } from 'next/navigation';
@@ -10,6 +10,9 @@ import Input from '@/components/ui/input';
 import { use } from 'react';
 import { MapPin, Clock, TrendingUp, Users, CheckCircle, ArrowLeft, X } from 'lucide-react';
 import Link from 'next/link';
+import { createClient } from '@/lib/supabase';
+
+const supabase = createClient();
 
 const STATUS_VARIANTS = {
   available: 'accent',
@@ -39,15 +42,37 @@ export default function AnimalDetailPage({
   const [amount, setAmount] = useState(animal.price.toString());
   const [investing, setInvesting] = useState(false);
   const [success, setSuccess] = useState(false);
+  const [investError, setInvestError] = useState('');
+  const [balance, setBalance] = useState(0);
 
-  const DEMO_BALANCE = 500000;
-  const expectedReturn = Math.round(Number(amount) * (1 + animal.expected_return_pct / 100));
+  useEffect(() => {
+    (async () => {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) return;
+      const { data: profile } = await supabase.from('profiles').select('balance').eq('id', user.id).single();
+      if (profile) setBalance(profile.balance ?? 0);
+    })();
+  }, []);
+  const parsedAmount = Number(amount);
+  const expectedReturn = useMemo(
+    () => Math.round(parsedAmount * (1 + animal.expected_return_pct / 100)),
+    [parsedAmount, animal.expected_return_pct]
+  );
   const slotsRemaining = animal.slots_total - animal.slots_filled;
   const fillPct = Math.round((animal.slots_filled / animal.slots_total) * 100);
 
   const handleInvest = async () => {
+    setInvestError('');
+    if (isNaN(parsedAmount) || parsedAmount < animal.price) {
+      setInvestError(`Minimum investment is ₸${animal.price.toLocaleString()}`);
+      return;
+    }
+    if (parsedAmount > balance) {
+      setInvestError('Insufficient balance');
+      return;
+    }
     setInvesting(true);
-    await new Promise((r) => setTimeout(r, 1200));
+    await new Promise((r) => setTimeout(r, 1000));
     setInvesting(false);
     setSuccess(true);
     setTimeout(() => {
@@ -222,13 +247,18 @@ export default function AnimalDetailPage({
                   />
                   <div className="flex justify-between text-sm text-muted">
                     <span>{t('investModal.balance')}</span>
-                    <span className="text-foreground font-medium">₸{DEMO_BALANCE.toLocaleString()}</span>
+                    <span className="text-foreground font-medium">₸{balance.toLocaleString()}</span>
                   </div>
                   <div className="flex justify-between text-sm">
                     <span className="text-muted">{t('investModal.expectedReturn')}</span>
                     <span className="text-accent font-semibold">₸{expectedReturn.toLocaleString()}</span>
                   </div>
                 </div>
+                {investError && (
+                  <p className="text-sm text-destructive bg-destructive/10 border border-destructive/20 rounded-lg px-4 py-2.5 mb-2">
+                    {investError}
+                  </p>
+                )}
                 <div className="flex gap-3">
                   <Button variant="secondary" size="md" className="flex-1" onClick={() => setShowModal(false)}>
                     {t('investModal.cancel')}

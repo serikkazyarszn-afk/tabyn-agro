@@ -1,6 +1,6 @@
-# TabynAgro (инфо про то как запустить проект ниже ребят)
+# Tabyn (инфо про то как запустить проект ниже ребят)
 
-TabynAgro is a web platform that connects **investors** with **farmers**.
+Tabyn is a web platform that connects **investors** with **farmers**.
 
 Here is how it works:
 - A farmer lists an animal (cow, sheep, horse, etc.) on the platform
@@ -9,7 +9,7 @@ Here is how it works:
 
 This is the full-stack web application behind that platform, built with Next.js and Supabase.
 
-**You can see the live version here:** [tabyn-agro.vercel.app](https://tabyn-agro.vercel.app)
+**You can see the live version here:** [tabyn.vercel.app](https://tabyn.vercel.app)
 
 ---
 
@@ -188,7 +188,7 @@ http://localhost:3000
 
 The app will automatically redirect you to `http://localhost:3000/en`.
 
-You should see the TabynAgro landing page. The app is running.
+You should see the Tabyn landing page. The app is running.
 
 ---
 

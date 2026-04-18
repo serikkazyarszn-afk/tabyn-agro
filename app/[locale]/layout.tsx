@@ -26,11 +26,12 @@ export default async function LocaleLayout({
 
   let navUser: { role: string; name: string } | null = null;
   if (user) {
-    const { data: profile } = await supabase
+    const { data: profile, error: profileError } = await supabase
       .from('profiles')
       .select('role, full_name')
       .eq('id', user.id)
       .single();
+    if (profileError) console.error('Layout profile fetch failed:', profileError.message);
     if (profile) {
       navUser = { role: profile.role, name: profile.full_name };
     }

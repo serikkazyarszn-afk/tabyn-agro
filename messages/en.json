@@ -6,7 +6,8 @@
     "signup": "Get Started",
     "dashboard": "Dashboard",
     "farmerDashboard": "My Farm",
-    "logout": "Log Out"
+    "logout": "Log Out",
+    "adminDashboard": "Admin Panel"
   },
   "hero": {
     "badge": "Инвестиционная платформа",
@@ -228,7 +229,9 @@
       "image": "Image URL",
       "submit": "List Animal",
       "loading": "Listing...",
-      "success": "Animal listed successfully!"
+      "success": "Animal listed successfully!",
+      "backToDashboard": "Back to Dashboard",
+      "redirecting": "Redirecting to your dashboard..."
     }
   },
   "animals": {
@@ -262,6 +265,40 @@
         "cancel": "Cancel",
         "loading": "Processing..."
       }
+    }
+  },
+  "admin": {
+    "dashboard": {
+      "title": "Admin Panel",
+      "users": "Users",
+      "farmers": "Farmers",
+      "animals": "Animals",
+      "investments": "Investments",
+      "changeRole": "Change Role",
+      "verify": "Verify",
+      "unverify": "Unverify",
+      "delete": "Delete",
+      "verified": "Verified",
+      "role": "Role",
+      "name": "Name",
+      "email": "Email",
+      "balance": "Balance",
+      "joined": "Joined",
+      "confirmDelete": "Are you sure you want to delete this animal?",
+      "noAccess": "Access denied. Admin only.",
+      "amount": "Amount",
+      "status": "Status",
+      "animal": "Animal",
+      "investor": "Investor",
+      "farmName": "Farm Name",
+      "location": "Location",
+      "type": "Type",
+      "price": "Price",
+      "farmers": "Farmers",
+      "noUsers": "No users found.",
+      "noFarmers": "No farmers found.",
+      "noAnimals": "No animals found.",
+      "noInvestments": "No investments found."
     }
   },
   "common": {
