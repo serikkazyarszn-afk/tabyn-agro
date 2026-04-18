@@ -9,7 +9,7 @@ Here is how it works:
 
 This is the full-stack web application behind that platform, built with Next.js and Supabase.
 
-**You can see the live version here:** [tabyn-agro.vercel.app](https://tabyn-agro.vercel.app)
+**You can see the live version here:** [tabyn.vercel.app](https://tabyn.vercel.app)
 
 ---
 
