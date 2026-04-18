@@ -8,8 +8,8 @@ const geistSans = Geist({
 });
 
 export const metadata: Metadata = {
-  title: 'TabynArgo — Agricultural Investment Platform',
-  description: 'Invest in farm animals, earn real returns. Connect with verified Kazakhstani farmers.',
+  title: 'Tabyn — Инвестиции в животноводство',
+  description: 'Инвестируйте в скот, получайте реальный доход. Работайте с проверенными фермерами Казахстана.',
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

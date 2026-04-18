@@ -4,7 +4,7 @@ export const DEMO_ANIMALS: Animal[] = [
   {
     id: '1',
     farmer_id: 'f1',
-    name: 'Akbota',
+    name: 'Ақбоз',
     type: 'cow',
     breed: 'Казахская белая (молочно-мясная)',
     price: 250000,
@@ -28,7 +28,7 @@ export const DEMO_ANIMALS: Animal[] = [
   {
     id: '2',
     farmer_id: 'f2',
-    name: 'Karakoz',
+    name: 'Қарабас',
     type: 'cow',
     breed: 'Абердин-ангус (мясная)',
     price: 320000,
@@ -52,15 +52,15 @@ export const DEMO_ANIMALS: Animal[] = [
   {
     id: '3',
     farmer_id: 'f1',
-    name: 'Tokty',
+    name: 'Ақшұбар',
     type: 'sheep',
-    breed: 'Меринос (тонкорунная)',
+    breed: 'Эдильбаевская (мясо-сальная)',
     price: 80000,
     expected_return_pct: 15,
     duration_months: 6,
     status: 'available',
     image_url: '/sheep.jpg',
-    description: 'Merino sheep, premium wool and meat quality. Short investment cycle.',
+    description: 'Эдильбаевская овца, ценная мясо-сальная порода. Высокая жирность курдючного жира, отличная выносливость в степных условиях.',
     slots_total: 10,
     slots_filled: 4,
     created_at: '2026-03-08',
@@ -76,7 +76,7 @@ export const DEMO_ANIMALS: Animal[] = [
   {
     id: '4',
     farmer_id: 'f3',
-    name: 'Tulpar',
+    name: 'Тұлпар',
     type: 'horse',
     breed: 'Казахская (степная)',
     price: 600000,
@@ -100,7 +100,7 @@ export const DEMO_ANIMALS: Animal[] = [
   {
     id: '5',
     farmer_id: 'f2',
-    name: 'Sholak',
+    name: 'Сарышұбар',
     type: 'goat',
     breed: 'Зааненская (молочная)',
     price: 65000,
@@ -124,7 +124,7 @@ export const DEMO_ANIMALS: Animal[] = [
   {
     id: '6',
     farmer_id: 'f3',
-    name: 'Nar',
+    name: 'Боран',
     type: 'camel',
     breed: 'Бактриан (двугорбый)',
     price: 450000,
