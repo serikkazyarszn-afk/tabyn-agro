@@ -15,8 +15,8 @@ export default function Footer({ locale }: FooterProps) {
         <div className="grid grid-cols-4 gap-8 mb-10">
           {/* Brand */}
           <div className="col-span-2">
-            <div className="flex items-center mb-3">
-              <img src="/logo.png" alt="Tabyn" className="h-55 w-auto object-contain" />
+            <div className="mb-3">
+              <img src="/logo.png" alt="Tabyn" className="h-65 w-auto object-contain" />
             </div>
             <p className="text-muted text-sm max-w-xs">{t('tagline')}</p>
           </div>

@@ -99,8 +99,8 @@
     "expectedReturn": "Ожидаемый доход",
     "duration": "Срок",
     "months": "мес.",
-    "slotsFilled": "долей занято",
-    "perSlot": "за долю",
+    "slotsFilled": "мест занято",
+    "perSlot": "за место",
     "farmer": "Фермер"
   },
   "profitSharing": {
@@ -143,7 +143,7 @@
     }
   },
   "footer": {
-    "tagline": "Агро-инвестиции для каждого.",
+    "tagline": "Инвестируйте в скот — получайте реальный доход.",
     "platform": "Платформа",
     "animals": "Животные",
     "howItWorks": "Как это работает",

@@ -10,7 +10,7 @@
     "adminDashboard": "Admin Panel"
   },
   "hero": {
-    "badge": "Agricultural Investment Platform",
+    "badge": "Investment Platform",
     "title": "Invest in Farm Animals,",
     "titleAccent": "Earn Real Returns",
     "subtitle": "Connect with verified Kazakhstani farmers. Fund livestock, track growth, and share in the profits — all without owning a single animal.",
@@ -99,8 +99,8 @@
     "expectedReturn": "Expected Return",
     "duration": "Duration",
     "months": "months",
-    "slotsFilled": "shares filled",
-    "perSlot": "per share",
+    "slotsFilled": "slots filled",
+    "perSlot": "per slot",
     "farmer": "Farmer"
   },
   "profitSharing": {
@@ -143,7 +143,7 @@
     }
   },
   "footer": {
-    "tagline": "Agricultural investment for everyone.",
+    "tagline": "Invest in livestock — earn real returns.",
     "platform": "Platform",
     "animals": "Browse Animals",
     "howItWorks": "How It Works",
