@@ -59,7 +59,7 @@ export default function Navbar({ locale, user: initialUser }: NavbarProps) {
 
   return (
     <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 relative ${
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled ? 'bg-background/95 backdrop-blur-md border-b border-border' : 'bg-transparent'
       }`}
     >
@@ -78,6 +78,7 @@ export default function Navbar({ locale, user: initialUser }: NavbarProps) {
           className="lg:hidden ml-auto flex flex-col gap-1.5 p-2"
           onClick={() => setMenuOpen(o => !o)}
           aria-label="Toggle menu"
+          aria-expanded={menuOpen}
         >
           <span className={`block w-6 h-0.5 bg-foreground transition-all duration-200 ${menuOpen ? 'rotate-45 translate-y-2' : ''}`} />
           <span className={`block w-6 h-0.5 bg-foreground transition-all duration-200 ${menuOpen ? 'opacity-0' : ''}`} />
