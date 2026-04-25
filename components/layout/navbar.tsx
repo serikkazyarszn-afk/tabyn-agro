@@ -66,7 +66,7 @@ export default function Navbar({ locale, user: initialUser }: NavbarProps) {
       {/* Logo — positioned at the far left of the viewport, fades on scroll */}
       <Link
         href={navLink('/')}
-        className={`absolute left-4 top-1/2 -translate-y-1/2 flex items-center group transition-opacity duration-300 ${scrolled ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}
+        className={`absolute left-4 top-1/2 -translate-y-1/2 z-10 flex items-center group select-none transition-opacity duration-300 ${scrolled ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}
       >
         <img
           src="/logo.png"
