@@ -5,6 +5,7 @@ import { routing } from '@/i18n/routing';
 import Navbar from '@/components/layout/navbar';
 import Footer from '@/components/layout/footer';
 import { createClient } from '@/lib/supabase-server';
+import Providers from '@/components/providers';
 
 export default async function LocaleLayout({
   children,
@@ -30,7 +31,7 @@ export default async function LocaleLayout({
       .from('profiles')
       .select('role, full_name')
       .eq('id', user.id)
-      .single();
+      .maybeSingle();
     if (profileError) console.error('Layout profile fetch failed:', profileError.message);
     if (profile) {
       navUser = { role: profile.role, name: profile.full_name };
@@ -39,9 +40,11 @@ export default async function LocaleLayout({
 
   return (
     <NextIntlClientProvider messages={messages}>
-      <Navbar locale={locale} user={navUser} />
-      <main className="flex-1 pt-16">{children}</main>
-      <Footer locale={locale} />
+      <Providers>
+        <Navbar locale={locale} user={navUser} />
+        <main className="flex-1 pt-16">{children}</main>
+        <Footer locale={locale} userRole={navUser?.role ?? null} />
+      </Providers>
     </NextIntlClientProvider>
   );
 }
