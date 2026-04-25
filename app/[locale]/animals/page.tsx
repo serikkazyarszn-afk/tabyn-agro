@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
+import Link from 'next/link';
 import AnimalCard from '@/components/animals/animal-card';
 import { Animal, AnimalType, AnimalStatus } from '@/lib/types';
 import { use } from 'react';
@@ -127,6 +128,18 @@ export default function AnimalsPage({ params }: { params: Promise<{ locale: stri
           ))}
         </div>
       )}
+
+      {/* Farmer CTA */}
+      <div className="mt-16 rounded-2xl bg-surface border border-border p-8 text-center">
+        <h3 className="text-xl font-bold mb-2">{t('farmerCta.title')}</h3>
+        <p className="text-muted text-sm mb-5">{t('farmerCta.subtitle')}</p>
+        <Link
+          href={`/${locale}/signup`}
+          className="inline-flex items-center gap-2 px-6 py-3 bg-accent text-black text-sm font-semibold rounded-xl hover:bg-accent-dim transition-colors"
+        >
+          {t('farmerCta.button')}
+        </Link>
+      </div>
 
       {/* Pagination */}
       {totalCount > PAGE_SIZE && (

@@ -256,6 +256,11 @@
       "growing": "Growing"
     },
     "noResults": "No animals found matching your filters.",
+    "farmerCta": {
+      "title": "Are you a farmer?",
+      "subtitle": "List your animals and attract investors from across Kazakhstan.",
+      "button": "List my animals"
+    },
     "detail": {
       "invest": "Invest Now",
       "loginToInvest": "Log in to Invest",

@@ -64,8 +64,11 @@ export default function Navbar({ locale, user: initialUser }: NavbarProps) {
       }`}
     >
       <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-        {/* Logo */}
-        <Link href={navLink('/')} className="flex items-center group">
+        {/* Logo — fades out when scrolled so it doesn't overlap page content */}
+        <Link
+          href={navLink('/')}
+          className={`flex items-center group transition-opacity duration-300 ${scrolled ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}
+        >
           <img
             src="/logo.png"
             alt="Tabyn"
@@ -75,7 +78,8 @@ export default function Navbar({ locale, user: initialUser }: NavbarProps) {
 
         {/* Hamburger button (mobile only) */}
         <button
-          className="lg:hidden ml-auto flex flex-col gap-1.5 p-2"
+          type="button"
+          className="lg:hidden ml-auto flex flex-col gap-1.5 p-3 min-h-[44px] min-w-[44px] items-center justify-center cursor-pointer"
           onClick={() => setMenuOpen(o => !o)}
           aria-label="Toggle menu"
           aria-expanded={menuOpen}
