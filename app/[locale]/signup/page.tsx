@@ -103,7 +103,7 @@ export default function SignupPage({ params }: { params: Promise<{ locale: strin
             {/* Role selection */}
             <div>
               <p className="text-sm font-medium text-muted mb-2">{t('role')}</p>
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <button
                   type="button"
                   onClick={() => setRole('investor')}

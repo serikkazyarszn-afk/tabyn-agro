@@ -205,7 +205,7 @@ export default function AdminDashboard({ params }: { params: Promise<{ locale: s
       )}
 
       {/* Tabs */}
-      <div className="flex gap-2 mb-8 border-b border-border">
+      <div className="flex flex-wrap gap-2 mb-8 border-b border-border">
         {tabs.map(tab => (
           <button
             key={tab}
@@ -224,7 +224,7 @@ export default function AdminDashboard({ params }: { params: Promise<{ locale: s
       {/* Users tab */}
       {activeTab === 'users' && (
         <div className="overflow-x-auto">
-          <table className="w-full text-sm">
+          <table className="w-full min-w-[640px] text-sm">
             <thead>
               <tr className="border-b border-border text-muted text-left">
                 <th className="pb-3 pr-4 font-medium">{t('name')}</th>
@@ -291,7 +291,7 @@ export default function AdminDashboard({ params }: { params: Promise<{ locale: s
       {/* Farmers tab */}
       {activeTab === 'farmers' && (
         <div className="overflow-x-auto">
-          <table className="w-full text-sm">
+          <table className="w-full min-w-[640px] text-sm">
             <thead>
               <tr className="border-b border-border text-muted text-left">
                 <th className="pb-3 pr-4 font-medium">{t('farmName')}</th>
@@ -329,7 +329,7 @@ export default function AdminDashboard({ params }: { params: Promise<{ locale: s
       {/* Animals tab */}
       {activeTab === 'animals' && (
         <div className="overflow-x-auto">
-          <table className="w-full text-sm">
+          <table className="w-full min-w-[640px] text-sm">
             <thead>
               <tr className="border-b border-border text-muted text-left">
                 <th className="pb-3 pr-4 font-medium">{t('name')}</th>
@@ -371,7 +371,7 @@ export default function AdminDashboard({ params }: { params: Promise<{ locale: s
       {/* Investments tab */}
       {activeTab === 'investments' && (
         <div className="overflow-x-auto">
-          <table className="w-full text-sm">
+          <table className="w-full min-w-[640px] text-sm">
             <thead>
               <tr className="border-b border-border text-muted text-left">
                 <th className="pb-3 pr-4 font-medium">{t('investor')}</th>
