@@ -78,7 +78,7 @@ export default function Hero({ locale }: HeroProps) {
           </div>
 
           {/* Stats */}
-          <div className="grid grid-cols-4 gap-6">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-6">
             {[
               { icon: Users, value: '1,200+', label: t('stats.investors') },
               { icon: Beef, value: '430+', label: t('stats.animals') },

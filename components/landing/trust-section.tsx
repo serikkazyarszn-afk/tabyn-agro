@@ -21,7 +21,7 @@ export default function TrustSection() {
           <h2 className="text-4xl font-bold">{t('title')}</h2>
         </div>
 
-        <div className="grid grid-cols-4 gap-6">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-6">
           {items.map(({ icon: Icon, key }) => (
             <div
               key={key}

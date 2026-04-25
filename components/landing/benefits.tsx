@@ -22,13 +22,13 @@ export default function Benefits() {
     <section className="py-24">
       <div className="max-w-7xl mx-auto px-6 space-y-20">
         {/* Investors */}
-        <div className="grid grid-cols-2 gap-16 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
           <div>
             <span className="inline-block text-accent text-sm font-semibold uppercase tracking-widest mb-3">
               {t('investors.badge')}
             </span>
             <h2 className="text-4xl font-bold mb-8">{t('investors.title')}</h2>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {investorItems.map(({ icon: Icon, key }) => (
                 <div key={key} className="bg-surface border border-border rounded-xl p-4 hover:border-accent/30 transition-colors">
                   <div className="w-9 h-9 bg-accent/10 rounded-lg flex items-center justify-center mb-3">
@@ -51,7 +51,7 @@ export default function Benefits() {
         </div>
 
         {/* Farmers */}
-        <div className="grid grid-cols-2 gap-16 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
           <div className="rounded-2xl overflow-hidden self-stretch min-h-80">
             <img
               src="/investferm.jpg"
@@ -65,7 +65,7 @@ export default function Benefits() {
               {t('farmers.badge')}
             </span>
             <h2 className="text-4xl font-bold mb-8">{t('farmers.title')}</h2>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {farmerItems.map(({ icon: Icon, key }) => (
                 <div key={key} className="bg-surface border border-border rounded-xl p-4 hover:border-accent/30 transition-colors">
                   <div className="w-9 h-9 bg-accent/10 rounded-lg flex items-center justify-center mb-3">

@@ -38,7 +38,7 @@ export default function HowItWorks() {
         </div>
 
         {/* Steps */}
-        <div className="grid grid-cols-3 gap-8 relative">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative">
           {/* Connector lines */}
           <div className="absolute top-14 left-1/3 right-1/3 h-px bg-gradient-to-r from-border via-accent/40 to-border hidden lg:block" />
 

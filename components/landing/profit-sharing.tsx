@@ -12,7 +12,7 @@ export default function ProfitSharing() {
   return (
     <section className="py-24">
       <div className="max-w-7xl mx-auto px-6">
-        <div className="grid grid-cols-2 gap-16 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
           {/* Left: explanation */}
           <div>
             <span className="inline-block text-accent text-sm font-semibold uppercase tracking-widest mb-3">
