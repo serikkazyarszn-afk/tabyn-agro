@@ -1,14 +1,18 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
 import Link from 'next/link';
-import { DEMO_ANIMALS } from '@/lib/demo-data';
 import { Animal, AnimalStatus } from '@/lib/types';
 import Badge from '@/components/ui/badge';
 import Button from '@/components/ui/button';
 import { use } from 'react';
 import { Plus, TrendingUp, Users, CheckCircle, Package } from 'lucide-react';
+import { useRouter } from 'next/navigation';
+import { createClient } from '@/lib/supabase';
+import { useToast } from '@/components/ui/toast';
+
+const supabase = createClient();
 
 const ANIMAL_EMOJIS: Record<string, string> = {
   cow: '🐄', sheep: '🐑', horse: '🐴', goat: '🐐', camel: '🐪',
@@ -27,17 +31,73 @@ export default function FarmerDashboardPage({ params }: { params: Promise<{ loca
   const { locale } = use(params);
   const t = useTranslations('farmer.dashboard');
   const tFeat = useTranslations('featuredAnimals');
+  const router = useRouter();
 
-  // Show farmer f1's animals as demo
-  const [animals, setAnimals] = useState<Animal[]>(
-    DEMO_ANIMALS.filter((a) => a.farmer_id === 'f1')
-  );
+  const [animals, setAnimals] = useState<Animal[]>([]);
+  const [farmerId, setFarmerId] = useState<string | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [updatingId, setUpdatingId] = useState<string | null>(null);
+  const { toast } = useToast();
 
-  const updateStatus = (id: string, newStatus: AnimalStatus) => {
+  useEffect(() => { document.title = 'My Farm — Tabyn'; }, []);
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const { data: { user } } = await supabase.auth.getUser();
+        if (!user) { router.push(`/${locale}/login`); return; }
+
+        const { data: farmer } = await supabase
+          .from('farmers')
+          .select('id')
+          .eq('user_id', user.id)
+          .single();
+
+        if (!farmer) { router.push(`/${locale}/login`); return; }
+        setFarmerId(farmer.id);
+
+        const { data } = await supabase
+          .from('animals')
+          .select('*')
+          .eq('farmer_id', farmer.id)
+          .order('created_at', { ascending: false });
+
+        setAnimals((data as Animal[]) ?? []);
+      } finally {
+        setLoading(false);
+      }
+    })();
+  }, [locale, router]);
+
+  const updateStatus = async (id: string, newStatus: AnimalStatus) => {
+    if (!farmerId) return;
+    await supabase
+      .from('animals')
+      .update({ status: newStatus })
+      .eq('id', id)
+      .eq('farmer_id', farmerId);
     setAnimals((prev) =>
       prev.map((a) => (a.id === id ? { ...a, status: newStatus } : a))
     );
   };
+
+  if (loading) {
+    return (
+      <div className="max-w-7xl mx-auto px-6 py-12">
+        <div className="h-10 w-40 bg-surface rounded-lg mb-10 animate-pulse" />
+        <div className="grid grid-cols-4 gap-4 mb-10">
+          {[1, 2, 3, 4].map((i) => (
+            <div key={i} className="h-24 bg-surface rounded-2xl animate-pulse" />
+          ))}
+        </div>
+        <div className="space-y-3">
+          {[1, 2, 3].map((i) => (
+            <div key={i} className="h-20 bg-surface rounded-2xl animate-pulse" />
+          ))}
+        </div>
+      </div>
+    );
+  }
 
   const totalAnimals = animals.length;
   const fullyFunded = animals.filter((a) => a.slots_filled >= a.slots_total).length;

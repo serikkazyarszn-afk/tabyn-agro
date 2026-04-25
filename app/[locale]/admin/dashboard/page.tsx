@@ -65,6 +65,8 @@ export default function AdminDashboard({ params }: { params: Promise<{ locale: s
   const [topUpAmount, setTopUpAmount] = useState('');
   const [topUpLoading, setTopUpLoading] = useState(false);
 
+  useEffect(() => { document.title = 'Admin Panel — Tabyn'; }, []);
+
   useEffect(() => {
     (async () => {
       const { data: { user } } = await supabase.auth.getUser();

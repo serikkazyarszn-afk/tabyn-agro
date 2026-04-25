@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
@@ -17,6 +17,8 @@ export default function LoginPage({ params }: { params: Promise<{ locale: string
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+
+  useEffect(() => { document.title = 'Log In — Tabyn'; }, []);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -44,6 +46,7 @@ export default function LoginPage({ params }: { params: Promise<{ locale: string
       .eq('id', data.user.id)
       .single();
 
+    setLoading(false);
     if (profile?.role === 'admin') {
       router.push(`/${locale}/admin/dashboard`);
     } else if (profile?.role === 'farmer') {

@@ -36,6 +36,8 @@ export default function AnimalsPage({ params }: { params: Promise<{ locale: stri
   const [page, setPage] = useState(1);
   const [totalCount, setTotalCount] = useState(0);
 
+  useEffect(() => { document.title = 'Browse Animals — Tabyn'; }, []);
+
   useEffect(() => {
     (async () => {
       setLoadingAnimals(true);

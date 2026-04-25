@@ -27,6 +27,8 @@ export default function DashboardPage({ params }: { params: Promise<{ locale: st
   const [balance, setBalance] = useState(0);
   const [investments, setInvestments] = useState<Investment[]>([]);
 
+  useEffect(() => { document.title = 'My Portfolio — Tabyn'; }, []);
+
   useEffect(() => {
     (async () => {
       const { data: { user } } = await supabase.auth.getUser();

@@ -2,15 +2,15 @@
 
 import { useState, useEffect, useMemo } from 'react';
 import { useTranslations } from 'next-intl';
-import { DEMO_ANIMALS } from '@/lib/demo-data';
-import { notFound } from 'next/navigation';
 import Badge from '@/components/ui/badge';
 import Button from '@/components/ui/button';
 import Input from '@/components/ui/input';
 import { use } from 'react';
 import { MapPin, Clock, TrendingUp, Users, CheckCircle, ArrowLeft, X } from 'lucide-react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { createClient } from '@/lib/supabase';
+import { Animal } from '@/lib/types';
 
 const supabase = createClient();
 
@@ -34,46 +34,83 @@ export default function AnimalDetailPage({
   const t = useTranslations('animals.detail');
   const tFeat = useTranslations('featuredAnimals');
   const tCommon = useTranslations('common');
+  const router = useRouter();
 
-  const animal = DEMO_ANIMALS.find((a) => a.id === id);
-  if (!animal) notFound();
-
+  const [animal, setAnimal] = useState<Animal | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [showModal, setShowModal] = useState(false);
-  const [amount, setAmount] = useState(animal.price.toString());
+  const [amount, setAmount] = useState('');
   const [investing, setInvesting] = useState(false);
   const [success, setSuccess] = useState(false);
   const [investError, setInvestError] = useState('');
   const [balance, setBalance] = useState(0);
 
   useEffect(() => {
+    if (animal) document.title = `${animal.name} — Tabyn`;
+  }, [animal]);
+
+  useEffect(() => {
     (async () => {
-      const { data: { user } } = await supabase.auth.getUser();
-      if (!user) return;
-      const { data: profile } = await supabase.from('profiles').select('balance').eq('id', user.id).single();
-      if (profile) setBalance(profile.balance ?? 0);
+      const [{ data: animalData }, { data: { user } }] = await Promise.all([
+        supabase
+          .from('animals')
+          .select('*, farmer:farmers(id, farm_name, location, description, verified, user_id)')
+          .eq('id', id)
+          .single(),
+        supabase.auth.getUser(),
+      ]);
+
+      if (animalData) {
+        setAnimal(animalData as Animal);
+        setAmount(animalData.price.toString());
+      }
+
+      if (user) {
+        setIsLoggedIn(true);
+        const { data: profile } = await supabase
+          .from('profiles')
+          .select('balance')
+          .eq('id', user.id)
+          .single();
+        if (profile) setBalance(profile.balance ?? 0);
+      }
+
+      setLoading(false);
     })();
-  }, []);
+  }, [id]);
+
   const parsedAmount = Number(amount);
-  const expectedReturn = useMemo(
-    () => Math.round(parsedAmount * (1 + animal.expected_return_pct / 100)),
-    [parsedAmount, animal.expected_return_pct]
+  const expectedProfit = useMemo(
+    () => animal ? Math.round(parsedAmount * (animal.expected_return_pct / 100)) : 0,
+    [parsedAmount, animal]
   );
-  const slotsRemaining = animal.slots_total - animal.slots_filled;
-  const fillPct = Math.round((animal.slots_filled / animal.slots_total) * 100);
 
   const handleInvest = async () => {
+    if (!animal) return;
     setInvestError('');
     if (isNaN(parsedAmount) || parsedAmount < animal.price) {
-      setInvestError(`Minimum investment is ₸${animal.price.toLocaleString()}`);
+      setInvestError(t('investModal.errorMinimum', { amount: animal.price.toLocaleString() }));
       return;
     }
     if (parsedAmount > balance) {
-      setInvestError('Insufficient balance');
+      setInvestError(t('investModal.errorBalance'));
       return;
     }
     setInvesting(true);
-    await new Promise((r) => setTimeout(r, 1000));
+    const { data, error } = await supabase.rpc('create_investment', {
+      p_animal_id: animal.id,
+      p_amount: parsedAmount,
+    });
     setInvesting(false);
+
+    if (error || data?.error) {
+      setInvestError(data?.error ?? error?.message ?? t('investModal.errorFailed'));
+      return;
+    }
+
+    setBalance((b) => b - parsedAmount);
+    setAnimal((a) => a ? { ...a, slots_filled: a.slots_filled + 1 } : a);
     setSuccess(true);
     setTimeout(() => {
       setShowModal(false);
@@ -87,6 +124,37 @@ export default function AnimalDetailPage({
     ready: tFeat('ready'),
     sold: tFeat('sold'),
   };
+
+  if (loading) {
+    return (
+      <div className="max-w-7xl mx-auto px-6 py-12">
+        <div className="h-8 w-24 bg-surface rounded-lg mb-8 animate-pulse" />
+        <div className="grid grid-cols-5 gap-10">
+          <div className="col-span-3 space-y-6">
+            <div className="h-[420px] bg-surface rounded-2xl animate-pulse" />
+            <div className="h-32 bg-surface rounded-2xl animate-pulse" />
+          </div>
+          <div className="col-span-2">
+            <div className="h-80 bg-surface rounded-2xl animate-pulse" />
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (!animal) {
+    return (
+      <div className="max-w-7xl mx-auto px-6 py-12 text-center">
+        <p className="text-muted text-lg mb-4">Animal not found.</p>
+        <Link href={`/${locale}/animals`}>
+          <Button variant="secondary" size="md">{tCommon('back')}</Button>
+        </Link>
+      </div>
+    );
+  }
+
+  const slotsRemaining = animal.slots_total - animal.slots_filled;
+  const fillPct = Math.round((animal.slots_filled / animal.slots_total) * 100);
 
   return (
     <div className="max-w-7xl mx-auto px-6 py-12">
@@ -203,15 +271,26 @@ export default function AnimalDetailPage({
               <div className="text-xs text-muted mt-1">{animal.slots_filled}/{animal.slots_total} {tFeat('slotsFilled')}</div>
             </div>
 
-            <Button
-              variant="primary"
-              size="lg"
-              className="w-full"
-              disabled={animal.status !== 'available' || slotsRemaining === 0}
-              onClick={() => setShowModal(true)}
-            >
-              {t('invest')}
-            </Button>
+            {isLoggedIn ? (
+              <Button
+                variant="primary"
+                size="lg"
+                className="w-full"
+                disabled={animal.status !== 'available' || slotsRemaining === 0}
+                onClick={() => setShowModal(true)}
+              >
+                {t('invest')}
+              </Button>
+            ) : (
+              <Button
+                variant="primary"
+                size="lg"
+                className="w-full"
+                onClick={() => router.push(`/${locale}/login`)}
+              >
+                {t('loginToInvest')}
+              </Button>
+            )}
           </div>
         </div>
       </div>
@@ -251,7 +330,7 @@ export default function AnimalDetailPage({
                   </div>
                   <div className="flex justify-between text-sm">
                     <span className="text-muted">{t('investModal.expectedReturn')}</span>
-                    <span className="text-accent font-semibold">₸{expectedReturn.toLocaleString()}</span>
+                    <span className="text-accent font-semibold">+₸{expectedProfit.toLocaleString()}</span>
                   </div>
                 </div>
                 {investError && (

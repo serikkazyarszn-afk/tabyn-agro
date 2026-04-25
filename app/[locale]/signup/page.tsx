@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
@@ -20,10 +20,19 @@ export default function SignupPage({ params }: { params: Promise<{ locale: strin
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
+  useEffect(() => { document.title = 'Create Account — Tabyn'; }, []);
+
   const handleSignup = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
     setError('');
+
+    const nameRegex = /^[A-Za-zА-Яа-яЁёҒғҚқҢңҮүҰұІі\s\-]+$/;
+    if (!nameRegex.test(name.trim())) {
+      setError(t('nameInvalid'));
+      setLoading(false);
+      return;
+    }
 
     const supabase = createClient();
     const { error: authError } = await supabase.auth.signUp({
@@ -40,6 +49,7 @@ export default function SignupPage({ params }: { params: Promise<{ locale: strin
       return;
     }
 
+    setLoading(false);
     if (role === 'farmer') {
       router.push(`/${locale}/farmer/dashboard`);
     } else {

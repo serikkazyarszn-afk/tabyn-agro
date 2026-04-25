@@ -20,6 +20,8 @@ export default function NewAnimalPage({ params }: { params: Promise<{ locale: st
   const router = useRouter();
   const [authChecked, setAuthChecked] = useState(false);
 
+  useEffect(() => { document.title = 'Add Animal — Tabyn'; }, []);
+
   useEffect(() => {
     (async () => {
       const { data: { user } } = await supabase.auth.getUser();
@@ -33,7 +35,6 @@ export default function NewAnimalPage({ params }: { params: Promise<{ locale: st
   const [form, setForm] = useState({
     name: '',
     type: 'cow',
-    breed: '',
     price: '',
     expected_return_pct: '',
     duration_months: '',
@@ -60,10 +61,45 @@ export default function NewAnimalPage({ params }: { params: Promise<{ locale: st
     if (duration < 1 || duration > 240) { setFormError('Duration must be between 1 and 240 months'); return; }
     if (slots < 1 || slots > 100) { setFormError('Slots must be between 1 and 100'); return; }
     setLoading(true);
-    await new Promise((r) => setTimeout(r, 1000));
-    setLoading(false);
-    setSuccess(true);
-    setTimeout(() => router.push(`/${locale}/farmer/dashboard`), 2000);
+
+    try {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) { setFormError('Not authenticated'); setLoading(false); return; }
+
+      const { data: farmer, error: farmerError } = await supabase
+        .from('farmers')
+        .select('id')
+        .eq('user_id', user.id)
+        .single();
+
+      if (farmerError || !farmer) {
+        setFormError(farmerError?.message ?? 'Farmer profile not found. Contact admin.');
+        setLoading(false);
+        return;
+      }
+
+      const { error: insertError } = await supabase.from('animals').insert({
+        farmer_id: farmer.id,
+        name: form.name.trim(),
+        type: form.type,
+        price,
+        expected_return_pct: returnPct,
+        duration_months: duration,
+        slots_total: slots,
+        slots_filled: 0,
+        status: 'available',
+        description: form.description.trim() || null,
+        image_url: form.image_url.trim() || null,
+      });
+
+      setLoading(false);
+      if (insertError) { setFormError(insertError.message); return; }
+      setSuccess(true);
+      setTimeout(() => router.push(`/${locale}/farmer/dashboard`), 2000);
+    } catch (err) {
+      setFormError(err instanceof Error ? err.message : 'Unexpected error. Please try again.');
+      setLoading(false);
+    }
   };
 
   if (!authChecked) {
@@ -121,8 +157,6 @@ export default function NewAnimalPage({ params }: { params: Promise<{ locale: st
               </select>
             </div>
           </div>
-
-          <Input id="breed" label="Порода" value={form.breed} onChange={set('breed')} placeholder="e.g. Меринос (тонкорунная)" />
 
           <div className="grid grid-cols-2 gap-5">
             <Input id="price" label={t('price')} type="number" value={form.price} onChange={set('price')} placeholder="250000" required min={0} />
