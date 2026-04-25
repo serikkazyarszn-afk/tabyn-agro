@@ -148,6 +148,9 @@
     "animals": "Browse Animals",
     "howItWorks": "How It Works",
     "forFarmers": "For Farmers",
+    "forInvestors": "For Investors",
+    "getStarted": "Get Started",
+    "adminPanel": "Admin Panel",
     "company": "Company",
     "about": "About Us",
     "contact": "Contact",
@@ -178,7 +181,8 @@
       "submit": "Create Account",
       "hasAccount": "Already have an account?",
       "login": "Log In",
-      "loading": "Creating account..."
+      "loading": "Creating account...",
+      "nameInvalid": "Name can only contain Latin, Russian, or Kazakh letters"
     }
   },
   "dashboard": {
@@ -190,12 +194,15 @@
     "completedInvestments": "Completed",
     "walletBalance": "Wallet Balance",
     "topUp": "Top Up",
+    "topUpSoon": "Top Up is coming soon. Contact support to add funds.",
     "myInvestments": "My Investments",
     "noInvestments": "No investments yet. Browse available animals to get started.",
     "browseAnimals": "Browse Animals",
     "investedOn": "Invested on",
     "expectedOn": "Expected return",
     "profit": "Profit",
+    "monthsLeft": "mo. left",
+    "completedLabel": "Completed",
     "status": {
       "active": "Active",
       "completed": "Completed"
@@ -260,10 +267,13 @@
         "title": "Invest in",
         "amount": "Investment Amount (₸)",
         "balance": "Your balance",
-        "expectedReturn": "Expected return",
+        "expectedReturn": "Expected profit",
         "confirm": "Confirm Investment",
         "cancel": "Cancel",
-        "loading": "Processing..."
+        "loading": "Processing...",
+        "errorMinimum": "Minimum investment is ₸{amount}",
+        "errorBalance": "Insufficient balance",
+        "errorFailed": "Investment failed. Please try again."
       }
     }
   },
@@ -294,7 +304,7 @@
       "location": "Location",
       "type": "Type",
       "price": "Price",
-      "farmers": "Farmers",
+      "farmerColumn": "Farmer",
       "noUsers": "No users found.",
       "noFarmers": "No farmers found.",
       "noAnimals": "No animals found.",

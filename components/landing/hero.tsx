@@ -4,14 +4,34 @@ import { useTranslations } from 'next-intl';
 import Link from 'next/link';
 import Button from '@/components/ui/button';
 import { ArrowRight, TrendingUp, Users, Beef, CheckCircle } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { createClient } from '@/lib/supabase';
 
 interface HeroProps {
   locale: string;
 }
 
+const supabase = createClient();
+
 export default function Hero({ locale }: HeroProps) {
   const t = useTranslations('hero');
   const navLink = (href: string) => `/${locale}${href}`;
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    supabase.auth.getUser().then(({ data: { user } }) => {
+      setIsLoggedIn(!!user);
+    });
+  }, []);
+
+  const scrollToHowItWorks = () => {
+    const el = document.getElementById('how-it-works');
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth' });
+    } else {
+      window.location.href = navLink('/#how-it-works');
+    }
+  };
 
   return (
     <section className="relative min-h-screen flex items-center overflow-hidden">
@@ -46,17 +66,15 @@ export default function Hero({ locale }: HeroProps) {
 
           {/* CTAs */}
           <div className="flex items-center gap-4 mb-16">
-            <Link href={navLink('/signup')}>
+            <Link href={isLoggedIn ? navLink('/animals') : navLink('/signup')}>
               <Button size="lg" variant="primary" className="group">
                 {t('cta')}
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
               </Button>
             </Link>
-            <Link href={navLink('/#how-it-works')}>
-              <Button size="lg" variant="secondary">
-                {t('ctaSecondary')}
-              </Button>
-            </Link>
+            <Button size="lg" variant="secondary" onClick={scrollToHowItWorks}>
+              {t('ctaSecondary')}
+            </Button>
           </div>
 
           {/* Stats */}

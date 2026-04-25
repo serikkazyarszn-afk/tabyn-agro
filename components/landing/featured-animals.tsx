@@ -1,17 +1,29 @@
-import { useTranslations } from 'next-intl';
+import { getTranslations } from 'next-intl/server';
 import Link from 'next/link';
-import { DEMO_ANIMALS } from '@/lib/demo-data';
 import AnimalCard from '@/components/animals/animal-card';
 import Button from '@/components/ui/button';
 import { ArrowRight } from 'lucide-react';
+import { createClient } from '@/lib/supabase-server';
+import { Animal } from '@/lib/types';
 
 interface FeaturedAnimalsProps {
   locale: string;
 }
 
-export default function FeaturedAnimals({ locale }: FeaturedAnimalsProps) {
-  const t = useTranslations('featuredAnimals');
-  const featured = DEMO_ANIMALS.filter((a) => a.status === 'available').slice(0, 3);
+export default async function FeaturedAnimals({ locale }: FeaturedAnimalsProps) {
+  const [t, supabase] = await Promise.all([
+    getTranslations('featuredAnimals'),
+    createClient(),
+  ]);
+  const { data } = await supabase
+    .from('animals')
+    .select('*, farmer:farmers(id, farm_name, location, description, verified, user_id)')
+    .eq('status', 'available')
+    .order('created_at', { ascending: false })
+    .limit(3);
+  const featured = (data as Animal[]) ?? [];
+
+  if (featured.length === 0) return null;
 
   return (
     <section className="py-24 bg-surface/20">

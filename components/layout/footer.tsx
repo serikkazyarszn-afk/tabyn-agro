@@ -3,11 +3,24 @@ import Link from 'next/link';
 
 interface FooterProps {
   locale: string;
+  userRole?: string | null;
 }
 
-export default function Footer({ locale }: FooterProps) {
+export default function Footer({ locale, userRole }: FooterProps) {
   const t = useTranslations('footer');
   const navLink = (href: string) => `/${locale}${href}`;
+
+  const ctaHref =
+    userRole === 'farmer' ? navLink('/farmer/dashboard') :
+    userRole === 'investor' ? navLink('/dashboard') :
+    userRole === 'admin' ? navLink('/admin/dashboard') :
+    navLink('/signup');
+
+  const ctaLabel =
+    userRole === 'farmer' ? t('forFarmers') :
+    userRole === 'investor' ? t('forInvestors') :
+    userRole === 'admin' ? t('adminPanel') :
+    t('getStarted');
 
   return (
     <footer className="border-t border-border mt-24">
@@ -27,7 +40,7 @@ export default function Footer({ locale }: FooterProps) {
             <ul className="space-y-2">
               <li><Link href={navLink('/animals')} className="text-sm text-muted hover:text-foreground transition-colors">{t('animals')}</Link></li>
               <li><Link href={navLink('/#how-it-works')} className="text-sm text-muted hover:text-foreground transition-colors">{t('howItWorks')}</Link></li>
-              <li><Link href={navLink('/signup?role=farmer')} className="text-sm text-muted hover:text-foreground transition-colors">{t('forFarmers')}</Link></li>
+              <li><Link href={ctaHref} className="text-sm text-muted hover:text-foreground transition-colors">{ctaLabel}</Link></li>
             </ul>
           </div>
 

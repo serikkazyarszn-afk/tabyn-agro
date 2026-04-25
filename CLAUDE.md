@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-Agricultural investment platform where investors fund farm animals and share profit with farmers after sale. Built as an MVP/prototype — demo data drives listings, Supabase handles auth and production DB.
+Agricultural investment platform where investors fund farm animals and share profit with farmers after sale. Fully wired to Supabase — all pages read/write real DB data.
 
 **Live URL**: https://tabyn.vercel.app
 **GitHub repo**: https://github.com/serikkazyarszn-afk/Tabyn_Project
@@ -12,9 +12,10 @@ Agricultural investment platform where investors fund farm animals and share pro
 ## Tech Stack
 
 - **Framework**: Next.js 16 (App Router) — `proxy.ts` not `middleware.ts` (renamed in Next.js 16)
+- **Runtime**: React 19
 - **Styling**: Tailwind CSS v4 — configured via `app/globals.css` `@theme` block, **no** `tailwind.config.ts`
-- **Database/Auth**: Supabase (`@supabase/supabase-js`, `@supabase/ssr`)
-- **i18n**: next-intl — locale routing via `app/[locale]/`, translations in `messages/`
+- **Database/Auth**: Supabase (`@supabase/supabase-js` v2, `@supabase/ssr`)
+- **i18n**: next-intl v4 — locale routing via `app/[locale]/`, translations in `messages/`
 - **Icons**: lucide-react
 
 ## Project Structure
@@ -34,30 +35,37 @@ app/
     farmer/
       dashboard/page.tsx  — Farmer animal management
       animals/new/page.tsx — Add animal form
+    admin/
+      dashboard/page.tsx  — Admin panel (users, farmers, animals, investments tabs) — fully wired to Supabase
 
 components/
-  ui/                     — button.tsx, card.tsx, badge.tsx, input.tsx
+  ui/                     — button.tsx, card.tsx, badge.tsx, input.tsx, toast.tsx
   layout/                 — navbar.tsx, footer.tsx
   landing/                — hero.tsx, how-it-works.tsx, benefits.tsx,
                             featured-animals.tsx, profit-sharing.tsx, trust-section.tsx
   animals/animal-card.tsx
+  providers.tsx           — client wrapper: ToastProvider + ErrorBoundary (wired in locale layout)
+  error-boundary.tsx      — React class error boundary with reload fallback
 
 lib/
   types.ts                — TypeScript interfaces (Profile, Animal, Investment, etc.)
   supabase.ts             — browser Supabase client (createClient) — singleton at module level
   supabase-server.ts      — server Supabase client (uses cookies)
-  demo-data.ts            — DEMO_ANIMALS and DEMO_INVESTMENTS (mock data for MVP)
+  demo-data.ts            — unused (kept for reference)
 
 i18n/
-  routing.ts              — locales: ['en', 'ru'], defaultLocale: 'en'
+  routing.ts              — locales: ['en', 'ru', 'kk'], defaultLocale: 'en'
   request.ts              — getRequestConfig for next-intl
 
 messages/
   en.json                 — English strings
   ru.json                 — Russian strings
+  kk.json                 — Kazakh strings
 
 supabase/migrations/
   001_initial.sql         — Full DB schema (profiles, farmers, animals, investments + RLS)
+  002_admin_role.sql      — Admin role constraint, get_my_role() function, admin RLS policies
+  003_app_policies.sql    — Public animal reads, investment RLS, create_investment() atomic function
 ```
 
 ## Design System
@@ -83,8 +91,8 @@ In Tailwind classes these are: `bg-background`, `bg-surface`, `text-accent`, `bo
 - All pages are `'use client'` when they use state/hooks. Server components for static/data pages.
 - `params` in App Router pages are a `Promise` — always `use(params)` or `await params`.
 - Navigation links are built as `/${locale}/path` — use the `navLink` helper pattern in components.
-- Demo data (`lib/demo-data.ts`) is used until Supabase is configured. Pages currently read from it directly.
-- Auth redirects: investors → `/[locale]/dashboard`, farmers → `/[locale]/farmer/dashboard`.
+- All data reads/writes go through Supabase. `lib/demo-data.ts` is unused.
+- Auth redirects: investors → `/[locale]/dashboard`, farmers → `/[locale]/farmer/dashboard`, admins → `/[locale]/admin/dashboard`.
 - **Supabase browser client** (`lib/supabase.ts`) is instantiated at module level (outside the component) so the same instance is shared across the auth listener and logout handler. Never create it inside a click handler.
 
 ## Auth Pattern (Navbar)
@@ -122,12 +130,14 @@ vercel --prod    # deploy to production
 ## Database Setup (Supabase)
 
 Migration already applied to production. Schema:
-- `profiles` — extends auth.users, stores role (investor/farmer) and balance
+- `profiles` — extends auth.users, stores role (investor/farmer/admin) and balance
 - `farmers` — farm name, location, verified flag
 - `animals` — listings with type, price, expected_return_pct, slots, status
 - `investments` — investor ↔ animal link with amount, profit_share_pct, status
 
 Auto-trigger creates a `profiles` row on every new signup using `raw_user_meta_data` (full_name, role).
+
+Helper function `get_my_role()` returns the current user's role — used in RLS policies and admin checks.
 
 ## Deployment (Vercel)
 
@@ -139,8 +149,8 @@ Env vars are set in Vercel dashboard. After any env var change, redeploy for the
 
 ## Adding Translations
 
-All UI strings live in `messages/en.json` and `messages/ru.json`. To add a new string:
-1. Add the key to both files under the appropriate namespace
+All UI strings live in `messages/en.json`, `messages/ru.json`, and `messages/kk.json`. To add a new string:
+1. Add the key to all three files under the appropriate namespace
 2. Use `useTranslations('namespace')` in the component
 3. Call `t('key')` to render it
 
@@ -148,12 +158,17 @@ All UI strings live in `messages/en.json` and `messages/ru.json`. To add a new s
 
 Fixed 70/30 split: investor receives 70% of profit, farmer receives 30%. Hardcoded in UI and DB schema (`profit_share_pct DEFAULT 70`).
 
-## What's Still Demo / Not Yet Wired to Supabase DB
+## What's Wired to Supabase DB
 
-- Animal listings on browse/detail pages read from `lib/demo-data.ts`
-- Investor dashboard reads from `lib/demo-data.ts`
-- Farmer dashboard reads from `lib/demo-data.ts`
-- Investment modal simulates the action (fake delay, no DB write)
-- Farmer "add animal" form simulates submission (no DB write)
+Everything. All pages read/write real DB data:
 
-Next step when ready: replace demo-data reads with Supabase queries in each page.
+- **Auth** (login, signup) — live, with role-based redirects
+- **Animal listings** (`animals/page.tsx`) — server-side filtered + paginated via `.range()`
+- **Animal detail** (`animals/[id]/page.tsx`) — reads live animal + farmer data
+- **Investment modal** — calls `create_investment()` atomic RPC (deducts balance, fills slot, writes investment row)
+- **Investor dashboard** (`dashboard/page.tsx`) — reads real investments from `profiles` + `investments`
+- **Farmer dashboard** (`farmer/dashboard/page.tsx`) — reads/writes animals; status→sold atomically completes linked investments
+- **Add animal** (`farmer/animals/new/page.tsx`) — writes to `animals` table; image uploaded to Supabase Storage (`animal-images` bucket)
+- **Admin dashboard** (`admin/dashboard/page.tsx`) — full CRUD: role changes, farmer verification, animal deletion, user balance top-up
+- **Toast notifications** — all mutations show success/error toasts (no `alert()` calls)
+- **Error boundary** — `components/error-boundary.tsx` wraps all pages via `components/providers.tsx`

@@ -80,12 +80,19 @@ export default function Navbar({ locale, user: initialUser }: NavbarProps) {
           >
             {t('animals')}
           </Link>
-          <Link
-            href={navLink('/#how-it-works')}
+          <button
+            onClick={() => {
+              const el = document.getElementById('how-it-works');
+              if (el) {
+                el.scrollIntoView({ behavior: 'smooth' });
+              } else {
+                window.location.href = navLink('/#how-it-works');
+              }
+            }}
             className="text-sm text-muted hover:text-foreground transition-colors"
           >
             {t('howItWorks')}
-          </Link>
+          </button>
 
           {/* Language toggle */}
           <div className="flex items-center gap-1 bg-surface border border-border rounded-lg p-1">
@@ -143,10 +150,8 @@ export default function Navbar({ locale, user: initialUser }: NavbarProps) {
                 variant="ghost"
                 size="sm"
                 onClick={async () => {
-                  const { error } = await supabase.auth.signOut();
-                  if (error) console.error('Logout failed:', error.message);
-                  router.push(navLink('/'));
-                  router.refresh();
+                  await fetch('/api/auth/signout', { method: 'POST' });
+                  window.location.href = navLink('/');
                 }}
               >
                 {t('logout')}
