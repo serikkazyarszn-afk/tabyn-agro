@@ -71,14 +71,46 @@ export default function FarmerDashboardPage({ params }: { params: Promise<{ loca
 
   const updateStatus = async (id: string, newStatus: AnimalStatus) => {
     if (!farmerId) return;
-    await supabase
-      .from('animals')
-      .update({ status: newStatus })
-      .eq('id', id)
-      .eq('farmer_id', farmerId);
-    setAnimals((prev) =>
-      prev.map((a) => (a.id === id ? { ...a, status: newStatus } : a))
-    );
+    setUpdatingId(id);
+    try {
+      const { error } = await supabase
+        .from('animals')
+        .update({ status: newStatus })
+        .eq('id', id)
+        .eq('farmer_id', farmerId);
+
+      if (error) throw error;
+
+      if (newStatus === 'sold') {
+        const animal = animals.find(a => a.id === id);
+        if (animal) {
+          const { data: activeInvestments } = await supabase
+            .from('investments')
+            .select('id, amount')
+            .eq('animal_id', id)
+            .eq('status', 'active');
+
+          if (activeInvestments?.length) {
+            await Promise.all(
+              activeInvestments.map(inv =>
+                supabase.from('investments').update({
+                  status: 'completed',
+                  actual_return: Math.round(inv.amount * (1 + animal.expected_return_pct / 100)),
+                  completed_at: new Date().toISOString(),
+                }).eq('id', inv.id)
+              )
+            );
+          }
+        }
+      }
+
+      setAnimals(prev => prev.map(a => a.id === id ? { ...a, status: newStatus } : a));
+      toast({ message: `Status updated to "${newStatus}".`, variant: 'success' });
+    } catch {
+      toast({ message: 'Failed to update status. Try again.', variant: 'error' });
+    } finally {
+      setUpdatingId(null);
+    }
   };
 
   if (loading) {
@@ -230,6 +262,7 @@ export default function FarmerDashboardPage({ params }: { params: Promise<{ loca
                       <Button
                         variant="secondary"
                         size="sm"
+                        loading={updatingId === animal.id}
                         onClick={() => updateStatus(animal.id, nextStatus)}
                       >
                         → {statusLabels[nextStatus]}
