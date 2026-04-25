@@ -28,7 +28,7 @@ export default async function FeaturedAnimals({ locale }: FeaturedAnimalsProps) 
   return (
     <section className="py-24 bg-surface/20">
       <div className="max-w-7xl mx-auto px-6">
-        <div className="flex items-end justify-between mb-12">
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between mb-12">
           <div>
             <span className="inline-block text-accent text-sm font-semibold uppercase tracking-widest mb-3">
               {t('badge')}

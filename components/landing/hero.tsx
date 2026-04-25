@@ -54,7 +54,7 @@ export default function Hero({ locale }: HeroProps) {
           </div>
 
           {/* Headline */}
-          <h1 className="text-6xl font-bold leading-tight tracking-tight mb-6">
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight tracking-tight mb-6">
             {t('title')}
             <br />
             <span className="text-accent">{t('titleAccent')}</span>
@@ -65,7 +65,7 @@ export default function Hero({ locale }: HeroProps) {
           </p>
 
           {/* CTAs */}
-          <div className="flex items-center gap-4 mb-16">
+          <div className="flex flex-col sm:flex-row items-center gap-4 mb-16">
             <Link href={isLoggedIn ? navLink('/animals') : navLink('/signup')}>
               <Button size="lg" variant="primary" className="group">
                 {t('cta')}
