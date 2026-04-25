@@ -44,7 +44,7 @@ export default function DashboardPage({ params }: { params: Promise<{ locale: st
       if (profile) setBalance(profile.balance ?? 0);
       setInvestments((invData as Investment[]) ?? []);
     })();
-  }, []);
+  }, [locale, router]);
 
   const totalInvested = investments.reduce((s, i) => s + i.amount, 0);
   const expectedReturn = investments.filter(i => i.status === 'active').reduce((s, i) => s + i.expected_return, 0);

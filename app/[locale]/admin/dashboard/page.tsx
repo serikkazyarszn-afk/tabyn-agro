@@ -63,6 +63,7 @@ export default function AdminDashboard({ params }: { params: Promise<{ locale: s
   const [tabLoading, setTabLoading] = useState(false);
   const [topUpId, setTopUpId] = useState<string | null>(null);
   const [topUpAmount, setTopUpAmount] = useState('');
+  const [topUpLoading, setTopUpLoading] = useState(false);
 
   useEffect(() => {
     (async () => {
@@ -159,18 +160,24 @@ export default function AdminDashboard({ params }: { params: Promise<{ locale: s
   const handleTopUp = async (userId: string, currentBalance: number) => {
     const amount = Number(topUpAmount);
     if (!amount || amount <= 0) return;
-    const { error } = await supabase
-      .from('profiles')
-      .update({ balance: currentBalance + amount })
-      .eq('id', userId);
-    if (error) {
-      toast({ message: 'Failed to add balance. Try again.', variant: 'error' });
-      return;
+    if (topUpLoading) return;
+    setTopUpLoading(true);
+    try {
+      const { error } = await supabase
+        .from('profiles')
+        .update({ balance: currentBalance + amount })
+        .eq('id', userId);
+      if (error) {
+        toast({ message: 'Failed to add balance. Try again.', variant: 'error' });
+        return;
+      }
+      setUsers(prev => prev.map(u => u.id === userId ? { ...u, balance: u.balance + amount } : u));
+      setTopUpId(null);
+      setTopUpAmount('');
+      toast({ message: `Added ₸${amount.toLocaleString()} to balance.`, variant: 'success' });
+    } finally {
+      setTopUpLoading(false);
     }
-    setUsers(prev => prev.map(u => u.id === userId ? { ...u, balance: u.balance + amount } : u));
-    setTopUpId(null);
-    setTopUpAmount('');
-    toast({ message: `Added ₸${amount.toLocaleString()} to balance.`, variant: 'success' });
   };
 
   if (loading) {
@@ -259,7 +266,7 @@ export default function AdminDashboard({ params }: { params: Promise<{ locale: s
                             if (e.key === 'Escape') setTopUpId(null);
                           }}
                         />
-                        <button onClick={() => handleTopUp(user.id, user.balance)} className="text-xs px-2 py-1 bg-accent text-black rounded-lg font-medium">✓</button>
+                        <button onClick={() => handleTopUp(user.id, user.balance)} disabled={topUpLoading} className="text-xs px-2 py-1 bg-accent text-black rounded-lg font-medium disabled:opacity-50">{topUpLoading ? '…' : '✓'}</button>
                         <button onClick={() => setTopUpId(null)} className="text-xs px-2 py-1 bg-surface border border-border rounded-lg text-muted">✕</button>
                       </div>
                     ) : (
