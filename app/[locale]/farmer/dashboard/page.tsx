@@ -117,7 +117,7 @@ export default function FarmerDashboardPage({ params }: { params: Promise<{ loca
     return (
       <div className="max-w-7xl mx-auto px-6 py-12">
         <div className="h-10 w-40 bg-surface rounded-lg mb-10 animate-pulse" />
-        <div className="grid grid-cols-4 gap-4 mb-10">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
           {[1, 2, 3, 4].map((i) => (
             <div key={i} className="h-24 bg-surface rounded-2xl animate-pulse" />
           ))}
