@@ -63,23 +63,23 @@ export default function Navbar({ locale, user: initialUser }: NavbarProps) {
         scrolled ? 'bg-background/95 backdrop-blur-md border-b border-border' : 'bg-transparent'
       }`}
     >
-      <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-        {/* Logo — fades out when scrolled so it doesn't overlap page content */}
-        <Link
-          href={navLink('/')}
-          className={`flex items-center group transition-opacity duration-300 ${scrolled ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}
-        >
-          <img
-            src="/logo.png"
-            alt="Tabyn"
-            className="h-63 w-auto object-contain"
-          />
-        </Link>
+      {/* Logo — positioned at the far left of the viewport, fades on scroll */}
+      <Link
+        href={navLink('/')}
+        className={`absolute left-4 top-1/2 -translate-y-1/2 flex items-center group transition-opacity duration-300 ${scrolled ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}
+      >
+        <img
+          src="/logo.png"
+          alt="Tabyn"
+          className="h-63 w-auto object-contain"
+        />
+      </Link>
 
+      <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-end">
         {/* Hamburger button (mobile only) */}
         <button
           type="button"
-          className="lg:hidden ml-auto flex flex-col gap-1.5 p-3 min-h-[44px] min-w-[44px] items-center justify-center cursor-pointer"
+          className="lg:hidden flex flex-col gap-1.5 p-3 min-h-[44px] min-w-[44px] items-center justify-center cursor-pointer"
           onClick={() => setMenuOpen(o => !o)}
           aria-label="Toggle menu"
           aria-expanded={menuOpen}
