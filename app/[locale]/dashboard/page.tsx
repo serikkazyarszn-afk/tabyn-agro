@@ -3,12 +3,14 @@
 import { useState, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
 import Link from 'next/link';
-import { DEMO_INVESTMENTS } from '@/lib/demo-data';
 import Badge from '@/components/ui/badge';
 import Button from '@/components/ui/button';
 import { use } from 'react';
 import { TrendingUp, Wallet, BarChart3, CheckCircle, Clock, ArrowRight, MapPin } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 import { createClient } from '@/lib/supabase';
+import { Investment } from '@/lib/types';
+import { useToast } from '@/components/ui/toast';
 
 const supabase = createClient();
 
@@ -19,21 +21,34 @@ const ANIMAL_EMOJIS: Record<string, string> = {
 export default function DashboardPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = use(params);
   const t = useTranslations('dashboard');
+  const router = useRouter();
+  const { toast } = useToast();
 
   const [balance, setBalance] = useState(0);
+  const [investments, setInvestments] = useState<Investment[]>([]);
 
   useEffect(() => {
     (async () => {
       const { data: { user } } = await supabase.auth.getUser();
-      if (!user) return;
-      const { data: profile } = await supabase.from('profiles').select('balance').eq('id', user.id).single();
+      if (!user) { router.push(`/${locale}/login`); return; }
+
+      const [{ data: profile }, { data: invData }] = await Promise.all([
+        supabase.from('profiles').select('balance').eq('id', user.id).single(),
+        supabase
+          .from('investments')
+          .select('*, animal:animals(*, farmer:farmers(farm_name, location))')
+          .eq('investor_id', user.id)
+          .order('invested_at', { ascending: false }),
+      ]);
+
       if (profile) setBalance(profile.balance ?? 0);
+      setInvestments((invData as Investment[]) ?? []);
     })();
   }, []);
-  const totalInvested = DEMO_INVESTMENTS.reduce((s, i) => s + i.amount, 0);
-  const expectedReturn = DEMO_INVESTMENTS.filter(i => i.status === 'active').reduce((s, i) => s + i.expected_return, 0);
-  const activeCount = DEMO_INVESTMENTS.filter(i => i.status === 'active').length;
-  const completedCount = DEMO_INVESTMENTS.filter(i => i.status === 'completed').length;
+
+  const totalInvested = investments.reduce((s, i) => s + i.amount, 0);
+  const expectedReturn = investments.filter(i => i.status === 'active').reduce((s, i) => s + i.expected_return, 0);
+  const activeCount = investments.filter(i => i.status === 'active').length;
 
   return (
     <div className="max-w-7xl mx-auto px-6 py-12">
@@ -80,7 +95,12 @@ export default function DashboardPage({ params }: { params: Promise<{ locale: st
             {t('walletBalance')}
           </div>
           <div className="text-2xl font-bold">₸{balance.toLocaleString()}</div>
-          <button className="text-xs text-accent hover:underline mt-1">{t('topUp')}</button>
+          <button
+            className="text-xs text-accent hover:underline mt-1"
+            onClick={() => toast({ message: t('topUpSoon'), variant: 'info' })}
+          >
+            {t('topUp')}
+          </button>
         </div>
       </div>
 
@@ -88,7 +108,7 @@ export default function DashboardPage({ params }: { params: Promise<{ locale: st
       <div>
         <h2 className="text-xl font-bold mb-5">{t('myInvestments')}</h2>
 
-        {DEMO_INVESTMENTS.length === 0 ? (
+        {investments.length === 0 ? (
           <div className="text-center py-16 text-muted">
             <p className="mb-4">{t('noInvestments')}</p>
             <Link href={`/${locale}/animals`}>
@@ -97,7 +117,7 @@ export default function DashboardPage({ params }: { params: Promise<{ locale: st
           </div>
         ) : (
           <div className="space-y-3">
-            {DEMO_INVESTMENTS.map((inv) => {
+            {investments.map((inv) => {
               const animal = inv.animal;
               if (!animal) return null;
               const profit = inv.status === 'completed'
@@ -158,7 +178,7 @@ export default function DashboardPage({ params }: { params: Promise<{ locale: st
                   {/* Progress */}
                   {inv.status === 'active' && (
                     <div className="w-24 text-right">
-                      <div className="text-xs text-muted mb-1">{monthsLeft} mo. left</div>
+                      <div className="text-xs text-muted mb-1">{monthsLeft} {t('monthsLeft')}</div>
                       <div className="h-1.5 bg-background rounded-full overflow-hidden">
                         <div
                           className="h-full bg-accent rounded-full"
@@ -171,7 +191,7 @@ export default function DashboardPage({ params }: { params: Promise<{ locale: st
                   {inv.status === 'completed' && (
                     <div className="flex items-center gap-1.5 text-success text-sm">
                       <CheckCircle className="w-4 h-4" />
-                      <span className="text-xs">Completed</span>
+                      <span className="text-xs">{t('completedLabel')}</span>
                     </div>
                   )}
                 </div>
