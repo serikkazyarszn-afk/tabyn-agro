@@ -1,12 +1,15 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
-import { DEMO_ANIMALS } from '@/lib/demo-data';
 import AnimalCard from '@/components/animals/animal-card';
-import { AnimalType, AnimalStatus } from '@/lib/types';
+import { Animal, AnimalType, AnimalStatus } from '@/lib/types';
 import { use } from 'react';
 import { Filter } from 'lucide-react';
+import { createClient } from '@/lib/supabase';
+
+const supabase = createClient();
+const PAGE_SIZE = 12;
 
 const ANIMAL_TYPES: Array<{ value: AnimalType | 'all'; labelKey: string }> = [
   { value: 'all', labelKey: 'filter.all' },
@@ -28,12 +31,31 @@ export default function AnimalsPage({ params }: { params: Promise<{ locale: stri
   const t = useTranslations('animals');
   const [typeFilter, setTypeFilter] = useState<AnimalType | 'all'>('all');
   const [statusFilter, setStatusFilter] = useState<AnimalStatus | 'all'>('all');
+  const [animals, setAnimals] = useState<Animal[]>([]);
+  const [loadingAnimals, setLoadingAnimals] = useState(true);
+  const [page, setPage] = useState(1);
+  const [totalCount, setTotalCount] = useState(0);
 
-  const filtered = DEMO_ANIMALS.filter((a) => {
-    if (typeFilter !== 'all' && a.type !== typeFilter) return false;
-    if (statusFilter !== 'all' && a.status !== statusFilter) return false;
-    return true;
-  });
+  useEffect(() => {
+    (async () => {
+      setLoadingAnimals(true);
+      let query = supabase
+        .from('animals')
+        .select('*, farmer:farmers(id, farm_name, location, description, verified, user_id)', { count: 'exact' })
+        .order('created_at', { ascending: false })
+        .range((page - 1) * PAGE_SIZE, page * PAGE_SIZE - 1);
+
+      if (typeFilter !== 'all') query = query.eq('type', typeFilter);
+      if (statusFilter !== 'all') query = query.eq('status', statusFilter);
+
+      const { data, count } = await query;
+      setAnimals((data as Animal[]) ?? []);
+      setTotalCount(count ?? 0);
+      setLoadingAnimals(false);
+    })();
+  }, [typeFilter, statusFilter, page]);
+
+  const totalPages = Math.ceil(totalCount / PAGE_SIZE);
 
   return (
     <div className="max-w-7xl mx-auto px-6 py-12">
@@ -55,7 +77,7 @@ export default function AnimalsPage({ params }: { params: Promise<{ locale: stri
           {ANIMAL_TYPES.map(({ value, labelKey }) => (
             <button
               key={value}
-              onClick={() => setTypeFilter(value)}
+              onClick={() => { setTypeFilter(value); setPage(1); }}
               className={`text-sm px-4 py-2 rounded-full border transition-all ${
                 typeFilter === value
                   ? 'bg-accent text-black border-accent font-semibold'
@@ -74,7 +96,7 @@ export default function AnimalsPage({ params }: { params: Promise<{ locale: stri
           {STATUSES.map(({ value, labelKey }) => (
             <button
               key={value}
-              onClick={() => setStatusFilter(value)}
+              onClick={() => { setStatusFilter(value); setPage(1); }}
               className={`text-sm px-4 py-2 rounded-full border transition-all ${
                 statusFilter === value
                   ? 'bg-accent text-black border-accent font-semibold'
@@ -88,13 +110,42 @@ export default function AnimalsPage({ params }: { params: Promise<{ locale: stri
       </div>
 
       {/* Grid */}
-      {filtered.length === 0 ? (
+      {loadingAnimals ? (
+        <div className="grid grid-cols-3 gap-6">
+          {[1, 2, 3].map((i) => (
+            <div key={i} className="h-72 bg-surface rounded-2xl animate-pulse" />
+          ))}
+        </div>
+      ) : animals.length === 0 ? (
         <div className="text-center py-20 text-muted">{t('noResults')}</div>
       ) : (
         <div className="grid grid-cols-3 gap-6">
-          {filtered.map((animal) => (
+          {animals.map((animal) => (
             <AnimalCard key={animal.id} animal={animal} locale={locale} />
           ))}
+        </div>
+      )}
+
+      {/* Pagination */}
+      {totalCount > PAGE_SIZE && (
+        <div className="flex items-center justify-center gap-4 mt-10">
+          <button
+            onClick={() => setPage(p => Math.max(1, p - 1))}
+            disabled={page === 1}
+            className="text-sm px-4 py-2 rounded-xl border border-border text-muted hover:text-foreground hover:border-muted-2 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+          >
+            ← Previous
+          </button>
+          <span className="text-sm text-muted">
+            Page {page} of {totalPages}
+          </span>
+          <button
+            onClick={() => setPage(p => Math.min(totalPages, p + 1))}
+            disabled={page >= totalPages}
+            className="text-sm px-4 py-2 rounded-xl border border-border text-muted hover:text-foreground hover:border-muted-2 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+          >
+            Next →
+          </button>
         </div>
       )}
     </div>
