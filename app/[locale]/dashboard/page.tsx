@@ -69,7 +69,7 @@ export default function DashboardPage({ params }: { params: Promise<{ locale: st
       </div>
 
       {/* Stats grid */}
-      <div className="grid grid-cols-4 gap-4 mb-10">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
         <div className="bg-surface border border-border rounded-2xl p-5">
           <div className="flex items-center gap-2 text-muted text-sm mb-3">
             <BarChart3 className="w-4 h-4" />
@@ -132,7 +132,7 @@ export default function DashboardPage({ params }: { params: Promise<{ locale: st
               const monthsLeft = Math.max(0, animal.duration_months - monthsElapsed);
 
               return (
-                <div key={inv.id} className="bg-surface border border-border rounded-2xl p-5 flex items-center gap-6 hover:border-muted-2 transition-colors">
+                <div key={inv.id} className="bg-surface border border-border rounded-2xl p-5 flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-6 hover:border-muted-2 transition-colors">
                   {/* Animal image/emoji */}
                   <div className="w-14 h-14 rounded-xl overflow-hidden flex-shrink-0">
                     {animal.image_url ? (

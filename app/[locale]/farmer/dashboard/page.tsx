@@ -160,7 +160,7 @@ export default function FarmerDashboardPage({ params }: { params: Promise<{ loca
       </div>
 
       {/* Stats */}
-      <div className="grid grid-cols-4 gap-4 mb-10">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
         <div className="bg-surface border border-border rounded-2xl p-5">
           <div className="flex items-center gap-2 text-muted text-sm mb-3">
             <Package className="w-4 h-4" />
@@ -214,7 +214,7 @@ export default function FarmerDashboardPage({ params }: { params: Promise<{ loca
 
               return (
                 <div key={animal.id} className="bg-surface border border-border rounded-2xl p-5 hover:border-muted-2 transition-colors">
-                  <div className="flex items-center gap-6">
+                  <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-6">
                     {/* Image */}
                     <div className="w-14 h-14 rounded-xl overflow-hidden flex-shrink-0">
                       {animal.image_url ? (
