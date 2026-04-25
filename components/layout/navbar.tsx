@@ -20,6 +20,7 @@ export default function Navbar({ locale, user: initialUser }: NavbarProps) {
   const router = useRouter();
   const [scrolled, setScrolled] = useState(false);
   const [user, setUser] = useState(initialUser ?? null);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   // Subscribe to auth state changes on the client so the navbar
   // always reflects the real session without needing a full page reload.
@@ -58,7 +59,7 @@ export default function Navbar({ locale, user: initialUser }: NavbarProps) {
 
   return (
     <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 relative ${
         scrolled ? 'bg-background/95 backdrop-blur-md border-b border-border' : 'bg-transparent'
       }`}
     >
@@ -72,8 +73,19 @@ export default function Navbar({ locale, user: initialUser }: NavbarProps) {
           />
         </Link>
 
-        {/* Nav links */}
-        <div className="flex items-center gap-6">
+        {/* Hamburger button (mobile only) */}
+        <button
+          className="lg:hidden ml-auto flex flex-col gap-1.5 p-2"
+          onClick={() => setMenuOpen(o => !o)}
+          aria-label="Toggle menu"
+        >
+          <span className={`block w-6 h-0.5 bg-foreground transition-all duration-200 ${menuOpen ? 'rotate-45 translate-y-2' : ''}`} />
+          <span className={`block w-6 h-0.5 bg-foreground transition-all duration-200 ${menuOpen ? 'opacity-0' : ''}`} />
+          <span className={`block w-6 h-0.5 bg-foreground transition-all duration-200 ${menuOpen ? '-rotate-45 -translate-y-2' : ''}`} />
+        </button>
+
+        {/* Nav links (desktop only) */}
+        <div className="hidden lg:flex items-center gap-6">
           <Link
             href={navLink('/animals')}
             className="text-sm text-muted hover:text-foreground transition-colors"
@@ -168,6 +180,67 @@ export default function Navbar({ locale, user: initialUser }: NavbarProps) {
             </div>
           )}
         </div>
+
+        {/* Mobile menu dropdown */}
+        {menuOpen && (
+          <div className="lg:hidden absolute top-16 left-0 right-0 bg-surface border-b border-border px-6 py-4 flex flex-col gap-4 z-50">
+            <Link href={navLink('/animals')} className="text-sm text-muted hover:text-foreground" onClick={() => setMenuOpen(false)}>
+              {t('animals')}
+            </Link>
+            <button
+              onClick={() => {
+                const el = document.getElementById('how-it-works');
+                if (el) { el.scrollIntoView({ behavior: 'smooth' }); }
+                else { window.location.href = navLink('/#how-it-works'); }
+                setMenuOpen(false);
+              }}
+              className="text-sm text-left text-muted hover:text-foreground"
+            >
+              {t('howItWorks')}
+            </button>
+            {user ? (
+              <>
+                <Link
+                  href={navLink(user.role === 'admin' ? '/admin/dashboard' : user.role === 'farmer' ? '/farmer/dashboard' : '/dashboard')}
+                  className="text-sm text-foreground font-medium"
+                  onClick={() => setMenuOpen(false)}
+                >
+                  {user.role === 'admin' ? t('adminDashboard') : user.role === 'farmer' ? t('farmerDashboard') : t('dashboard')}
+                </Link>
+                <button
+                  onClick={async () => {
+                    await fetch('/api/auth/signout', { method: 'POST' });
+                    setMenuOpen(false);
+                    window.location.href = navLink('/');
+                  }}
+                  className="text-sm text-left text-muted hover:text-foreground"
+                >
+                  {t('logout')}
+                </button>
+              </>
+            ) : (
+              <>
+                <Link href={navLink('/login')} className="text-sm text-muted hover:text-foreground" onClick={() => setMenuOpen(false)}>
+                  {t('login')}
+                </Link>
+                <Link href={navLink('/signup')} className="text-sm text-accent font-medium" onClick={() => setMenuOpen(false)}>
+                  {t('signup')}
+                </Link>
+              </>
+            )}
+            <div className="flex gap-2 pt-2 border-t border-border">
+              {(['en', 'ru', 'kk'] as const).map(l => (
+                <button
+                  key={l}
+                  onClick={() => { switchLocale(l); setMenuOpen(false); }}
+                  className={`text-xs px-2 py-1 rounded ${locale === l ? 'bg-accent text-black font-medium' : 'text-muted hover:text-foreground'}`}
+                >
+                  {l === 'en' ? 'EN' : l === 'ru' ? 'РУС' : 'ҚАЗ'}
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
       </div>
     </nav>
   );
