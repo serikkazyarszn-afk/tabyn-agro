@@ -22,7 +22,7 @@ export default function SignupPage({ params }: { params: Promise<{ locale: strin
 
   useEffect(() => { document.title = 'Create Account — Tabyn'; }, []);
 
-  const handleSignup = async (e: React.FormEvent) => {
+  const handleSignup = async (e: React.SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
     setError('');

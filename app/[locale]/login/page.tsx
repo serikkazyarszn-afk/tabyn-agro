@@ -20,7 +20,7 @@ export default function LoginPage({ params }: { params: Promise<{ locale: string
 
   useEffect(() => { document.title = 'Log In — Tabyn'; }, []);
 
-  const handleLogin = async (e: React.FormEvent) => {
+  const handleLogin = async (e: React.SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
     setError('');
