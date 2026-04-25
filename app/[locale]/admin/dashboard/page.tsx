@@ -208,9 +208,10 @@ export default function AdminDashboard({ params }: { params: Promise<{ locale: s
       <div className="flex flex-wrap gap-2 mb-8 border-b border-border">
         {tabs.map(tab => (
           <button
+            type="button"
             key={tab}
             onClick={() => setActiveTab(tab)}
-            className={`px-5 py-2.5 text-sm font-medium transition-colors border-b-2 -mb-px ${
+            className={`cursor-pointer px-5 py-2.5 text-sm font-medium transition-colors border-b-2 -mb-px ${
               activeTab === tab
                 ? 'border-accent text-accent'
                 : 'border-transparent text-muted hover:text-foreground'
@@ -268,13 +269,14 @@ export default function AdminDashboard({ params }: { params: Promise<{ locale: s
                             if (e.key === 'Escape') setTopUpId(null);
                           }}
                         />
-                        <button onClick={() => handleTopUp(user.id, user.balance)} disabled={topUpLoading} className="text-xs px-2 py-1 bg-accent text-black rounded-lg font-medium disabled:opacity-50">{topUpLoading ? '…' : '✓'}</button>
-                        <button onClick={() => setTopUpId(null)} className="text-xs px-2 py-1 bg-surface border border-border rounded-lg text-muted">✕</button>
+                        <button type="button" onClick={() => handleTopUp(user.id, user.balance)} disabled={topUpLoading} className="cursor-pointer text-xs px-2 py-1 bg-accent text-black rounded-lg font-medium disabled:opacity-50">{topUpLoading ? '…' : '✓'}</button>
+                        <button type="button" onClick={() => setTopUpId(null)} className="cursor-pointer text-xs px-2 py-1 bg-surface border border-border rounded-lg text-muted">✕</button>
                       </div>
                     ) : (
                       <button
+                        type="button"
                         onClick={() => { setTopUpId(user.id); setTopUpAmount(''); }}
-                        className="text-xs text-accent hover:underline"
+                        className="cursor-pointer text-xs text-accent hover:underline"
                       >
                         + Top Up
                       </button>
@@ -308,8 +310,9 @@ export default function AdminDashboard({ params }: { params: Promise<{ locale: s
                   <td className="py-3 pr-4 text-muted">{farmer.location}</td>
                   <td className="py-3">
                     <button
+                      type="button"
                       onClick={() => toggleVerified(farmer.id, farmer.verified)}
-                      className={`px-3 py-1 rounded-lg text-xs font-medium transition-colors ${
+                      className={`cursor-pointer px-3 py-1 rounded-lg text-xs font-medium transition-colors ${
                         farmer.verified
                           ? 'bg-accent/20 text-accent hover:bg-accent/30'
                           : 'bg-surface border border-border text-muted hover:text-foreground'
@@ -354,8 +357,9 @@ export default function AdminDashboard({ params }: { params: Promise<{ locale: s
                   <td className="py-3 pr-4 text-muted">{animal.farmer?.farm_name ?? '—'}</td>
                   <td className="py-3">
                     <button
+                      type="button"
                       onClick={() => deleteAnimal(animal.id)}
-                      className="px-3 py-1 rounded-lg text-xs font-medium bg-red-500/10 text-red-400 hover:bg-red-500/20 transition-colors"
+                      className="cursor-pointer px-3 py-1 rounded-lg text-xs font-medium bg-red-500/10 text-red-400 hover:bg-red-500/20 transition-colors"
                     >
                       {t('delete')}
                     </button>

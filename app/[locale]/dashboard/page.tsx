@@ -98,7 +98,8 @@ export default function DashboardPage({ params }: { params: Promise<{ locale: st
           </div>
           <div className="text-2xl font-bold">₸{balance.toLocaleString()}</div>
           <button
-            className="text-xs text-accent hover:underline mt-1"
+            type="button"
+            className="cursor-pointer text-xs text-accent hover:underline mt-1"
             onClick={() => toast({ message: t('topUpSoon'), variant: 'info' })}
           >
             {t('topUp')}

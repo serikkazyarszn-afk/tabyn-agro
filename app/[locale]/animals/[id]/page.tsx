@@ -301,7 +301,7 @@ export default function AnimalDetailPage({
           <div className="bg-surface border border-border rounded-2xl p-8 w-full max-w-md">
             <div className="flex items-center justify-between mb-6">
               <h3 className="font-bold text-lg">{t('investModal.title')} {animal.name}</h3>
-              <button onClick={() => setShowModal(false)} className="text-muted hover:text-foreground transition-colors">
+              <button type="button" onClick={() => setShowModal(false)} className="cursor-pointer text-muted hover:text-foreground transition-colors">
                 <X className="w-5 h-5" />
               </button>
             </div>

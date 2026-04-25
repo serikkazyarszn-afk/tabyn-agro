@@ -98,6 +98,7 @@ export default function Navbar({ locale, user: initialUser }: NavbarProps) {
             {t('animals')}
           </Link>
           <button
+            type="button"
             onClick={() => {
               const el = document.getElementById('how-it-works');
               if (el) {
@@ -106,7 +107,7 @@ export default function Navbar({ locale, user: initialUser }: NavbarProps) {
                 window.location.href = navLink('/#how-it-works');
               }
             }}
-            className="text-sm text-muted hover:text-foreground transition-colors"
+            className="cursor-pointer text-sm text-muted hover:text-foreground transition-colors"
           >
             {t('howItWorks')}
           </button>
@@ -114,8 +115,9 @@ export default function Navbar({ locale, user: initialUser }: NavbarProps) {
           {/* Language toggle */}
           <div className="flex items-center gap-1 bg-surface border border-border rounded-lg p-1">
             <button
+              type="button"
               onClick={() => switchLocale('en')}
-              className={`text-xs px-2.5 py-1 rounded-md transition-all ${
+              className={`cursor-pointer text-xs px-2.5 py-1 rounded-md transition-all ${
                 locale === 'en'
                   ? 'bg-accent text-black font-semibold'
                   : 'text-muted hover:text-foreground'
@@ -124,8 +126,9 @@ export default function Navbar({ locale, user: initialUser }: NavbarProps) {
               EN
             </button>
             <button
+              type="button"
               onClick={() => switchLocale('ru')}
-              className={`text-xs px-2.5 py-1 rounded-md transition-all ${
+              className={`cursor-pointer text-xs px-2.5 py-1 rounded-md transition-all ${
                 locale === 'ru'
                   ? 'bg-accent text-black font-semibold'
                   : 'text-muted hover:text-foreground'
@@ -134,8 +137,9 @@ export default function Navbar({ locale, user: initialUser }: NavbarProps) {
               РУС
             </button>
             <button
+              type="button"
               onClick={() => switchLocale('kk')}
-              className={`text-xs px-2.5 py-1 rounded-md transition-all ${
+              className={`cursor-pointer text-xs px-2.5 py-1 rounded-md transition-all ${
                 locale === 'kk'
                   ? 'bg-accent text-black font-semibold'
                   : 'text-muted hover:text-foreground'
@@ -194,13 +198,14 @@ export default function Navbar({ locale, user: initialUser }: NavbarProps) {
             {t('animals')}
           </Link>
           <button
+            type="button"
             onClick={() => {
               const el = document.getElementById('how-it-works');
               if (el) { el.scrollIntoView({ behavior: 'smooth' }); }
               else { window.location.href = navLink('/#how-it-works'); }
               setMenuOpen(false);
             }}
-            className="text-sm text-left text-muted hover:text-foreground"
+            className="cursor-pointer text-sm text-left text-muted hover:text-foreground"
           >
             {t('howItWorks')}
           </button>
@@ -214,12 +219,13 @@ export default function Navbar({ locale, user: initialUser }: NavbarProps) {
                 {user.role === 'admin' ? t('adminDashboard') : user.role === 'farmer' ? t('farmerDashboard') : t('dashboard')}
               </Link>
               <button
+                type="button"
                 onClick={async () => {
                   await fetch('/api/auth/signout', { method: 'POST' });
                   setMenuOpen(false);
                   window.location.href = navLink('/');
                 }}
-                className="text-sm text-left text-muted hover:text-foreground"
+                className="cursor-pointer text-sm text-left text-muted hover:text-foreground"
               >
                 {t('logout')}
               </button>
@@ -237,9 +243,10 @@ export default function Navbar({ locale, user: initialUser }: NavbarProps) {
           <div className="flex gap-2 pt-2 border-t border-border">
             {(['en', 'ru', 'kk'] as const).map(l => (
               <button
+                type="button"
                 key={l}
                 onClick={() => { switchLocale(l); setMenuOpen(false); }}
-                className={`text-xs px-2 py-1 rounded ${locale === l ? 'bg-accent text-black font-medium' : 'text-muted hover:text-foreground'}`}
+                className={`cursor-pointer text-xs px-2 py-1 rounded ${locale === l ? 'bg-accent text-black font-medium' : 'text-muted hover:text-foreground'}`}
               >
                 {l === 'en' ? 'EN' : l === 'ru' ? 'РУС' : 'ҚАЗ'}
               </button>

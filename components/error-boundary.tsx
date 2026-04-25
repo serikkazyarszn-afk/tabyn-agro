@@ -30,7 +30,8 @@ export default class ErrorBoundary extends Component<Props, State> {
             <h2 className="text-xl font-bold mb-2">Something went wrong</h2>
             <p className="text-muted text-sm mb-6">{this.state.error?.message ?? 'An unexpected error occurred.'}</p>
             <button
-              className="text-sm text-accent hover:underline"
+              type="button"
+              className="cursor-pointer text-sm text-accent hover:underline"
               onClick={() => {
                 this.setState({ hasError: false, error: null });
                 window.location.reload();
