@@ -79,9 +79,10 @@ export default function AnimalsPage({ params }: { params: Promise<{ locale: stri
         <div className="flex flex-wrap items-center gap-2">
           {ANIMAL_TYPES.map(({ value, labelKey }) => (
             <button
+              type="button"
               key={value}
               onClick={() => { setTypeFilter(value); setPage(1); }}
-              className={`text-sm px-4 py-2 rounded-full border transition-all ${
+              className={`cursor-pointer text-sm px-4 py-2 rounded-full border transition-all ${
                 typeFilter === value
                   ? 'bg-accent text-black border-accent font-semibold'
                   : 'border-border text-muted hover:border-muted-2 hover:text-foreground'
@@ -98,9 +99,10 @@ export default function AnimalsPage({ params }: { params: Promise<{ locale: stri
         <div className="flex flex-wrap items-center gap-2">
           {STATUSES.map(({ value, labelKey }) => (
             <button
+              type="button"
               key={value}
               onClick={() => { setStatusFilter(value); setPage(1); }}
-              className={`text-sm px-4 py-2 rounded-full border transition-all ${
+              className={`cursor-pointer text-sm px-4 py-2 rounded-full border transition-all ${
                 statusFilter === value
                   ? 'bg-accent text-black border-accent font-semibold'
                   : 'border-border text-muted hover:border-muted-2 hover:text-foreground'
@@ -145,9 +147,10 @@ export default function AnimalsPage({ params }: { params: Promise<{ locale: stri
       {totalCount > PAGE_SIZE && (
         <div className="flex items-center justify-center gap-4 mt-10">
           <button
+            type="button"
             onClick={() => setPage(p => Math.max(1, p - 1))}
             disabled={page === 1}
-            className="text-sm px-4 py-2 rounded-xl border border-border text-muted hover:text-foreground hover:border-muted-2 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+            className="cursor-pointer text-sm px-4 py-2 rounded-xl border border-border text-muted hover:text-foreground hover:border-muted-2 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
           >
             ← Previous
           </button>
@@ -155,9 +158,10 @@ export default function AnimalsPage({ params }: { params: Promise<{ locale: stri
             Page {page} of {totalPages}
           </span>
           <button
+            type="button"
             onClick={() => setPage(p => Math.min(totalPages, p + 1))}
             disabled={page >= totalPages}
-            className="text-sm px-4 py-2 rounded-xl border border-border text-muted hover:text-foreground hover:border-muted-2 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+            className="cursor-pointer text-sm px-4 py-2 rounded-xl border border-border text-muted hover:text-foreground hover:border-muted-2 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
           >
             Next →
           </button>
