@@ -9,6 +9,7 @@ import { use } from 'react';
 import { ArrowLeft, CheckCircle } from 'lucide-react';
 import Link from 'next/link';
 import { createClient } from '@/lib/supabase';
+import { useToast } from '@/components/ui/toast';
 
 const ANIMAL_TYPES = ['cow', 'sheep', 'horse', 'goat', 'camel'] as const;
 const supabase = createClient();
@@ -45,9 +46,20 @@ export default function NewAnimalPage({ params }: { params: Promise<{ locale: st
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [formError, setFormError] = useState('');
+  const [imageFile, setImageFile] = useState<File | null>(null);
+  const [imagePreview, setImagePreview] = useState('');
+  const [uploading, setUploading] = useState(false);
+  const { toast } = useToast();
 
   const set = (key: string) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) =>
     setForm((prev) => ({ ...prev, [key]: e.target.value }));
+
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    setImageFile(file);
+    setImagePreview(URL.createObjectURL(file));
+  };
 
   const handleSubmit = async (e: React.SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -78,6 +90,25 @@ export default function NewAnimalPage({ params }: { params: Promise<{ locale: st
         return;
       }
 
+      let finalImageUrl: string | null = form.image_url.trim() || null;
+
+      if (imageFile) {
+        setUploading(true);
+        const ext = imageFile.name.split('.').pop() ?? 'jpg';
+        const path = `${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`;
+        const { error: uploadError } = await supabase.storage
+          .from('animal-images')
+          .upload(path, imageFile);
+        setUploading(false);
+        if (uploadError) {
+          toast({ message: 'Image upload failed. Try again.', variant: 'error' });
+          setLoading(false);
+          return;
+        }
+        const { data: urlData } = supabase.storage.from('animal-images').getPublicUrl(path);
+        finalImageUrl = urlData.publicUrl;
+      }
+
       const { error: insertError } = await supabase.from('animals').insert({
         farmer_id: farmer.id,
         name: form.name.trim(),
@@ -89,7 +120,7 @@ export default function NewAnimalPage({ params }: { params: Promise<{ locale: st
         slots_filled: 0,
         status: 'available',
         description: form.description.trim() || null,
-        image_url: form.image_url.trim() || null,
+        image_url: finalImageUrl,
       });
 
       setLoading(false);
@@ -180,15 +211,31 @@ export default function NewAnimalPage({ params }: { params: Promise<{ locale: st
             />
           </div>
 
-          <Input id="image_url" label={t('image')} type="url" value={form.image_url} onChange={set('image_url')} placeholder="https://..." />
+          <div className="flex flex-col gap-1.5">
+            <label className="text-sm font-medium text-muted">{t('image')}</label>
+            <div className="flex items-center gap-4">
+              <label className="flex-1 flex items-center gap-3 px-4 py-3 bg-surface border border-border border-dashed rounded-xl cursor-pointer hover:border-muted-2 transition-colors text-sm text-muted">
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={handleImageChange}
+                  className="hidden"
+                />
+                {imageFile ? imageFile.name : 'Click to upload photo…'}
+              </label>
+              {imagePreview && (
+                <img src={imagePreview} alt="Preview" className="w-16 h-16 rounded-xl object-cover flex-shrink-0 border border-border" />
+              )}
+            </div>
+          </div>
 
           {formError && (
             <p className="text-sm text-destructive bg-destructive/10 border border-destructive/20 rounded-lg px-4 py-2.5">
               {formError}
             </p>
           )}
-          <Button type="submit" variant="primary" size="lg" loading={loading} className="w-full mt-2">
-            {loading ? t('loading') : t('submit')}
+          <Button type="submit" variant="primary" size="lg" loading={loading || uploading} className="w-full mt-2">
+            {loading || uploading ? t('loading') : t('submit')}
           </Button>
         </form>
       </div>
