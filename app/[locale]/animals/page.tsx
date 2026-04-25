@@ -75,7 +75,7 @@ export default function AnimalsPage({ params }: { params: Promise<{ locale: stri
         </div>
 
         {/* Type filter */}
-        <div className="flex items-center gap-2">
+        <div className="flex flex-wrap items-center gap-2">
           {ANIMAL_TYPES.map(({ value, labelKey }) => (
             <button
               key={value}
@@ -94,7 +94,7 @@ export default function AnimalsPage({ params }: { params: Promise<{ locale: stri
         <div className="h-5 w-px bg-border" />
 
         {/* Status filter */}
-        <div className="flex items-center gap-2">
+        <div className="flex flex-wrap items-center gap-2">
           {STATUSES.map(({ value, labelKey }) => (
             <button
               key={value}
@@ -113,7 +113,7 @@ export default function AnimalsPage({ params }: { params: Promise<{ locale: stri
 
       {/* Grid */}
       {loadingAnimals ? (
-        <div className="grid grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {[1, 2, 3].map((i) => (
             <div key={i} className="h-72 bg-surface rounded-2xl animate-pulse" />
           ))}
@@ -121,7 +121,7 @@ export default function AnimalsPage({ params }: { params: Promise<{ locale: stri
       ) : animals.length === 0 ? (
         <div className="text-center py-20 text-muted">{t('noResults')}</div>
       ) : (
-        <div className="grid grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {animals.map((animal) => (
             <AnimalCard key={animal.id} animal={animal} locale={locale} />
           ))}

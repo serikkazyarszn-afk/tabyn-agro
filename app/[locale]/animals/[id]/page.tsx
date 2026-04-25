@@ -129,7 +129,7 @@ export default function AnimalDetailPage({
     return (
       <div className="max-w-7xl mx-auto px-6 py-12">
         <div className="h-8 w-24 bg-surface rounded-lg mb-8 animate-pulse" />
-        <div className="grid grid-cols-5 gap-10">
+        <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 lg:gap-10">
           <div className="col-span-3 space-y-6">
             <div className="h-[420px] bg-surface rounded-2xl animate-pulse" />
             <div className="h-32 bg-surface rounded-2xl animate-pulse" />
@@ -164,7 +164,7 @@ export default function AnimalDetailPage({
         {tCommon('back')}
       </Link>
 
-      <div className="grid grid-cols-5 gap-10">
+      <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 lg:gap-10">
         {/* Left: image + details */}
         <div className="col-span-3 space-y-6">
           {/* Hero image */}
