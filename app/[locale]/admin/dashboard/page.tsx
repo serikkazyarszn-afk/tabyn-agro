@@ -4,6 +4,7 @@ import { useState, useEffect, use } from 'react';
 import { useTranslations } from 'next-intl';
 import { useRouter } from 'next/navigation';
 import { createClient } from '@/lib/supabase';
+import { useToast } from '@/components/ui/toast';
 import type { Role } from '@/lib/types';
 
 type TabKey = 'users' | 'farmers' | 'animals' | 'investments';
@@ -49,6 +50,7 @@ export default function AdminDashboard({ params }: { params: Promise<{ locale: s
   const { locale } = use(params);
   const t = useTranslations('admin.dashboard');
   const router = useRouter();
+  const { toast } = useToast();
   const [activeTab, setActiveTab] = useState<TabKey>('users');
   const [loading, setLoading] = useState(true);
   const [authorized, setAuthorized] = useState(false);
@@ -59,6 +61,8 @@ export default function AdminDashboard({ params }: { params: Promise<{ locale: s
   const [investments, setInvestments] = useState<InvestmentRow[]>([]);
   const [fetchError, setFetchError] = useState<string | null>(null);
   const [tabLoading, setTabLoading] = useState(false);
+  const [topUpId, setTopUpId] = useState<string | null>(null);
+  const [topUpAmount, setTopUpAmount] = useState('');
 
   useEffect(() => {
     (async () => {
@@ -123,21 +127,50 @@ export default function AdminDashboard({ params }: { params: Promise<{ locale: s
 
   const changeRole = async (userId: string, newRole: Role) => {
     const { error } = await supabase.from('profiles').update({ role: newRole }).eq('id', userId);
-    if (error) { alert('Failed to update role. Please try again.'); return; }
+    if (error) {
+      toast({ message: 'Failed to update role. Please try again.', variant: 'error' });
+      return;
+    }
     setUsers(prev => prev.map(u => u.id === userId ? { ...u, role: newRole } : u));
+    toast({ message: 'Role updated successfully.', variant: 'success' });
   };
 
   const toggleVerified = async (farmerId: string, current: boolean) => {
     const { error } = await supabase.from('farmers').update({ verified: !current }).eq('id', farmerId);
-    if (error) { alert('Failed to update verification. Please try again.'); return; }
+    if (error) {
+      toast({ message: 'Failed to update verification. Please try again.', variant: 'error' });
+      return;
+    }
     setFarmers(prev => prev.map(f => f.id === farmerId ? { ...f, verified: !current } : f));
+    toast({ message: `Farmer ${!current ? 'verified' : 'unverified'}.`, variant: 'success' });
   };
 
   const deleteAnimal = async (animalId: string) => {
     if (!window.confirm(t('confirmDelete'))) return;
     const { error } = await supabase.from('animals').delete().eq('id', animalId);
-    if (error) { alert('Failed to delete animal. Please try again.'); return; }
+    if (error) {
+      toast({ message: 'Failed to delete animal. Please try again.', variant: 'error' });
+      return;
+    }
     setAnimals(prev => prev.filter(a => a.id !== animalId));
+    toast({ message: 'Animal deleted.', variant: 'success' });
+  };
+
+  const handleTopUp = async (userId: string, currentBalance: number) => {
+    const amount = Number(topUpAmount);
+    if (!amount || amount <= 0) return;
+    const { error } = await supabase
+      .from('profiles')
+      .update({ balance: currentBalance + amount })
+      .eq('id', userId);
+    if (error) {
+      toast({ message: 'Failed to add balance. Try again.', variant: 'error' });
+      return;
+    }
+    setUsers(prev => prev.map(u => u.id === userId ? { ...u, balance: u.balance + amount } : u));
+    setTopUpId(null);
+    setTopUpAmount('');
+    toast({ message: `Added ₸${amount.toLocaleString()} to balance.`, variant: 'success' });
   };
 
   if (loading) {
@@ -189,7 +222,8 @@ export default function AdminDashboard({ params }: { params: Promise<{ locale: s
                 <th className="pb-3 pr-4 font-medium">{t('email')}</th>
                 <th className="pb-3 pr-4 font-medium">{t('role')}</th>
                 <th className="pb-3 pr-4 font-medium">{t('balance')}</th>
-                <th className="pb-3 font-medium">{t('joined')}</th>
+                <th className="pb-3 pr-4 font-medium">{t('joined')}</th>
+                <th className="pb-3 font-medium">Top Up</th>
               </tr>
             </thead>
             <tbody>
@@ -209,7 +243,34 @@ export default function AdminDashboard({ params }: { params: Promise<{ locale: s
                     </select>
                   </td>
                   <td className="py-3 pr-4 text-muted">₸{user.balance?.toLocaleString() ?? 0}</td>
-                  <td className="py-3 text-muted">{new Date(user.created_at).toLocaleDateString()}</td>
+                  <td className="py-3 pr-4 text-muted">{new Date(user.created_at).toLocaleDateString()}</td>
+                  <td className="py-3">
+                    {topUpId === user.id ? (
+                      <div className="flex items-center gap-1">
+                        <input
+                          type="number"
+                          value={topUpAmount}
+                          onChange={e => setTopUpAmount(e.target.value)}
+                          placeholder="Amount"
+                          className="w-24 bg-background border border-border rounded-lg px-2 py-1 text-xs text-foreground focus:outline-none focus:ring-1 focus:ring-accent/50"
+                          autoFocus
+                          onKeyDown={e => {
+                            if (e.key === 'Enter') handleTopUp(user.id, user.balance);
+                            if (e.key === 'Escape') setTopUpId(null);
+                          }}
+                        />
+                        <button onClick={() => handleTopUp(user.id, user.balance)} className="text-xs px-2 py-1 bg-accent text-black rounded-lg font-medium">✓</button>
+                        <button onClick={() => setTopUpId(null)} className="text-xs px-2 py-1 bg-surface border border-border rounded-lg text-muted">✕</button>
+                      </div>
+                    ) : (
+                      <button
+                        onClick={() => { setTopUpId(user.id); setTopUpAmount(''); }}
+                        className="text-xs text-accent hover:underline"
+                      >
+                        + Top Up
+                      </button>
+                    )}
+                  </td>
                 </tr>
               ))}
             </tbody>
@@ -266,7 +327,7 @@ export default function AdminDashboard({ params }: { params: Promise<{ locale: s
                 <th className="pb-3 pr-4 font-medium">{t('type')}</th>
                 <th className="pb-3 pr-4 font-medium">{t('price')}</th>
                 <th className="pb-3 pr-4 font-medium">{t('status')}</th>
-                <th className="pb-3 pr-4 font-medium">{t('farmers')}</th>
+                <th className="pb-3 pr-4 font-medium">{t('farmerColumn')}</th>
                 <th className="pb-3 font-medium"></th>
               </tr>
             </thead>
