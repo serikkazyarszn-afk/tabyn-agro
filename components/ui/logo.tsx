@@ -8,7 +8,7 @@ import { clsx } from 'clsx';
  * ignored — the logo is a locked brand asset at a locked height.
  */
 
-const LOGO_HEIGHT = 44;
+const LOGO_HEIGHT = 56;
 
 /**
  * Compact brand mark — used in favicon-style spots, 404 page, auth panes.
