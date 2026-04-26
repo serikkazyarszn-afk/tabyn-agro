@@ -110,7 +110,7 @@ export default function Navbar({ locale, user: initialUser }: NavbarProps) {
           {/* Logo */}
           <Link
             href={navLink('/')}
-            className="flex items-center shrink-0 -ml-2 px-2 py-3"
+            className="flex items-center shrink-0"
             aria-label="Tabyn home"
           >
             <TabynWordmark
