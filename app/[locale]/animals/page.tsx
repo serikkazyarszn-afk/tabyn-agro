@@ -36,8 +36,19 @@ export default function AnimalsPage({ params }: { params: Promise<{ locale: stri
   const [loadingAnimals, setLoadingAnimals] = useState(true);
   const [page, setPage] = useState(1);
   const [totalCount, setTotalCount] = useState(0);
+  const [userRole, setUserRole] = useState<string | null>(null);
 
   useEffect(() => { document.title = 'Browse Animals — Tabyn'; }, []);
+
+  useEffect(() => {
+    (async () => {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (user) {
+        const { data: profile } = await supabase.from('profiles').select('role').eq('id', user.id).single();
+        setUserRole(profile?.role ?? null);
+      }
+    })();
+  }, []);
 
   useEffect(() => {
     (async () => {
@@ -136,10 +147,10 @@ export default function AnimalsPage({ params }: { params: Promise<{ locale: stri
         <h3 className="text-xl font-bold mb-2">{t('farmerCta.title')}</h3>
         <p className="text-muted text-sm mb-5">{t('farmerCta.subtitle')}</p>
         <Link
-          href={`/${locale}/signup`}
+          href={userRole === 'farmer' ? `/${locale}/farmer/animals/new` : `/${locale}/signup`}
           className="inline-flex items-center gap-2 px-6 py-3 bg-accent text-black text-sm font-semibold rounded-xl hover:bg-accent-dim transition-colors"
         >
-          {t('farmerCta.button')}
+          {userRole === 'farmer' ? t('farmerCta.buttonFarmer') : t('farmerCta.button')}
         </Link>
       </div>
 

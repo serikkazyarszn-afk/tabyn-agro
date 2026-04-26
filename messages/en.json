@@ -233,7 +233,7 @@
       "duration": "Duration (months)",
       "slots": "Total Investment Slots",
       "description": "Description",
-      "image": "Image URL",
+      "image": "Upload Photo",
       "submit": "List Animal",
       "loading": "Listing...",
       "success": "Animal listed successfully!",
@@ -259,7 +259,8 @@
     "farmerCta": {
       "title": "Are you a farmer?",
       "subtitle": "List your animals and attract investors from across Kazakhstan.",
-      "button": "List my animals"
+      "button": "List my animals",
+      "buttonFarmer": "Add new animal"
     },
     "detail": {
       "invest": "Invest Now",

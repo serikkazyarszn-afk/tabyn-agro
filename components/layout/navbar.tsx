@@ -193,7 +193,7 @@ export default function Navbar({ locale, user: initialUser }: NavbarProps) {
 
       {/* Mobile menu dropdown */}
       {menuOpen && (
-        <div className="lg:hidden absolute top-16 left-0 right-0 bg-surface border-b border-border px-6 py-4 flex flex-col gap-4 z-50">
+        <div className="lg:hidden absolute top-16 left-0 right-0 overflow-x-hidden bg-surface border-b border-border px-6 py-4 flex flex-col gap-4 z-50">
           <Link href={navLink('/animals')} className="text-sm text-muted hover:text-foreground" onClick={() => setMenuOpen(false)}>
             {t('animals')}
           </Link>
