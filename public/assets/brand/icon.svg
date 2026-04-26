@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
+  <rect width="32" height="32" rx="8" fill="#07130F"/>
+  <!-- Horizon baseline -->
+  <path d="M6 22 L26 22" stroke="#4FA26D" stroke-width="2" stroke-linecap="round" opacity="0.55"/>
+  <!-- Growth arc -->
+  <path d="M7.5 22 A 8.5 8.5 0 0 1 24.5 22" stroke="#4FA26D" stroke-width="2.25" stroke-linecap="round" fill="none"/>
+  <!-- Capital mark on the arc -->
+  <circle cx="21" cy="15" r="2.4" fill="#4FA26D"/>
+  <!-- Anchor point -->
+  <circle cx="16" cy="22" r="1.5" fill="#4FA26D" opacity="0.85"/>
+</svg>

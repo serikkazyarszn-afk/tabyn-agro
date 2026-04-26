@@ -1,0 +1,936 @@
+{
+  "nav": {
+    "animals": "Browse Animals",
+    "howItWorks": "How It Works",
+    "login": "Log In",
+    "signup": "Get Started",
+    "dashboard": "Dashboard",
+    "farmerDashboard": "My Farm",
+    "logout": "Log Out",
+    "verify": "Verification"
+  },
+  "hero": {
+    "badge": "Инвестиционная платформа",
+    "title": "Invest in Farm Animals,",
+    "titleAccent": "Earn Real Returns",
+    "subtitle": "Connect with verified Kazakhstani farmers. Fund livestock, track growth, and share in the profits — all without owning a single animal.",
+    "cta": "Start Investing",
+    "ctaSecondary": "How It Works",
+    "stats": {
+      "investors": "Active Investors",
+      "animals": "Animals Funded",
+      "return": "Avg. Annual Return",
+      "farmers": "Verified Farmers"
+    },
+    "passport": {
+      "verified": "Verified",
+      "region": "Almaty region",
+      "statusLive": "Live tracking",
+      "assetName": "Kazakh White — Akboz",
+      "breed": "Dairy-beef breed, 3 years old",
+      "perSlot": "per investor slot",
+      "return": "Return",
+      "term": "Term",
+      "months": "{n} mo.",
+      "risk": "Risk",
+      "riskLow": "Low",
+      "funded": "Funded",
+      "proofFarmer": "Farmer verified",
+      "proofVet": "Vet passport",
+      "proofId": "Animal ID",
+      "proofUpdates": "Monthly updates",
+      "months12": "12 mo."
+    }
+  },
+  "howItWorks": {
+    "badge": "Lifecycle",
+    "title": "From verification to payout",
+    "subtitle": "Every investment follows the same six-stage path. Each stage produces a document or an on-platform status, not a promise.",
+    "step1": {
+      "title": "Choose an Animal",
+      "description": "Browse verified livestock listings from trusted farmers across Kazakhstan. See expected returns, duration, and full farmer profiles."
+    },
+    "step2": {
+      "title": "Invest Your Capital",
+      "description": "Select how much you want to invest. The farmer raises and maintains the animal — you track progress from your dashboard."
+    },
+    "step3": {
+      "title": "Share the Profit",
+      "description": "When the animal is sold, 70% of the profit goes to you. The farmer receives 30% for their work. Simple, transparent, fair."
+    },
+    "phase1Label": "Onboarding & funding",
+    "phase2Label": "Growth & monitoring",
+    "phase3Label": "Payout & archive",
+    "stages": {
+      "verify": {
+        "title": "Farmer & asset verified",
+        "description": "Identity, farm papers, and animal registration are checked before listing is published."
+      },
+      "fund": {
+        "title": "Investors fund the lot",
+        "description": "Slot-based funding with clear terms. You see the full cap table before committing."
+      },
+      "track": {
+        "title": "Growth tracked on platform",
+        "description": "Monthly updates, vet checks, weight and condition records — all timestamped."
+      },
+      "sale": {
+        "title": "Pre-sale verification",
+        "description": "Independent check before the animal goes to market. You approve the sale window."
+      },
+      "payout": {
+        "title": "Payout reconciliation",
+        "description": "Sale proceeds are split 70/30 by the disclosed formula. No hidden fees."
+      },
+      "archive": {
+        "title": "Archive & report",
+        "description": "Full performance report stored in your portfolio. Reusable for future diligence."
+      }
+    }
+  },
+  "benefits": {
+    "investors": {
+      "badge": "For Investors",
+      "title": "Grow Your Money with Agriculture",
+      "items": {
+        "passive": {
+          "title": "Passive Income",
+          "description": "Your capital works while farmers do the work. No farm management required."
+        },
+        "transparent": {
+          "title": "Transparent Returns",
+          "description": "Clear profit-sharing ratios. See exactly what you earn before you invest."
+        },
+        "lowEntry": {
+          "title": "Low Entry Point",
+          "description": "Start investing from as little as ₸50,000. Diversify across multiple animals."
+        },
+        "tracked": {
+          "title": "Fully Tracked",
+          "description": "Real-time status updates on your animals' health, growth, and sale progress."
+        }
+      },
+      "proofs": {
+        "transparent": "Disclosed formula, fixed split, zero platform fee on profit.",
+        "tracked": "Update cadence of at least one monthly status per active lot.",
+        "lowEntry": "Minimum slot ₸50 000 · diversify across species and regions.",
+        "passive": "No animal operations — stewardship stays with the verified farmer."
+      }
+    },
+    "farmers": {
+      "badge": "For Farmers",
+      "title": "Access Capital, Grow Your Farm",
+      "items": {
+        "capital": {
+          "title": "Access to Capital",
+          "description": "Get funding for livestock without bank loans or collateral requirements."
+        },
+        "noUpfront": {
+          "title": "No Upfront Costs",
+          "description": "Investors cover the purchase price. Focus on what you do best — raising animals."
+        },
+        "fair": {
+          "title": "Fair Profit Share",
+          "description": "Earn 30% of the profit for your expertise and hard work. Plus you keep your farm."
+        },
+        "grow": {
+          "title": "Scale Your Herd",
+          "description": "Use the platform to grow your livestock numbers without increasing your own risk."
+        }
+      },
+      "proofs": {
+        "capital": "No bank collateral required; investor funding covers the purchase.",
+        "noUpfront": "Zero up-front platform cost; verification is free for farmers.",
+        "fair": "Fixed 30% of profit, paid on the same rail as investors.",
+        "grow": "Scale herd without per-animal personal risk."
+      }
+    },
+    "modeLabel": "Audience mode",
+    "modeInvestor": "For investors",
+    "modeFarmer": "For farmers"
+  },
+  "featuredAnimals": {
+    "badge": "Live Opportunities",
+    "title": "Available Now",
+    "subtitle": "Browse active investment opportunities from verified farmers",
+    "viewAll": "View All Animals",
+    "invest": "Invest Now",
+    "available": "Available",
+    "growing": "Growing",
+    "ready": "Ready for Sale",
+    "sold": "Sold",
+    "expectedReturn": "Expected Return",
+    "duration": "Duration",
+    "months": "months",
+    "slotsFilled": "slots filled",
+    "perSlot": "per slot",
+    "farmer": "Farmer",
+    "rationale": "Curated for you",
+    "rationaleDetail": "Highest-verification lots with open slots and strong return-to-term ratio.",
+    "verifiedShort": "Verified farm"
+  },
+  "profitSharing": {
+    "badge": "Profit Sharing",
+    "title": "Transparent 70/30 Split",
+    "subtitle": "Every investment follows the same clear formula",
+    "investor": "Investor Share",
+    "farmer": "Farmer Share",
+    "investorDesc": "You receive 70% of all profits from the animal sale",
+    "farmerDesc": "The farmer earns 30% for their expertise and care",
+    "example": {
+      "title": "Example Calculation",
+      "invested": "Invested",
+      "salePrice": "Sale Price",
+      "profit": "Profit",
+      "yourEarnings": "Your Earnings (70%)",
+      "farmerEarnings": "Farmer Earnings (30%)"
+    },
+    "disclosure": "Returns are gross and pre-tax. Actual payouts depend on sale price and animal health. No guarantees.",
+    "waterfall": {
+      "title": "Payout waterfall",
+      "subtitle": "Per ₸250 000 committed · 8-month term",
+      "scenarioLabel": "Scenario",
+      "bear": "Bear",
+      "base": "Base",
+      "bull": "Bull",
+      "principal": "Principal committed",
+      "salePrice": "Sale price (projected)",
+      "grossProfit": "Gross profit",
+      "platformFee": "Platform fee",
+      "platformFeeNote": "Zero fee on profit during launch period",
+      "investorShare": "Investor share (70%)",
+      "farmerShare": "Farmer share (30%)",
+      "roi": "Investor ROI",
+      "term": "Term",
+      "months8": "8 months",
+      "scenarioActive": "Scenario"
+    }
+  },
+  "trust": {
+    "badge": "Why Trust Us",
+    "title": "Built on Transparency",
+    "items": {
+      "verified": {
+        "title": "Verified farmers",
+        "description": "Identity, farm registration and track record checked before onboarding.",
+        "evidence": "ID · GSDB/IIN · 5-year history"
+      },
+      "legal": {
+        "title": "Legal agreement",
+        "description": "Binding digital contract per investment, signed by both parties.",
+        "evidence": "e-signature · version-locked"
+      },
+      "updates": {
+        "title": "Regular updates",
+        "description": "Monthly status logs with weight, health, and farm conditions.",
+        "evidence": "≥ 1 update / 30 days"
+      },
+      "support": {
+        "title": "Support SLA",
+        "description": "Response within one business day in Kazakh, Russian or English.",
+        "evidence": "≤ 24h business response"
+      },
+      "vetPassport": {
+        "title": "Vet passport",
+        "description": "Veterinary certificate attached to each animal listing.",
+        "evidence": "Form № 1, 2 · issued by district vet office"
+      },
+      "animalId": {
+        "title": "Animal ID",
+        "description": "Unique platform ID plus state ear-tag number where applicable.",
+        "evidence": "Tabyn-ID + state tag"
+      },
+      "payoutHistory": {
+        "title": "Payout history",
+        "description": "Ledger of every past payout, reconciled against the sale document.",
+        "evidence": "Per-lot, permanent record"
+      },
+      "docViewer": {
+        "title": "Document viewer",
+        "description": "Inspect every document from your dashboard — vet, sale, payout.",
+        "evidence": "PDF · IPFS-backed"
+      }
+    },
+    "subtitle": "Each trust signal is tied to a document or a platform state. Open any lot to inspect the originals.",
+    "closureNote": "Every investor can access the full document pack for a lot before committing capital. If a document is missing, the lot cannot be published.",
+    "closureLink": "Read the verification protocol"
+  },
+  "footer": {
+    "tagline": "Traceable capital in living assets.",
+    "platform": "Platform",
+    "animals": "Browse Animals",
+    "howItWorks": "How It Works",
+    "forFarmers": "For Farmers",
+    "company": "Company",
+    "about": "About",
+    "contact": "Contact",
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Service",
+    "rights": "All rights reserved.",
+    "trustNote": "Verified farmers · Documented assets",
+    "region": "Kazakhstan · Central Asia",
+    "verification": "Verification",
+    "press": "Press",
+    "legal": "Legal",
+    "disclosures": "Disclosures",
+    "riskWarning": "Risk Warning",
+    "support": "Support",
+    "help": "Help Center",
+    "status": "Platform Status",
+    "disclaimer": "Investing in livestock carries risk. Returns are not guaranteed and depend on animal health, market prices, and farmer performance. Past results do not predict future outcomes. Please read the risk disclosures before investing.",
+    "currencyNote": "Amounts shown in ₸ (KZT)"
+  },
+  "auth": {
+    "login": {
+      "title": "Welcome Back",
+      "subtitle": "Log in to your Tabyn account",
+      "email": "Email Address",
+      "password": "Password",
+      "submit": "Log In",
+      "noAccount": "Don't have an account?",
+      "signup": "Sign Up",
+      "loading": "Logging in...",
+      "methodLabel": "Sign-in method",
+      "methodPassword": "Password",
+      "methodSms": "SMS",
+      "methodQr": "QR",
+      "phone": "Phone number",
+      "phoneHint": "We will send a one-time code to this number.",
+      "sendCode": "Send code",
+      "smsNote": "Wire for SMS OTP — connect your SMS provider to enable.",
+      "qrTitle": "Open the Tabyn app",
+      "qrBody": "Go to Profile → Devices → Scan. The code refreshes every 60 seconds.",
+      "qrNote": "Demo only — connect Supabase OTP to activate.",
+      "rememberDevice": "Keep me signed in on this device",
+      "forgot": "Forgot password?",
+      "hidePassword": "Hide password",
+      "showPassword": "Show password",
+      "encryptedNote": "Encrypted connection · your credentials are never stored in plain text.",
+      "needHelp": "Need help? Contact support"
+    },
+    "signup": {
+      "title": "Create Account",
+      "subtitle": "Join Tabyn and start investing",
+      "name": "Full Name",
+      "email": "Email Address",
+      "password": "Password",
+      "role": "I want to",
+      "investor": "Invest in animals",
+      "farmer": "List my animals",
+      "submit": "Create Account",
+      "hasAccount": "Already have an account?",
+      "login": "Log In",
+      "loading": "Creating account...",
+      "stepRoleLabel": "Choose your mode",
+      "stepIdentityLabel": "Confirm identity",
+      "identityTitle": "Create your account",
+      "identitySubtitle": "Used for log-in and your verification pack.",
+      "investorBody": "Fund verified livestock, track every asset, receive 70% of profit.",
+      "farmerBody": "Raise capital without bank collateral, keep 30% of profit plus full operational control.",
+      "benefits": {
+        "lowEntry": "From ₸50 000 per slot",
+        "diversified": "Diversify by species and region",
+        "passive": "All operations handled by verified farmers",
+        "funding": "Capital without bank collateral",
+        "noCollateral": "No upfront platform cost",
+        "scale": "Scale the herd at zero marginal risk"
+      },
+      "kycExpectation": "Verification requires a national ID and a short video check. Most accounts are verified within 24 business hours.",
+      "continue": "Continue",
+      "backToRole": "Mode",
+      "namePlaceholder": "Arsen Serikkaziy",
+      "passwordHint": "At least 8 characters, mix of letters, numbers and symbols.",
+      "hidePassword": "Hide password",
+      "showPassword": "Show password",
+      "consent": {
+        "terms": "I agree to the",
+        "termsLink": "Terms of Service",
+        "and": "and",
+        "privacyLink": "Privacy Policy",
+        "comms": "Send me platform updates and verification notices (optional)."
+      },
+      "encryptedNote": "Encrypted connection · credentials are hashed, never stored in plain text.",
+      "errors": {
+        "consent": "You must accept the Terms of Service to continue."
+      }
+    },
+    "trustBadge": "Security",
+    "trustTitle": "A calm, documented place for your investments.",
+    "trustBody": "Every farmer is verified, every asset is tied to a vet passport, and every payout leaves a permanent audit trail.",
+    "trust": {
+      "verified": "Verified farmers only",
+      "documents": "Document-backed listings",
+      "updates": "Monthly status updates",
+      "encrypted": "Encrypted at rest and in transit"
+    },
+    "partnersNote": "Backed by verified farmers and licensed veterinary partners across Kazakhstan.",
+    "onboardingBadge": "Onboarding",
+    "onboardingTitle": "Join in two short steps.",
+    "onboardingBody": "Choose your mode, confirm your identity, then complete verification at your own pace.",
+    "steps": {
+      "choose": "Choose your mode",
+      "identity": "Confirm identity",
+      "verify": "Complete verification"
+    },
+    "needHelpGeneral": "Need help? Contact support"
+  },
+  "dashboard": {
+    "title": "My Portfolio",
+    "subtitle": "Track your investments and earnings",
+    "totalInvested": "Total Invested",
+    "expectedReturn": "Expected Return",
+    "activeInvestments": "Active Investments",
+    "completedInvestments": "Completed",
+    "walletBalance": "Wallet Balance",
+    "topUp": "Top Up",
+    "myInvestments": "My Investments",
+    "noInvestments": "No investments yet. Browse available animals to get started.",
+    "browseAnimals": "Browse Animals",
+    "investedOn": "Invested on",
+    "expectedOn": "Expected return",
+    "profit": "Profit",
+    "status": {
+      "active": "Active",
+      "completed": "Completed"
+    },
+    "badge": "Portfolio",
+    "kpiLabel": "Portfolio KPIs",
+    "lotsTotal": "lots",
+    "projectedShare": "Projected share",
+    "realizedProfit": "Realized profit",
+    "exposureLabel": "Composition",
+    "exposureTitle": "Exposure by species",
+    "noExposure": "No allocations yet.",
+    "upcomingLabel": "Calendar",
+    "upcomingTitle": "Upcoming payouts",
+    "noUpcoming": "No active lots.",
+    "monthsLeft": "mo. left",
+    "totalMo": " total",
+    "projected": "projected",
+    "positionsLabel": "Positions",
+    "cols": {
+      "asset": "Asset",
+      "location": "Farm",
+      "invested": "Invested",
+      "projected": "Projected",
+      "progress": "Progress",
+      "status": "Status"
+    },
+    "activityTitle": "Recent activity",
+    "activity": {
+      "invested": "Invested in {animal}",
+      "payout": "Payout received — {animal}",
+      "update": "Update on {animal}",
+      "doc": "New document — {animal}"
+    },
+    "alertsTitle": "Alerts",
+    "alerts": {
+      "updatePending": {
+        "title": "Monthly update pending",
+        "body": "Ақбоз — farmer has 6 days to post the April status."
+      },
+      "docReady": {
+        "title": "Vet certificate ready",
+        "body": "Ақшұбар — a new vet certificate is available for review."
+      },
+      "preSale": {
+        "title": "Pre-sale window approaching",
+        "body": "Сарышұбар — pre-sale verification scheduled in 3 weeks."
+      }
+    },
+    "documentsTitle": "Document center",
+    "docs": {
+      "q1Report": "Q1 portfolio report",
+      "vetPassports": "Vet passports bundle",
+      "contracts": "Active agreements",
+      "payoutStatements": "Payout statements"
+    }
+  },
+  "farmer": {
+    "dashboard": {
+      "title": "My Farm",
+      "subtitle": "Manage your animal listings",
+      "totalAnimals": "Total Listings",
+      "funded": "Fully Funded",
+      "active": "Growing",
+      "sold": "Sold",
+      "addAnimal": "Add Animal",
+      "myAnimals": "My Animals",
+      "noAnimals": "No animals listed yet.",
+      "updateStatus": "Update Status",
+      "investors": "investors",
+      "fullyFunded": "Fully Funded",
+      "badge": "Operations",
+      "totalInvestors": "Investors",
+      "activeListings": "active listings",
+      "projectedPayout": "Projected payout",
+      "projectedPayoutNote": "30% share · all active lots",
+      "fullyFundedShort": "fully funded",
+      "readinessLabel": "Farm profile",
+      "readinessTitle": "Readiness score",
+      "readinessNote": "A higher readiness score increases investor trust and listing ranking.",
+      "profileTasks": {
+        "basics": "Basic farm information",
+        "farmDocs": "Farm registration documents",
+        "vetAcc": "Veterinary accreditation",
+        "payout": "Payout details (bank)",
+        "photos": "Farm photography pack",
+        "bank": "Tax residency confirmation"
+      },
+      "finish": "Finish",
+      "healthLabel": "Suggestions",
+      "healthTitle": "Listing health & hints",
+      "hints": {
+        "updatePending": {
+          "title": "Post April update for Ақбоз",
+          "body": "Active investors expect an update within 30 days. Keep the cadence at 100%.",
+          "cta": "Compose"
+        },
+        "priceOptimization": {
+          "title": "Price uplift opportunity",
+          "body": "Comparable Aberdeen Angus lots raised 8% faster at ₸330 000. Consider adjusting Қарабас.",
+          "cta": "Adjust"
+        },
+        "newDoc": {
+          "title": "Add breed certificate",
+          "body": "Two of your lots are missing a breed certificate. Trust scores improve by 12% on average once attached.",
+          "cta": "Upload"
+        }
+      },
+      "listingsLabel": "Listings",
+      "investorCount": "Investors",
+      "fillProgress": "Funded",
+      "price": "Price / slot",
+      "slotsFree": "slots free",
+      "postUpdate": "Post update",
+      "viewListing": "View listing",
+      "composerLabel": "Monthly update",
+      "composerPlaceholder": "Describe current condition, weight, feed, vet visits, pasture rotation…",
+      "composerHint": "Investors receive this entry immediately. Attach vet documents via the Documents tab.",
+      "cancel": "Cancel",
+      "send": "Publish",
+      "updateSent": "Update published to investors."
+    },
+    "addAnimal": {
+      "title": "Add New Animal",
+      "subtitle": "List a new animal for investors",
+      "name": "Animal Name",
+      "type": "Animal Type",
+      "price": "Price per Slot (₸)",
+      "expectedReturn": "Expected Return (%)",
+      "duration": "Duration (months)",
+      "slots": "Total Investment Slots",
+      "description": "Description",
+      "image": "Image URL",
+      "submit": "List Animal",
+      "loading": "Listing...",
+      "success": "Animal listed successfully!",
+      "badge": "New listing",
+      "backToDashboard": "Back to control room",
+      "nameHint": "Animal name in your usual language.",
+      "breed": "Breed",
+      "breedPlaceholder": "Казахская белая (молочно-мясная)",
+      "breedHint": "Used for classification and verification by the breed association.",
+      "returnHint": "Projected annualised return, pre-tax.",
+      "slotsHint": "Total number of investor slots for this lot.",
+      "mo": "mo.",
+      "descriptionPlaceholder": "Age, provenance, grazing conditions, vaccination schedule, tag number…",
+      "descriptionHint": "Investors read this first — be specific, not marketing-y.",
+      "imageHint": "Optional. High-resolution photos required for final verification.",
+      "cancel": "Cancel",
+      "successBody": "Your listing is in review. Tabyn verification team will contact you shortly.",
+      "sections": {
+        "identity": {
+          "title": "Identity",
+          "subtitle": "How the asset will appear in the catalog."
+        },
+        "investment": {
+          "title": "Investment terms",
+          "subtitle": "These values feed into the payout waterfall investors see."
+        },
+        "description": {
+          "title": "Description & media",
+          "subtitle": "Context for due diligence."
+        }
+      },
+      "verificationNoticeTitle": "Verification expectations",
+      "verificationNoticeBody": "Before publishing, Tabyn will request a vet passport (forms № 1–2), farm registration extract and a breed certificate. Listings cannot go live until documents are attached.",
+      "previewLabel": "Live preview",
+      "previewNamePlaceholder": "Asset name",
+      "previewBreedPlaceholder": "Breed and notes",
+      "previewReturn": "Return",
+      "previewTerm": "Term",
+      "previewPrice": "Price per slot",
+      "previewRaise": "Total raise",
+      "previewInvestorShare": "Projected investor share",
+      "slotsPreview": "investor slots",
+      "slotsPreviewEmpty": "Slots not set",
+      "previewNote": "Numbers are calculated live as you type. They match what investors will see in the detail page."
+    }
+  },
+  "animals": {
+    "title": "Browse Animals",
+    "subtitle": "Discover investment opportunities from verified farmers",
+    "filter": {
+      "all": "All Types",
+      "cow": "Cows",
+      "sheep": "Sheep",
+      "horse": "Horses",
+      "goat": "Goats",
+      "camel": "Camels",
+      "status": "All Status",
+      "available": "Available",
+      "growing": "Growing"
+    },
+    "noResults": "No animals found matching your filters.",
+    "detail": {
+      "invest": "Invest in this asset",
+      "loginToInvest": "Log in to Invest",
+      "slots": "Investment Slots",
+      "slotsRemaining": "slots remaining",
+      "aboutFarmer": "About the Farmer",
+      "verified": "Verified Farmer",
+      "investModal": {
+        "title": "Invest in",
+        "amount": "Investment Amount (₸)",
+        "balance": "Your balance",
+        "expectedReturn": "Expected return",
+        "confirm": "Confirm Investment",
+        "cancel": "Cancel",
+        "loading": "Processing...",
+        "successTitle": "Investment recorded",
+        "successBody": "Check your portfolio for the active slot and the signed agreement.",
+        "grossProjected": "Gross projected (100%)",
+        "yourShare": "Your share (70%)",
+        "total": "Total projected (principal + share)",
+        "agreementNote": "A digital contract will be generated and signed electronically on confirmation."
+      },
+      "unavailable": "Not available",
+      "fullyFunded": "Fully funded",
+      "legalNote": "By investing you accept the legal agreement and confirm you have read the risk disclosures."
+    }
+  },
+  "common": {
+    "tenge": "₸",
+    "perAnnum": "p.a.",
+    "loading": "Loading...",
+    "error": "Something went wrong",
+    "back": "Back"
+  },
+  "catalog": {
+    "badge": "Live catalog",
+    "shown": "shown",
+    "searchPlaceholder": "Search name, breed, farm or region",
+    "sortLabel": "Sort",
+    "sort": {
+      "featured": "Featured",
+      "returnDesc": "Return — high to low",
+      "returnAsc": "Return — low to high",
+      "priceAsc": "Price — low to high",
+      "priceDesc": "Price — high to low",
+      "termAsc": "Shortest term"
+    },
+    "densityComfortable": "Comfortable",
+    "densityCompact": "Compact",
+    "filters": "Filters",
+    "species": "Species",
+    "status": "Status",
+    "risk": "Risk",
+    "region": "Region",
+    "allRegions": "All regions",
+    "riskLevels": {
+      "all": "All levels",
+      "low": "Low",
+      "medium": "Medium",
+      "high": "High"
+    },
+    "clear": "Clear filters",
+    "showN": "Show results",
+    "emptyHint": "Try clearing filters or searching a different term.",
+    "trustNote": "Every lot shown here has a published vet passport, a verified farmer, and a document pack accessible before funding."
+  },
+  "dueDiligence": {
+    "tabsLabel": "Due diligence sections",
+    "tabs": {
+      "overview": "Overview",
+      "documents": "Documents",
+      "updates": "Updates",
+      "risks": "Risks",
+      "farmer": "Farmer"
+    },
+    "risk": {
+      "low": "Low risk",
+      "medium": "Medium risk",
+      "high": "High risk"
+    },
+    "about": "About this asset",
+    "keyMetrics": "Key metrics",
+    "pricePerSlot": "Price per slot",
+    "totalRaise": "Total raise",
+    "vetId": "Vet ID",
+    "listed": "Listed",
+    "lifecycleTitle": "Investment lifecycle",
+    "lifecycle": {
+      "verify": "Verification & listing",
+      "fund": "Funding round",
+      "growth": "Growth phase",
+      "sale": "Pre-sale & market",
+      "payout": "Payout & archive",
+      "inProgress": "In progress",
+      "completed": "Completed"
+    },
+    "scenariosTitle": "Payout scenarios — investor share",
+    "scenarios": {
+      "bear": "Bear",
+      "base": "Base",
+      "bull": "Bull",
+      "investorShare": "projected investor share (70%)",
+      "sale": "Sale price",
+      "gross": "Gross profit"
+    },
+    "scenariosNote": "Projections only. Actual payout depends on market price at sale, animal health and farmer performance. Returns are not guaranteed.",
+    "trustSummary": "Trust summary",
+    "proofVerifiedFarmer": "Verified farmer",
+    "proofVetPassport": "Vet passport",
+    "proofAnimalId": "Animal ID",
+    "proofLegalAgreement": "Legal agreement",
+    "proofUpdates": "Monthly update cadence",
+    "documentsIntro": "Every document below is attached to this asset and can be inspected before investing. Contracts are version-locked.",
+    "documentsNote": "Documents are stored with IPFS backing. Tabyn keeps a permanent audit trail of every revision.",
+    "docs": {
+      "vetPassport": "Veterinary passport",
+      "farmRegistration": "Farm registration",
+      "breedCertificate": "Breed certificate",
+      "insurancePolicy": "Insurance policy",
+      "contractTemplate": "Investor agreement"
+    },
+    "issuer": {
+      "districtVet": "District veterinary office",
+      "stateRegistry": "State farm registry",
+      "breedAssociation": "Breed association of Kazakhstan",
+      "insurer": "Agricultural insurer"
+    },
+    "updatesIntro": "Monthly status logs from the farmer and independent verifications, in reverse-chronological order.",
+    "updates": {
+      "u1": {
+        "title": "Weight check — on schedule",
+        "body": "Routine weight and condition measurement completed. Animal is within the expected growth curve for its age and breed."
+      },
+      "u2": {
+        "title": "Pasture transition",
+        "body": "Animal moved to the summer pasture rotation. Diet and water access documented; vaccination up to date."
+      },
+      "u3": {
+        "title": "Independent vet check",
+        "body": "District vet conducted a standard physical inspection. No issues identified. Certificate attached to the Documents tab."
+      },
+      "u4": {
+        "title": "Listing published",
+        "body": "Asset verified and accepted for funding. Documents pack finalised."
+      }
+    },
+    "updatedBy": "Posted by",
+    "riskSummary": {
+      "low": "Low overall risk profile",
+      "medium": "Moderate overall risk profile",
+      "high": "Elevated overall risk profile"
+    },
+    "riskExplain": "The overall level is derived from expected return, farmer track record and liquidity characteristics. Individual risks are listed below.",
+    "risks": {
+      "marketPrice": {
+        "title": "Market price volatility",
+        "body": "Sale price at term end depends on livestock market conditions. Historical price bands are used to build Bear / Base / Bull projections."
+      },
+      "health": {
+        "title": "Animal health",
+        "body": "Disease, injury or mortality may reduce the final sale value. Vet monitoring is mandatory; insurance covers catastrophic loss."
+      },
+      "weather": {
+        "title": "Weather & feed",
+        "body": "Severe weather may affect pasture and feed costs, which can shift sale timing or margins."
+      },
+      "fx": {
+        "title": "Currency",
+        "body": "All amounts are denominated in ₸ (KZT). Investors converting from other currencies assume the associated FX risk."
+      },
+      "liquidity": {
+        "title": "Liquidity",
+        "body": "Investments cannot be redeemed before the sale event. Committed capital is locked until payout reconciliation."
+      },
+      "farmerPerformance": {
+        "title": "Farmer performance",
+        "body": "Mitigated by verification, monthly updates and an on-time payout track record. Repeat offenders are removed from the platform."
+      }
+    },
+    "riskFooter": "This list is not exhaustive. Read the full risk disclosures before investing.",
+    "verifiedFarmer": "Verified farmer",
+    "farmerStats": {
+      "experience": "Experience",
+      "cycles": "Completed cycles",
+      "onTimePayout": "On-time payout",
+      "updateCadence": "Update cadence"
+    },
+    "farmerCredentials": "Credentials",
+    "credentials": {
+      "farmReg": "Farm registration on file with the state registry",
+      "vetAcc": "Accredited district veterinary partner",
+      "breedAssoc": "Member of the breed association of Kazakhstan",
+      "landTitle": "Land-use title verified"
+    }
+  },
+  "meta": {
+    "defaultTitle": "Tabyn — Traceable capital in living assets",
+    "defaultDescription": "Kazakhstan agri-investment platform. Fund verified livestock, track every asset with documents, share profit transparently.",
+    "catalog": {
+      "title": "Livestock catalog",
+      "description": "Browse verified livestock investment lots across Kazakhstan. Every asset has a vet passport, a verified farmer and a document pack open for due diligence."
+    },
+    "animal": {
+      "title": "{name} — {breed}",
+      "fallbackDescription": "Verified livestock investment lot on Tabyn. Vet passport, farm registration and contract available for review.",
+      "notFoundTitle": "Asset not found",
+      "notFoundDescription": "This livestock lot is no longer available on Tabyn."
+    },
+    "dashboard": {
+      "title": "Portfolio",
+      "description": "Your Tabyn investor cockpit — positions, exposure, upcoming payouts, documents."
+    },
+    "login": {
+      "title": "Sign in",
+      "description": "Sign in to your Tabyn account."
+    },
+    "signup": {
+      "title": "Create account",
+      "description": "Join Tabyn as an investor or a farmer. Two-step onboarding."
+    },
+    "farmer": {
+      "dashboard": {
+        "title": "Farm control room",
+        "description": "Manage listings, post monthly updates, review investor interest."
+      },
+      "addAnimal": {
+        "title": "New listing",
+        "description": "Publish a new livestock investment lot on Tabyn."
+      }
+    }
+  },
+  "philosophy": {
+    "manifesto": {
+      "badge": "Our philosophy",
+      "titleLead": "Capital lives where",
+      "titleAccent": "the animals live.",
+      "p1": "Tabyn does not trade in promises. Each investment lot on the platform is a living asset on a real farm — a cow that walks out to pasture at dawn, a mare that knows the steppe, a flock whose wool is weighed every autumn.",
+      "p2": "Our job is to keep the distance between you and that asset honest. Every document lives in the lot. Every update comes from the farmer. Every payout is traced back to the sale that funded it. Nothing more, nothing less.",
+      "signature": "The Tabyn team · Almaty, Kazakhstan",
+      "imageAlt": "A working livestock farm at golden hour",
+      "imageCaption": "WORKING FARM · KAZAKHSTAN · 2026"
+    },
+    "principles": {
+      "badge": "Principles",
+      "title": "What we carry across every lot",
+      "subtitle": "Four commitments that shape how we verify farmers, photograph assets, build contracts, and pay out profit.",
+      "items": {
+        "stewardship": {
+          "title": "Stewardship first",
+          "body": "The farmer stays in charge of the animal. Your capital enables the work; it does not dictate it. We select partners who treat their herd like family, not inventory.",
+          "imageAlt": "Close portrait of a dairy cow"
+        },
+        "proof": {
+          "title": "Proof over promise",
+          "body": "Every lot publishes its vet passport, farm registration, breed certificate and signed contract before funding opens. If a document is missing, the lot does not go live.",
+          "imageAlt": "A flock of sheep inside a farm pen"
+        },
+        "local": {
+          "title": "Rooted in the region",
+          "body": "We are a Kazakhstani platform for Kazakhstani agriculture. Our verification partners, veterinary services and breed associations are all local — so accountability is local, too.",
+          "imageAlt": "Horses on a farm at sunrise"
+        },
+        "longTerm": {
+          "title": "Long-term by design",
+          "body": "Livestock cycles measure in months, not minutes. We build the product to reward patience: clear timelines, honest forecasts, and no pressure to trade against yourself.",
+          "imageAlt": "Holstein cows on open pasture"
+        }
+      }
+    },
+    "origin": {
+      "label": "Origin",
+      "name": "Tabyn · Almaty, Kazakhstan",
+      "body": "Founded in 2025 by a small team with roots in agriculture, finance and engineering. We operate across the Almaty, Karaganda and Astana regions, working exclusively with farmers we have met in person and whose herds we have seen on the ground."
+    }
+  },
+  "gallery": {
+    "badge": "Real farms",
+    "title": "Our farms, without filters",
+    "subtitle": "Every asset on Tabyn lives on a real farm in Kazakhstan. Before a lot is published, our team visits the farm, documents the conditions, and photographs the herd. What you see below is not stock imagery — it is the working world your capital enters.",
+    "cta": "View catalog",
+    "items": {
+      "landscape": {
+        "title": "Open pasture",
+        "body": "Cattle grazing on open land in the Almaty region. Natural feed and space are the baseline — we verify pasture access before any lot is funded."
+      },
+      "farm": {
+        "title": "Daily operations",
+        "body": "Morning feeding inside the barn. Each farm we work with keeps a documented schedule for feed, water and veterinary checks, and submits monthly reports to investors."
+      },
+      "pasture": {
+        "title": "Premium assets",
+        "body": "Registered Kazakh-breed horses at a partner stud farm. High-value lots receive an independent pre-sale valuation before any market transaction."
+      },
+      "herd": {
+        "title": "The people behind the lot",
+        "body": "Every listing on Tabyn is tied to a specific farmer, with an ID, a farm registration, and a track record. You invest in an animal — but you are also backing the person who raises it."
+      },
+      "trust": {
+        "title": "Young stock, tracked from day one",
+        "body": "Newborn and growing animals are logged on the platform with vet records, weight checks and photos, so their progress is visible to investors throughout the term."
+      }
+    }
+  },
+  "ui": {
+    "commandPalette": {
+      "title": "Command palette",
+      "trigger": "Search",
+      "placeholder": "Search or jump to…",
+      "empty": "No results for \"{q}\"",
+      "hint": {
+        "navigate": "Navigate",
+        "select": "Select",
+        "close": "Close"
+      },
+      "group": {
+        "navigate": "Navigate",
+        "action": "Actions",
+        "help": "Help"
+      },
+      "cmd": {
+        "home": "Home",
+        "homeHint": "Back to landing page",
+        "browse": "Browse Livestock",
+        "browseHint": "Cattle · Horses · Sheep · Goats · Camels",
+        "dashboard": "Investor Dashboard",
+        "dashboardHint": "Portfolio, positions, and returns",
+        "farmerDashboard": "Farmer Dashboard",
+        "farmerDashboardHint": "Your animals and updates",
+        "calculator": "Profit Calculator",
+        "calculatorHint": "Estimate your projected returns",
+        "howItWorks": "How It Works",
+        "howItWorksHint": "4 steps from browse to payout",
+        "verify": "Trust & Verification",
+        "verifyHint": "Documents, regulators, audit trail",
+        "signup": "Create account",
+        "signupHint": "Invest as investor or list as farmer",
+        "login": "Sign in",
+        "loginHint": "Access your dashboard",
+        "docs": "Help center",
+        "docsHint": "Guides and documentation",
+        "support": "Contact support",
+        "supportHint": "support@tabyn.kz · replies within 2h",
+        "settings": "Settings",
+        "settingsHint": "Preferences and account"
+      }
+    },
+    "toast": {
+      "dismiss": "Dismiss"
+    }
+  }
+}
