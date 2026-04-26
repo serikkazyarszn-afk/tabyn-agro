@@ -312,69 +312,6 @@ export default function Navbar({ locale, user: initialUser }: NavbarProps) {
         </div>
       </div>
 
-      {/* Mobile menu dropdown */}
-      {menuOpen && (
-        <div className="lg:hidden absolute top-16 left-0 right-0 overflow-x-hidden bg-surface border-b border-border px-6 py-4 flex flex-col gap-4 z-50">
-          <Link href={navLink('/animals')} className="text-sm text-muted hover:text-foreground" onClick={() => setMenuOpen(false)}>
-            {t('animals')}
-          </Link>
-          <button
-            type="button"
-            onClick={() => {
-              const el = document.getElementById('how-it-works');
-              if (el) { el.scrollIntoView({ behavior: 'smooth' }); }
-              else { window.location.href = navLink('/#how-it-works'); }
-              setMenuOpen(false);
-            }}
-            className="cursor-pointer text-sm text-left text-muted hover:text-foreground"
-          >
-            {t('howItWorks')}
-          </button>
-          {user ? (
-            <>
-              <Link
-                href={navLink(user.role === 'admin' ? '/admin/dashboard' : user.role === 'farmer' ? '/farmer/dashboard' : '/dashboard')}
-                className="text-sm text-foreground font-medium"
-                onClick={() => setMenuOpen(false)}
-              >
-                {user.role === 'admin' ? t('adminDashboard') : user.role === 'farmer' ? t('farmerDashboard') : t('dashboard')}
-              </Link>
-              <button
-                type="button"
-                onClick={async () => {
-                  await fetch('/api/auth/signout', { method: 'POST' });
-                  setMenuOpen(false);
-                  window.location.href = navLink('/');
-                }}
-                className="cursor-pointer text-sm text-left text-muted hover:text-foreground"
-              >
-                {t('logout')}
-              </button>
-            </>
-          ) : (
-            <>
-              <Link href={navLink('/login')} className="text-sm text-muted hover:text-foreground" onClick={() => setMenuOpen(false)}>
-                {t('login')}
-              </Link>
-              <Link href={navLink('/signup')} className="text-sm text-accent font-medium" onClick={() => setMenuOpen(false)}>
-                {t('signup')}
-              </Link>
-            </>
-          )}
-          <div className="flex gap-2 pt-2 border-t border-border">
-            {(['en', 'ru', 'kk'] as const).map(l => (
-              <button
-                type="button"
-                key={l}
-                onClick={() => { switchLocale(l); setMenuOpen(false); }}
-                className={`cursor-pointer text-xs px-2 py-1 rounded ${locale === l ? 'bg-accent text-black font-medium' : 'text-muted hover:text-foreground'}`}
-              >
-                {l === 'en' ? 'EN' : l === 'ru' ? 'РУС' : 'ҚАЗ'}
-              </button>
-            ))}
-          </div>
-        </div>
-      )}
     </>
   );
 }

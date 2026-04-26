@@ -2,11 +2,13 @@
 
 import { useMemo, useState, useEffect, use } from 'react';
 import { useTranslations } from 'next-intl';
+import Link from 'next/link';
 import { DEMO_ANIMALS } from '@/lib/demo-data';
 import AnimalCard from '@/components/animals/animal-card';
 import Button from '@/components/ui/button';
 import Input from '@/components/ui/input';
 import Badge from '@/components/ui/badge';
+import { createClient } from '@/lib/supabase';
 import { AnimalType, AnimalStatus, Animal } from '@/lib/types';
 import {
   Search,
@@ -66,6 +68,17 @@ export default function AnimalsCatalogClient({
   const [sort, setSort] = useState<SortKey>('featured');
   const [density, setDensity] = useState<Density>('comfortable');
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const [userRole, setUserRole] = useState<string | null>(null);
+
+  useEffect(() => {
+    const supabase = createClient();
+    supabase.auth.getUser().then(({ data: { user } }) => {
+      if (user) {
+        supabase.from('profiles').select('role').eq('id', user.id).single()
+          .then(({ data }) => setUserRole(data?.role ?? null));
+      }
+    });
+  }, []);
 
   // Lock body scroll while the mobile drawer is open
   useEffect(() => {
@@ -380,6 +393,18 @@ export default function AnimalsCatalogClient({
           ))}
         </div>
       )}
+
+      {/* Farmer CTA */}
+      <div className="mt-16 rounded-[18px] bg-surface-1 border border-border-subtle p-8 text-center">
+        <h3 className="text-[18px] font-semibold mb-2">{t('farmerCta.title')}</h3>
+        <p className="text-text-secondary text-[14px] mb-5">{t('farmerCta.subtitle')}</p>
+        <Link
+          href={userRole === 'farmer' ? `/${locale}/farmer/animals/new` : `/${locale}/signup`}
+          className="inline-flex items-center gap-2 px-6 py-3 bg-brand text-text-primary text-[14px] font-semibold rounded-xl hover:opacity-90 transition-opacity"
+        >
+          {userRole === 'farmer' ? t('farmerCta.buttonFarmer') : t('farmerCta.button')}
+        </Link>
+      </div>
 
       {/* Mobile filter drawer */}
       {drawerOpen && (
