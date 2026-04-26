@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="240" height="52" viewBox="0 0 240 52" fill="none">
+  <defs>
+    <clipPath id="clip-horse"><circle cx="26" cy="12" r="10.5"></circle></clipPath>
+    <clipPath id="clip-farmer"><circle cx="14" cy="33" r="10.5"></circle></clipPath>
+    <clipPath id="clip-invest"><circle cx="38" cy="33" r="10.5"></circle></clipPath>
+  </defs>
+
+  
+  <circle cx="26" cy="12" r="11" stroke="#2d6a4f" stroke-width="2" fill="#2d6a4f" fill-opacity="0.15"></circle>
+  <g clip-path="url(#clip-horse)">
+    <circle cx="26" cy="9.5" r="4.5" fill="#2d6a4f"></circle>
+    <ellipse cx="30.5" cy="12" rx="3.5" ry="2.5" fill="#2d6a4f"></ellipse>
+    <path d="M22.5 6 C19.5 10 19 16 21.5 20 L25.5 20 C25.5 15 26.5 11.5 28.5 9.5 Z" fill="#2d6a4f"></path>
+    <polygon points="23.5,5.5 25,1 27,5.5" fill="#2d6a4f"></polygon>
+    <circle cx="25.5" cy="8.5" r="1.1" fill="#000000" fill-opacity="0.4"></circle>
+  </g>
+
+  
+  <circle cx="14" cy="33" r="11" stroke="#7a4f2d" stroke-width="2" fill="#7a4f2d" fill-opacity="0.15"></circle>
+  <g clip-path="url(#clip-farmer)">
+    <ellipse cx="14" cy="28" rx="6" ry="1.5" fill="#7a4f2d"></ellipse>
+    <rect x="10.5" y="23.5" width="7" height="5" rx="1.5" fill="#7a4f2d"></rect>
+    <circle cx="14" cy="31.5" r="2.8" fill="#7a4f2d"></circle>
+    <path d="M10.5 35 C9.5 38 10 41 11 43 L17 43 C18 41 18.5 38 17.5 35 Z" fill="#7a4f2d"></path>
+    <line x1="10.5" y1="36" x2="7" y2="40" stroke="#7a4f2d" stroke-width="1.5" stroke-linecap="round"></line>
+    <line x1="17.5" y1="36" x2="20.5" y2="39.5" stroke="#7a4f2d" stroke-width="1.5" stroke-linecap="round"></line>
+  </g>
+
+  
+  <circle cx="38" cy="33" r="11" stroke="#b8860b" stroke-width="2" fill="#b8860b" fill-opacity="0.15"></circle>
+  <g clip-path="url(#clip-invest)">
+    <rect x="31.5" y="37" width="3.5" height="5" rx="0.8" fill="#b8860b" fill-opacity="0.6"></rect>
+    <rect x="36" y="33.5" width="3.5" height="8.5" rx="0.8" fill="#b8860b" fill-opacity="0.8"></rect>
+    <rect x="40.5" y="30" width="3.5" height="12" rx="0.8" fill="#b8860b"></rect>
+    <polyline points="33.2,35 37.7,31 42.3,27.5" stroke="#b8860b" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" fill="none"></polyline>
+    <polygon points="42.3,25 44.5,27.5 40,27.5" fill="#b8860b"></polygon>
+    <line x1="30.5" y1="43.5" x2="45.5" y2="43.5" stroke="#b8860b" stroke-width="1" stroke-linecap="round" opacity="0.4"></line>
+  </g>
+
+  
+  <text x="58" y="33" font-family="Helvetica Neue, Arial, sans-serif" font-size="26" font-weight="800" fill="#ffffff" letter-spacing="-1">tabyn</text>
+</svg>

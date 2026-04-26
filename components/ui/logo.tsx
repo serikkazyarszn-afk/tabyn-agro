@@ -8,7 +8,7 @@ import { clsx } from 'clsx';
  * ignored — the logo is a locked brand asset at a locked height.
  */
 
-const LOGO_HEIGHT = 88;
+const LOGO_HEIGHT = 44;
 
 /**
  * Compact brand mark — used in favicon-style spots, 404 page, auth panes.
@@ -26,7 +26,7 @@ export function TabynMark({
   return (
     // eslint-disable-next-line @next/next/no-img-element
     <img
-      src="/logo.png"
+      src="/tabyn-logo-dark.svg"
       alt="Tabyn"
       width={LOGO_HEIGHT}
       height={LOGO_HEIGHT}
@@ -56,7 +56,7 @@ export function TabynWordmark({
   return (
     // eslint-disable-next-line @next/next/no-img-element
     <img
-      src="/logo.png"
+      src="/tabyn-logo-dark.svg"
       alt="Tabyn"
       height={LOGO_HEIGHT}
       className={clsx('shrink-0 object-contain origin-left', className)}
