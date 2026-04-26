@@ -54,7 +54,7 @@ const Card = forwardRef<HTMLDivElement, CardProps>(
             'bg-surface-2 border-border-soft': elevation === 'raised',
             'bg-surface-3 border-border-soft shadow-2': elevation === 'elevated',
             'gradient-proof border-border-subtle': elevation === 'proof',
-            'bg-surface-2 border-border-soft': elevation === 'glow',
+            'bg-surface-2 border-brand-primary/40 shadow-glow': elevation === 'glow',
           },
           // hover
           hover &&
