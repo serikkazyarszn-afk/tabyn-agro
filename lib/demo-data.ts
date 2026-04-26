@@ -11,7 +11,7 @@ export const DEMO_ANIMALS: Animal[] = [
     expected_return_pct: 18,
     duration_months: 8,
     status: 'available',
-    image_url: '/cow.jpg',
+    image_url: '/akboz-new.webp',
     description: 'Healthy Kazakh white cow, 3 years old. Raised on open pasture in Almaty region.',
     slots_total: 5,
     slots_filled: 2,

@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 60" width="220" height="60">
+  <!-- Mark -->
+  <g transform="translate(10, 14)">
+    <path d="M4 22 L28 22" stroke="#4FA26D" stroke-width="2.4" stroke-linecap="round" opacity="0.55"/>
+    <path d="M5.5 22 A 10.5 10.5 0 0 1 26.5 22" stroke="#4FA26D" stroke-width="2.8" stroke-linecap="round" fill="none"/>
+    <circle cx="22.5" cy="13.8" r="2.8" fill="#4FA26D"/>
+    <circle cx="16" cy="22" r="1.7" fill="#4FA26D" opacity="0.85"/>
+  </g>
+  <!-- Wordmark -->
+  <text x="54" y="38" font-family="'IBM Plex Sans', system-ui, sans-serif" font-size="26" font-weight="600" fill="#F4F1E8" letter-spacing="-0.5">tabyn</text>
+</svg>

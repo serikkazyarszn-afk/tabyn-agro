@@ -154,30 +154,10 @@ export default function AnimalsPage({ params }: { params: Promise<{ locale: stri
         </Link>
       </div>
 
-      {/* Pagination */}
-      {totalCount > PAGE_SIZE && (
-        <div className="flex items-center justify-center gap-4 mt-10">
-          <button
-            type="button"
-            onClick={() => setPage(p => Math.max(1, p - 1))}
-            disabled={page === 1}
-            className="cursor-pointer text-sm px-4 py-2 rounded-xl border border-border text-muted hover:text-foreground hover:border-muted-2 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
-          >
-            ← Previous
-          </button>
-          <span className="text-sm text-muted">
-            Page {page} of {totalPages}
-          </span>
-          <button
-            type="button"
-            onClick={() => setPage(p => Math.min(totalPages, p + 1))}
-            disabled={page >= totalPages}
-            className="cursor-pointer text-sm px-4 py-2 rounded-xl border border-border text-muted hover:text-foreground hover:border-muted-2 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
-          >
-            Next →
-          </button>
-        </div>
-      )}
-    </div>
-  );
+export default function AnimalsPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  return <AnimalsCatalogClient params={params} />;
 }

@@ -1,4 +1,4 @@
-export type Role = 'investor' | 'farmer' | 'admin';
+export type Role = 'investor' | 'farmer';
 
 export type AnimalType = 'cow' | 'sheep' | 'horse' | 'goat' | 'camel';
 

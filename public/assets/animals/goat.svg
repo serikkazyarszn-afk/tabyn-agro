@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500" role="img" aria-label="Goat — schematic livestock asset">
+  <defs>
+    <linearGradient id="sky-goat" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0E1D19"/>
+      <stop offset="100%" stop-color="#152521"/>
+    </linearGradient>
+    <linearGradient id="land-goat" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1C2F29"/>
+      <stop offset="100%" stop-color="#0E1D19"/>
+    </linearGradient>
+    <pattern id="grid-goat" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#294139" stroke-width="0.6" opacity="0.45"/>
+    </pattern>
+  </defs>
+  <rect width="800" height="320" fill="url(#sky-goat)"/>
+  <rect width="800" height="500" fill="url(#grid-goat)" opacity="0.7"/>
+  <line x1="0" y1="320" x2="800" y2="320" stroke="#4FA26D" stroke-width="1.2" opacity="0.55"/>
+  <rect y="320" width="800" height="180" fill="url(#land-goat)"/>
+
+  <!-- Goat silhouette — compact, horned, with beard -->
+  <g transform="translate(260, 170)" fill="#F4F1E8" opacity="0.92">
+    <!-- Body -->
+    <path d="M30,110 C14,112 6,106 6,98 C6,88 16,80 30,80 C30,68 44,58 64,58 C78,46 100,42 124,50 C138,52 150,62 152,76 C164,78 174,86 174,98 C174,108 164,116 150,116 L46,116 C38,116 32,114 30,110 Z"/>
+    <!-- Head/muzzle -->
+    <path d="M152,76 C158,64 172,60 182,66 C190,72 192,82 186,90 C184,94 180,96 176,96 L172,96 C168,94 166,90 164,86 C158,82 154,80 152,76 Z"/>
+    <!-- Horns -->
+    <path d="M168,64 C172,54 176,44 172,36 L168,38 C168,48 164,56 162,64 Z"/>
+    <path d="M180,64 C184,54 188,44 184,36 L180,38 C180,48 176,56 174,64 Z"/>
+    <!-- Beard -->
+    <path d="M174,94 L178,106 L182,96 Z" opacity="0.7"/>
+    <!-- Eye -->
+    <circle cx="176" cy="80" r="1.8" fill="#07130F"/>
+    <!-- Ears -->
+    <ellipse cx="156" cy="62" rx="4" ry="7" transform="rotate(-30 156 62)"/>
+    <!-- Legs -->
+    <rect x="48" y="116" width="6" height="32"/>
+    <rect x="74" y="116" width="6" height="32"/>
+    <rect x="118" y="116" width="6" height="32"/>
+    <rect x="142" y="116" width="6" height="32"/>
+    <!-- Tail -->
+    <path d="M26,96 L14,92 L18,102 Z"/>
+  </g>
+
+  <!-- Reticle -->
+  <g stroke="#4FA26D" stroke-width="0.9" fill="none" opacity="0.9">
+    <line x1="200" y1="170" x2="200" y2="340"/>
+    <line x1="190" y1="170" x2="210" y2="170"/>
+    <line x1="190" y1="340" x2="210" y2="340"/>
+  </g>
+  <g stroke="#4FA26D" stroke-width="0.9" fill="none" opacity="0.9">
+    <line x1="260" y1="360" x2="480" y2="360"/>
+    <line x1="260" y1="350" x2="260" y2="370"/>
+    <line x1="480" y1="350" x2="480" y2="370"/>
+  </g>
+
+  <!-- Corner marks -->
+  <g stroke="#8A938D" stroke-width="1" fill="none" opacity="0.6">
+    <path d="M18,18 L18,36 M18,18 L36,18"/>
+    <path d="M782,18 L782,36 M782,18 L764,18"/>
+    <path d="M18,482 L18,464 M18,482 L36,482"/>
+    <path d="M782,482 L782,464 M782,482 L764,482"/>
+  </g>
+
+  <text x="50" y="470" font-family="monospace" font-size="11" fill="#8A938D" letter-spacing="3">GOAT · CAPRA HIRCUS · DAIRY</text>
+</svg>

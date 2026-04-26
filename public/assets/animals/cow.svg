@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500" role="img" aria-label="Cow — schematic livestock asset">
+  <defs>
+    <linearGradient id="sky-cow" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0E1D19"/>
+      <stop offset="100%" stop-color="#152521"/>
+    </linearGradient>
+    <linearGradient id="land-cow" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1C2F29"/>
+      <stop offset="100%" stop-color="#0E1D19"/>
+    </linearGradient>
+    <pattern id="grid-cow" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#294139" stroke-width="0.6" opacity="0.45"/>
+    </pattern>
+  </defs>
+  <rect width="800" height="320" fill="url(#sky-cow)"/>
+  <rect width="800" height="500" fill="url(#grid-cow)" opacity="0.7"/>
+  <line x1="0" y1="320" x2="800" y2="320" stroke="#4FA26D" stroke-width="1.2" opacity="0.55"/>
+  <rect y="320" width="800" height="180" fill="url(#land-cow)"/>
+
+  <!-- Cow silhouette — abstract bovine contour -->
+  <g transform="translate(190, 150)" fill="#F4F1E8" opacity="0.92">
+    <!-- Body -->
+    <path d="M50,130 C25,132 15,128 12,120 C10,112 18,98 30,96 C30,82 44,68 66,68 C72,60 90,56 102,60 C128,56 150,66 158,82 C172,86 184,96 184,110 C204,114 216,124 216,138 C216,150 202,160 182,160 L66,160 C58,160 52,154 50,148 Z"/>
+    <!-- Head -->
+    <path d="M158,82 C164,70 176,64 190,66 C202,68 210,80 208,94 C212,98 216,104 214,112 L182,110 C176,98 168,88 158,82 Z"/>
+    <!-- Ears -->
+    <ellipse cx="184" cy="64" rx="6" ry="10" transform="rotate(-35 184 64)"/>
+    <ellipse cx="202" cy="70" rx="5" ry="9" transform="rotate(25 202 70)"/>
+    <!-- Eye -->
+    <circle cx="194" cy="82" r="2" fill="#07130F"/>
+    <!-- Legs -->
+    <rect x="72" y="160" width="8" height="36"/>
+    <rect x="106" y="160" width="8" height="36"/>
+    <rect x="158" y="160" width="8" height="36"/>
+    <rect x="188" y="160" width="8" height="36"/>
+    <!-- Tail -->
+    <path d="M46,135 C36,138 30,144 28,152 L32,154 C34,146 40,142 48,140 Z"/>
+    <!-- Udder hint -->
+    <ellipse cx="120" cy="168" rx="12" ry="5" opacity="0.55"/>
+  </g>
+
+  <!-- Measurement reticle -->
+  <g stroke="#4FA26D" stroke-width="0.9" fill="none" opacity="0.9">
+    <line x1="130" y1="150" x2="130" y2="340"/>
+    <line x1="120" y1="150" x2="140" y2="150"/>
+    <line x1="120" y1="340" x2="140" y2="340"/>
+    <text x="150" y="250" font-family="monospace" font-size="10" fill="#8A938D" letter-spacing="1">H</text>
+  </g>
+  <g stroke="#4FA26D" stroke-width="0.9" fill="none" opacity="0.9">
+    <line x1="200" y1="360" x2="520" y2="360"/>
+    <line x1="200" y1="350" x2="200" y2="370"/>
+    <line x1="520" y1="350" x2="520" y2="370"/>
+    <text x="354" y="380" font-family="monospace" font-size="10" fill="#8A938D" letter-spacing="1" text-anchor="middle">L</text>
+  </g>
+
+  <!-- Corner registration marks -->
+  <g stroke="#8A938D" stroke-width="1" fill="none" opacity="0.6">
+    <path d="M18,18 L18,36 M18,18 L36,18"/>
+    <path d="M782,18 L782,36 M782,18 L764,18"/>
+    <path d="M18,482 L18,464 M18,482 L36,482"/>
+    <path d="M782,482 L782,464 M782,482 L764,482"/>
+  </g>
+
+  <!-- Mono label -->
+  <text x="50" y="470" font-family="monospace" font-size="11" fill="#8A938D" letter-spacing="3">COW · CATTLE · BOS TAURUS</text>
+</svg>

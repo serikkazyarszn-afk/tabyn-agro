@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500" role="img" aria-label="Horse — schematic livestock asset">
+  <defs>
+    <linearGradient id="sky-horse" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0E1D19"/>
+      <stop offset="100%" stop-color="#152521"/>
+    </linearGradient>
+    <linearGradient id="land-horse" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1C2F29"/>
+      <stop offset="100%" stop-color="#0E1D19"/>
+    </linearGradient>
+    <pattern id="grid-horse" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#294139" stroke-width="0.6" opacity="0.45"/>
+    </pattern>
+  </defs>
+  <rect width="800" height="320" fill="url(#sky-horse)"/>
+  <rect width="800" height="500" fill="url(#grid-horse)" opacity="0.7"/>
+  <line x1="0" y1="320" x2="800" y2="320" stroke="#4FA26D" stroke-width="1.2" opacity="0.55"/>
+  <rect y="320" width="800" height="180" fill="url(#land-horse)"/>
+
+  <!-- Horse silhouette — elongated body, arched neck -->
+  <g transform="translate(180, 130)" fill="#F4F1E8" opacity="0.92">
+    <!-- Body -->
+    <path d="M40,130 C20,132 10,124 8,114 C6,100 20,88 40,90 C40,76 52,66 74,66 C88,50 110,40 140,48 C152,30 172,24 188,32 C198,24 210,26 214,36 C218,48 210,58 200,62 C196,74 188,84 178,88 C188,96 192,108 190,120 C200,120 208,128 208,140 C208,150 198,158 186,158 L60,158 C50,158 42,152 40,142 Z"/>
+    <!-- Mane -->
+    <path d="M158,48 C166,40 172,44 172,52 C172,58 164,62 158,58 Z" opacity="0.6"/>
+    <path d="M148,56 C156,48 160,54 160,60 C160,64 154,68 148,64 Z" opacity="0.6"/>
+    <!-- Ears -->
+    <path d="M182,28 L184,18 L190,24 Z"/>
+    <path d="M194,30 L196,20 L202,28 Z"/>
+    <!-- Eye -->
+    <circle cx="196" cy="42" r="2" fill="#07130F"/>
+    <!-- Legs -->
+    <rect x="60" y="158" width="7" height="42"/>
+    <rect x="94" y="158" width="7" height="42"/>
+    <rect x="150" y="158" width="7" height="42"/>
+    <rect x="184" y="158" width="7" height="42"/>
+    <!-- Tail -->
+    <path d="M36,130 C20,136 12,146 10,158 L16,160 C18,150 24,144 36,142 Z"/>
+  </g>
+
+  <!-- Reticle -->
+  <g stroke="#4FA26D" stroke-width="0.9" fill="none" opacity="0.9">
+    <line x1="130" y1="130" x2="130" y2="340"/>
+    <line x1="120" y1="130" x2="140" y2="130"/>
+    <line x1="120" y1="340" x2="140" y2="340"/>
+  </g>
+  <g stroke="#4FA26D" stroke-width="0.9" fill="none" opacity="0.9">
+    <line x1="190" y1="360" x2="570" y2="360"/>
+    <line x1="190" y1="350" x2="190" y2="370"/>
+    <line x1="570" y1="350" x2="570" y2="370"/>
+  </g>
+
+  <!-- Corner marks -->
+  <g stroke="#8A938D" stroke-width="1" fill="none" opacity="0.6">
+    <path d="M18,18 L18,36 M18,18 L36,18"/>
+    <path d="M782,18 L782,36 M782,18 L764,18"/>
+    <path d="M18,482 L18,464 M18,482 L36,482"/>
+    <path d="M782,482 L782,464 M782,482 L764,482"/>
+  </g>
+
+  <text x="50" y="470" font-family="monospace" font-size="11" fill="#8A938D" letter-spacing="3">HORSE · EQUUS CABALLUS · STEPPE</text>
+</svg>

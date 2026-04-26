@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500" role="img" aria-label="Sheep — schematic livestock asset">
+  <defs>
+    <linearGradient id="sky-sheep" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0E1D19"/>
+      <stop offset="100%" stop-color="#152521"/>
+    </linearGradient>
+    <linearGradient id="land-sheep" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1C2F29"/>
+      <stop offset="100%" stop-color="#0E1D19"/>
+    </linearGradient>
+    <pattern id="grid-sheep" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#294139" stroke-width="0.6" opacity="0.45"/>
+    </pattern>
+  </defs>
+  <rect width="800" height="320" fill="url(#sky-sheep)"/>
+  <rect width="800" height="500" fill="url(#grid-sheep)" opacity="0.7"/>
+  <line x1="0" y1="320" x2="800" y2="320" stroke="#4FA26D" stroke-width="1.2" opacity="0.55"/>
+  <rect y="320" width="800" height="180" fill="url(#land-sheep)"/>
+
+  <!-- Sheep silhouette — cloud-of-wool body with head -->
+  <g transform="translate(260, 170)" fill="#F4F1E8" opacity="0.92">
+    <!-- Fluffy body — clusters of circles -->
+    <circle cx="40" cy="80" r="26"/>
+    <circle cx="70" cy="62" r="28"/>
+    <circle cx="104" cy="56" r="26"/>
+    <circle cx="138" cy="62" r="26"/>
+    <circle cx="170" cy="74" r="24"/>
+    <circle cx="60" cy="100" r="26"/>
+    <circle cx="100" cy="104" r="28"/>
+    <circle cx="140" cy="100" r="26"/>
+    <!-- Head -->
+    <ellipse cx="198" cy="80" rx="24" ry="20" fill="#294139"/>
+    <!-- Ears -->
+    <ellipse cx="186" cy="62" rx="5" ry="10" transform="rotate(-30 186 62)" fill="#294139"/>
+    <ellipse cx="210" cy="62" rx="5" ry="10" transform="rotate(25 210 62)" fill="#294139"/>
+    <!-- Eye -->
+    <circle cx="208" cy="78" r="2" fill="#F4F1E8"/>
+    <!-- Legs -->
+    <rect x="50" y="120" width="7" height="30" fill="#294139"/>
+    <rect x="78" y="124" width="7" height="30" fill="#294139"/>
+    <rect x="128" y="124" width="7" height="30" fill="#294139"/>
+    <rect x="156" y="120" width="7" height="30" fill="#294139"/>
+    <!-- Tail -->
+    <circle cx="18" cy="92" r="10"/>
+  </g>
+
+  <!-- Reticle -->
+  <g stroke="#4FA26D" stroke-width="0.9" fill="none" opacity="0.9">
+    <line x1="200" y1="170" x2="200" y2="340"/>
+    <line x1="190" y1="170" x2="210" y2="170"/>
+    <line x1="190" y1="340" x2="210" y2="340"/>
+  </g>
+  <g stroke="#4FA26D" stroke-width="0.9" fill="none" opacity="0.9">
+    <line x1="260" y1="360" x2="500" y2="360"/>
+    <line x1="260" y1="350" x2="260" y2="370"/>
+    <line x1="500" y1="350" x2="500" y2="370"/>
+  </g>
+
+  <!-- Corner marks -->
+  <g stroke="#8A938D" stroke-width="1" fill="none" opacity="0.6">
+    <path d="M18,18 L18,36 M18,18 L36,18"/>
+    <path d="M782,18 L782,36 M782,18 L764,18"/>
+    <path d="M18,482 L18,464 M18,482 L36,482"/>
+    <path d="M782,482 L782,464 M782,482 L764,482"/>
+  </g>
+
+  <text x="50" y="470" font-family="monospace" font-size="11" fill="#8A938D" letter-spacing="3">SHEEP · OVIS ARIES · EDILBAI</text>
+</svg>

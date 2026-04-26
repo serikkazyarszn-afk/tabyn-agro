@@ -1,63 +1,408 @@
 @import "tailwindcss";
 
+/* ============================================================
+   Tabyn — Design System v2 (Etap A Foundation)
+
+   Philosophy:
+   - Brand stays: forest green (#1F8566) + warm gold (#E0B060)
+   - NEW: layered background system for proper depth
+   - NEW: signal colors (up/down/warn) for fintech data
+   - NEW: gradient-ready token pairs (brand → brand-2, gold → gold-2)
+   - NEW: shadow stack (sh-1 / sh-2 / glow-brand / glow-gold)
+   - NEW: radii scale aligned with modern product UI
+   - LEGACY: all previous tokens kept as aliases → zero breaking changes
+   ============================================================ */
+
 :root {
-  --background: #0d0d0d;
-  --surface: #161616;
-  --surface-hover: #1e1e1e;
-  --border: #2a2a2a;
-  --accent: #a8e63d;
-  --accent-dim: #8bc931;
-  --foreground: #ffffff;
-  --muted: #888888;
-  --muted-2: #555555;
-  --destructive: #ef4444;
-  --success: #22c55e;
-  --warning: #f59e0b;
+  /* ---------- Backgrounds — layered depth ---------- */
+  --bg-absolute:    #030404;       /* pitch black, rarely used */
+  --bg-primary:     #070809;       /* main page background */
+  --bg-elevated:    #0C0E10;       /* raised bands, dark sections */
+  --bg-overlay:     #14181B;       /* modals, popovers */
+
+  /* ---------- Surfaces ---------- */
+  --surface-1:      #0F1214;       /* cards */
+  --surface-2:      #151A1D;       /* raised cards, inputs */
+  --surface-3:      #1C2226;       /* hover, elevated */
+
+  /* ---------- Borders — multi-layer transparency ---------- */
+  --border-subtle:  rgba(255, 255, 255, 0.055);
+  --border-soft:    rgba(255, 255, 255, 0.09);
+  --border-hard:    rgba(255, 255, 255, 0.14);
+
+  /* ---------- Text ---------- */
+  --text-primary:   #F2EFE2;
+  --text-secondary: #9BA3A8;
+  --text-tertiary:  #5A6270;
+
+  /* ---------- Brand — PRIMARY & gradient pair ---------- */
+  --brand-primary:        #1F8566;
+  --brand-primary-2:      #27A07C;
+  --brand-primary-hover:  #27A07C;
+  --brand-leaf:           #60A050;
+
+  /* ---------- Brand — SECONDARY (gold) & gradient pair ---------- */
+  --brand-secondary:       #E0B060;
+  --brand-secondary-2:     #F5D089;
+  --brand-secondary-hover: #EDC07A;
+  --brand-secondary-deep:  #C89848;
+
+  /* ---------- Brand — TERTIARY (aqua) ---------- */
+  --tech-accent:   #4FA9A0;
+
+  /* ---------- Signal colors — fintech data ---------- */
+  --signal-up:      #4ADE80;       /* mint — growth, success */
+  --signal-down:    #F87171;       /* coral — loss, error */
+  --signal-warn:    #FBBF24;       /* amber — caution */
+  --signal-info:    #60A5FA;       /* blue — info */
+
+  /* ---------- Semantic (legacy + bridge) ---------- */
+  --positive:     var(--signal-up);
+  --warning:      var(--signal-warn);
+  --destructive:  #CF6B5E;
+
+  /* ---------- Data viz ---------- */
+  --data-01: #E0B060;
+  --data-02: #1F8566;
+  --data-03: #4FA9A0;
+  --data-04: #C89848;
+  --data-05: #8FB891;
+  --data-06: #A78BFA;
+
+  /* ---------- Overlays ---------- */
+  --overlay-heavy:  rgba(4, 14, 11, 0.78);
+  --overlay-medium: rgba(4, 14, 11, 0.55);
+  --overlay-soft:   rgba(4, 14, 11, 0.32);
+
+  /* ---------- Radii scale ---------- */
+  --r-xs:   6px;
+  --r-sm:   10px;
+  --r-md:   14px;
+  --r-lg:   20px;
+  --r-xl:   28px;
+  --r-2xl:  36px;
+  --r-pill: 9999px;
+
+  /* ---------- Shadow stack ---------- */
+  --sh-1: 0 1px 3px rgba(0, 0, 0, 0.50),
+          inset 0 0 0 1px var(--border-subtle);
+  --sh-2: 0 6px 24px rgba(0, 0, 0, 0.55),
+          inset 0 0 0 1px var(--border-soft);
+  --sh-lifted: 0 16px 48px rgba(0, 0, 0, 0.65),
+               inset 0 1px 0 rgba(255, 255, 255, 0.10);
+
+  --sh-glow-brand: 0 0 0 1px rgba(31, 133, 102, 0.50),
+                   0 4px 16px rgba(31, 133, 102, 0.28),
+                   inset 0 1px 0 rgba(255, 255, 255, 0.14);
+  --sh-glow-gold:  0 0 0 1px rgba(224, 176, 96, 0.45),
+                   0 4px 16px rgba(224, 176, 96, 0.28),
+                   inset 0 1px 0 rgba(255, 255, 255, 0.12);
+
+  /* ---------- Motion ---------- */
+  --ease-standard:   cubic-bezier(0.2, 0, 0, 1);
+  --ease-emphasized: cubic-bezier(0.3, 0, 0, 1);
+  --ease-out-expo:   cubic-bezier(0.19, 1, 0.22, 1);
+
+  /* ===========================================================
+     LEGACY ALIASES — keep existing components working
+     =========================================================== */
+  --bg-950:         var(--bg-primary);
+  --surface-900:    var(--surface-1);
+  --surface-800:    var(--surface-2);
+  --surface-700:    var(--surface-3);
+  --border-700:     var(--border-subtle);
+  --border-600:     var(--border-soft);
+
+  --background:     var(--bg-primary);
+  --surface:        var(--surface-1);
+  --surface-hover:  var(--surface-2);
+  --border:         var(--border-subtle);
+  --accent:         var(--brand-primary);
+  --accent-dim:     var(--brand-primary-hover);
+  --foreground:     var(--text-primary);
+  --muted:          var(--text-secondary);
+  --muted-2:        var(--text-tertiary);
+  --success:        var(--positive);
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-surface: var(--surface);
-  --color-surface-hover: var(--surface-hover);
-  --color-border: var(--border);
-  --color-accent: var(--accent);
-  --color-accent-dim: var(--accent-dim);
-  --color-foreground: var(--foreground);
-  --color-muted: var(--muted);
-  --color-muted-2: var(--muted-2);
+  /* Tailwind v4 — map every token to a utility class */
+
+  /* Backgrounds */
+  --color-bg-absolute:  var(--bg-absolute);
+  --color-bg-primary:   var(--bg-primary);
+  --color-bg-elevated:  var(--bg-elevated);
+  --color-bg-overlay:   var(--bg-overlay);
+  --color-bg-950:       var(--bg-950);
+
+  /* Surfaces */
+  --color-surface-1:    var(--surface-1);
+  --color-surface-2:    var(--surface-2);
+  --color-surface-3:    var(--surface-3);
+  --color-surface-900:  var(--surface-900);
+  --color-surface-800:  var(--surface-800);
+  --color-surface-700:  var(--surface-700);
+
+  /* Borders */
+  --color-border-subtle: var(--border-subtle);
+  --color-border-soft:   var(--border-soft);
+  --color-border-hard:   var(--border-hard);
+  --color-border-700:    var(--border-700);
+  --color-border-600:    var(--border-600);
+
+  /* Text */
+  --color-text-primary:   var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-tertiary:  var(--text-tertiary);
+
+  /* Brand */
+  --color-brand:                  var(--brand-primary);
+  --color-brand-2:                var(--brand-primary-2);
+  --color-brand-hover:            var(--brand-primary-hover);
+  --color-brand-deep:             var(--brand-primary);
+  --color-brand-leaf:             var(--brand-leaf);
+  --color-brand-secondary:        var(--brand-secondary);
+  --color-brand-secondary-2:      var(--brand-secondary-2);
+  --color-brand-secondary-hover:  var(--brand-secondary-hover);
+  --color-brand-secondary-deep:   var(--brand-secondary-deep);
+  --color-tech:                   var(--tech-accent);
+  --color-aqua:                   var(--tech-accent);
+
+  /* Signal */
+  --color-signal-up:   var(--signal-up);
+  --color-signal-down: var(--signal-down);
+  --color-signal-warn: var(--signal-warn);
+  --color-signal-info: var(--signal-info);
+
+  /* Semantic */
+  --color-positive:    var(--positive);
+  --color-warning:     var(--warning);
   --color-destructive: var(--destructive);
-  --color-success: var(--success);
-  --color-warning: var(--warning);
-  --font-sans: var(--font-geist-sans);
+
+  /* Data viz */
+  --color-data-01: var(--data-01);
+  --color-data-02: var(--data-02);
+  --color-data-03: var(--data-03);
+  --color-data-04: var(--data-04);
+  --color-data-05: var(--data-05);
+  --color-data-06: var(--data-06);
+
+  /* Legacy utility aliases */
+  --color-background:    var(--background);
+  --color-surface:       var(--surface);
+  --color-surface-hover: var(--surface-hover);
+  --color-border:        var(--border);
+  --color-accent:        var(--accent);
+  --color-accent-dim:    var(--accent-dim);
+  --color-foreground:    var(--foreground);
+  --color-muted:         var(--muted);
+  --color-muted-2:       var(--muted-2);
+  --color-success:       var(--success);
+
+  /* Fonts */
+  --font-sans:    var(--font-plex-sans), 'Inter', 'Noto Sans', system-ui, -apple-system, sans-serif;
+  --font-mono:    var(--font-plex-mono), 'JetBrains Mono', 'SF Mono', ui-monospace, monospace;
+  --font-display: var(--font-plex-sans), 'Inter', 'Noto Sans', system-ui, -apple-system, sans-serif;
 }
 
-* {
-  box-sizing: border-box;
+/* ============================================================
+   Global base
+   ============================================================ */
+
+* { box-sizing: border-box; }
+
+html {
+  background: var(--bg-primary);
+  color-scheme: dark;
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: var(--font-sans), system-ui, sans-serif;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: var(--font-plex-sans), 'Inter', 'Noto Sans', system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  font-feature-settings: 'ss01' 1, 'cv01' 1;
 }
+
+html[lang="kk"] body,
+html[lang="ru"] body { line-height: 1.55; }
+
+.tabular,
+.tabular-nums,
+.mono {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: 'tnum', 'lnum';
+}
+.mono { font-family: var(--font-plex-mono), 'JetBrains Mono', monospace; }
 
 ::selection {
-  background: var(--accent);
-  color: #000;
+  background: var(--brand-secondary);
+  color: var(--brand-primary);
 }
 
-/* Scrollbar */
-::-webkit-scrollbar {
-  width: 6px;
-}
-::-webkit-scrollbar-track {
-  background: var(--background);
-}
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: var(--bg-primary); }
 ::-webkit-scrollbar-thumb {
-  background: var(--border);
-  border-radius: 3px;
+  background: var(--surface-3);
+  border-radius: 6px;
+  border: 2px solid var(--bg-primary);
 }
-::-webkit-scrollbar-thumb:hover {
-  background: var(--muted-2);
+::-webkit-scrollbar-thumb:hover { background: var(--border-soft); }
+
+:where(button, a, input, select, textarea, [role="button"]):focus-visible {
+  outline: 2px solid var(--brand-secondary);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+/* ============================================================
+   Gradients — reusable utility classes
+   ============================================================ */
+
+.gradient-horizon {
+  background: linear-gradient(180deg, var(--bg-primary) 0%, #0D2E22 55%, #174534 100%);
+}
+.gradient-yield {
+  background: linear-gradient(135deg, var(--brand-secondary) 0%, var(--brand-primary) 100%);
+}
+.gradient-proof {
+  background: linear-gradient(135deg, var(--surface-1) 0%, var(--surface-2) 100%);
+}
+.gradient-brand {
+  background: linear-gradient(135deg, var(--brand-primary) 0%, var(--brand-primary-2) 100%);
+}
+.gradient-gold {
+  background: linear-gradient(135deg, var(--brand-secondary-deep) 0%, var(--brand-secondary) 100%);
+}
+.gradient-radial-brand {
+  background: radial-gradient(1200px 600px at 70% -10%, rgba(255,255,255,0.05), transparent 60%);
+}
+.gradient-radial-gold {
+  background: radial-gradient(1000px 500px at 20% -5%, rgba(255,255,255,0.04), transparent 60%);
+}
+.gradient-hero-dual {
+  background:
+    radial-gradient(900px 500px at 82% 12%, rgba(255,255,255,0.05), transparent 60%),
+    radial-gradient(1200px 700px at 10% -10%, rgba(255,255,255,0.04), transparent 60%);
+}
+
+/* ============================================================
+   Surfaces
+   ============================================================ */
+
+.surface-elevated {
+  background: var(--surface-2);
+  border: 1px solid var(--border-subtle);
+}
+.surface-card {
+  background: var(--surface-1);
+  border: 1px solid var(--border-subtle);
+}
+
+/* ============================================================
+   Shadows — utility classes
+   ============================================================ */
+
+.shadow-1       { box-shadow: var(--sh-1); }
+.shadow-2       { box-shadow: var(--sh-2); }
+.shadow-lifted  { box-shadow: var(--sh-lifted); }
+.shadow-glow-brand { box-shadow: var(--sh-glow-brand); }
+.shadow-glow-gold  { box-shadow: var(--sh-glow-gold); }
+
+/* ============================================================
+   Keyframes — reusable animations
+   ============================================================ */
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0.35; }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes slide-in-up {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes toast-in {
+  from { opacity: 0; transform: translateY(16px) scale(0.95); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes ticker {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+@keyframes float-subtle {
+  0%, 100% { transform: translateY(0) rotate(-0.3deg); }
+  50%      { transform: translateY(-8px) rotate(0.3deg); }
+}
+
+@keyframes mesh-1 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  40%      { transform: translate(70px, -50px) scale(1.12); }
+  70%      { transform: translate(-40px, 60px) scale(0.92); }
+}
+@keyframes mesh-2 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  35%      { transform: translate(-90px, 40px) scale(1.18); }
+  65%      { transform: translate(50px, -70px) scale(0.88); }
+}
+@keyframes mesh-3 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  45%      { transform: translate(50px, 80px) scale(0.9); }
+  75%      { transform: translate(-60px, -40px) scale(1.14); }
+}
+
+@keyframes shimmer {
+  0%   { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+@keyframes bar-grow {
+  from { transform: scaleY(0); transform-origin: bottom; }
+  to   { transform: scaleY(1); transform-origin: bottom; }
+}
+
+/* Animation utilities */
+.anim-pulse-dot    { animation: pulse-dot 2s ease-in-out infinite; }
+.anim-fade-in      { animation: fade-in 0.4s var(--ease-standard) both; }
+.anim-slide-in-up  { animation: slide-in-up 0.5s var(--ease-standard) both; }
+.anim-toast-in     { animation: toast-in 0.3s var(--ease-standard) both; }
+.anim-float        { animation: float-subtle 7s ease-in-out infinite; }
+.anim-ticker       { animation: ticker 55s linear infinite; }
+
+/* ============================================================
+   CTA glow — for primary buttons
+   ============================================================ */
+
+.btn-brand-glow {
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 0 0 0 rgba(224, 176, 96, 0);
+  transition: box-shadow 180ms ease;
+}
+.btn-brand-glow:hover {
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.12),
+    0 0 0 3px rgba(224, 176, 96, 0.22);
+}
+
+/* ============================================================
+   Reduced motion
+   ============================================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
 }
