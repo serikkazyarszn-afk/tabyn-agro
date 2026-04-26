@@ -135,7 +135,7 @@ export default async function LocaleLayout({
         - CommandPaletteProvider binds ⌘K globally and exposes useCommandPalette()
       */}
       <ToastProvider>
-        <CommandPaletteProvider locale={locale}>
+        <CommandPaletteProvider locale={locale} user={navUser}>
           <Navbar locale={locale} user={navUser} />
           <main className="flex-1 pt-24" lang={locale}>
             {children}

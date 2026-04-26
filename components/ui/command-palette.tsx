@@ -67,9 +67,11 @@ type Command = {
 
 export function CommandPaletteProvider({
   locale,
+  user,
   children,
 }: {
   locale: string;
+  user?: { role: string; name: string } | null;
   children: ReactNode;
 }) {
   const [open, setOpen] = useState(false);
@@ -92,7 +94,7 @@ export function CommandPaletteProvider({
     <Ctx.Provider value={{ open, setOpen, toggle }}>
       {children}
       {open && (
-        <CommandPaletteModal locale={locale} onClose={() => setOpen(false)} />
+        <CommandPaletteModal locale={locale} user={user} onClose={() => setOpen(false)} />
       )}
     </Ctx.Provider>
   );
@@ -100,9 +102,11 @@ export function CommandPaletteProvider({
 
 function CommandPaletteModal({
   locale,
+  user,
   onClose,
 }: {
   locale: string;
+  user?: { role: string; name: string } | null;
   onClose: () => void;
 }) {
   const t = useTranslations('ui.commandPalette');
@@ -119,6 +123,9 @@ function CommandPaletteModal({
     },
     [router, locale, onClose],
   );
+
+  const isLoggedIn = !!user;
+  const isFarmer = user?.role === 'farmer';
 
   const commands: Command[] = useMemo(
     () => [
@@ -141,24 +148,25 @@ function CommandPaletteModal({
         action: () => go('/animals'),
         shortcut: 'G A',
       },
-      {
+      // Only show dashboards when logged in
+      ...(isLoggedIn && !isFarmer ? [{
         id: 'dashboard',
         label: t('cmd.dashboard'),
         hint: t('cmd.dashboardHint'),
         icon: <LayoutDashboard className="w-4 h-4" />,
-        group: 'navigate',
+        group: 'navigate' as const,
         action: () => go('/dashboard'),
         shortcut: 'G D',
-      },
-      {
+      }] : []),
+      ...(isLoggedIn && isFarmer ? [{
         id: 'farmer',
         label: t('cmd.farmerDashboard'),
         hint: t('cmd.farmerDashboardHint'),
         icon: <Tractor className="w-4 h-4" />,
-        group: 'navigate',
+        group: 'navigate' as const,
         action: () => go('/farmer/dashboard'),
         shortcut: 'G F',
-      },
+      }] : []),
       // Actions
       {
         id: 'calculator',
@@ -184,22 +192,25 @@ function CommandPaletteModal({
         group: 'action',
         action: () => go('/#trust'),
       },
-      {
-        id: 'signup',
-        label: t('cmd.signup'),
-        hint: t('cmd.signupHint'),
-        icon: <UserPlus className="w-4 h-4" />,
-        group: 'action',
-        action: () => go('/signup'),
-      },
-      {
-        id: 'login',
-        label: t('cmd.login'),
-        hint: t('cmd.loginHint'),
-        icon: <LogIn className="w-4 h-4" />,
-        group: 'action',
-        action: () => go('/login'),
-      },
+      // Only show login/signup when not logged in
+      ...(!isLoggedIn ? [
+        {
+          id: 'signup',
+          label: t('cmd.signup'),
+          hint: t('cmd.signupHint'),
+          icon: <UserPlus className="w-4 h-4" />,
+          group: 'action' as const,
+          action: () => go('/signup'),
+        },
+        {
+          id: 'login',
+          label: t('cmd.login'),
+          hint: t('cmd.loginHint'),
+          icon: <LogIn className="w-4 h-4" />,
+          group: 'action' as const,
+          action: () => go('/login'),
+        },
+      ] : []),
       // Help
       {
         id: 'docs',
@@ -229,7 +240,7 @@ function CommandPaletteModal({
         action: () => go('/'),
       },
     ],
-    [t, go, onClose],
+    [t, go, onClose, isLoggedIn, isFarmer],
   );
 
   // Filter
