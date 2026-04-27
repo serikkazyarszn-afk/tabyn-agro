@@ -6,6 +6,7 @@ import Philosophy from '@/components/landing/philosophy';
 import FeaturedAnimals from '@/components/landing/featured-animals';
 import ProfitSharing from '@/components/landing/profit-sharing';
 import TrustSection from '@/components/landing/trust-section';
+import { createClient } from '@/lib/supabase-server';
 
 export default async function LandingPage({
   params,
@@ -13,10 +14,12 @@ export default async function LandingPage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
+  const supabase = await createClient();
+  const { data: { user } } = await supabase.auth.getUser();
 
   return (
     <>
-      <Hero locale={locale} />
+      <Hero locale={locale} user={user} />
       <HowItWorks />
       <Benefits />
       <FieldGallery locale={locale} />

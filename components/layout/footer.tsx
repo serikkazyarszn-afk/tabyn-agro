@@ -63,9 +63,9 @@ export default function Footer({ locale }: FooterProps) {
               {t('company')}
             </h4>
             <ul className="space-y-2.5">
-              <FooterLink href={navLink('/')}>{t('about')}</FooterLink>
-              <FooterLink href={navLink('/')}>{t('contact')}</FooterLink>
-              <FooterLink href={navLink('/')}>{t('press')}</FooterLink>
+              <FooterLink href={navLink('/')} disabled>{t('about')}</FooterLink>
+              <FooterLink href={navLink('/')} disabled>{t('contact')}</FooterLink>
+              <FooterLink href={navLink('/')} disabled>{t('press')}</FooterLink>
             </ul>
           </div>
 
@@ -75,10 +75,10 @@ export default function Footer({ locale }: FooterProps) {
               {t('legal')}
             </h4>
             <ul className="space-y-2.5">
-              <FooterLink href={navLink('/')}>{t('terms')}</FooterLink>
-              <FooterLink href={navLink('/')}>{t('privacy')}</FooterLink>
-              <FooterLink href={navLink('/')}>{t('disclosures')}</FooterLink>
-              <FooterLink href={navLink('/')}>{t('riskWarning')}</FooterLink>
+              <FooterLink href={navLink('/')} disabled>{t('terms')}</FooterLink>
+              <FooterLink href={navLink('/')} disabled>{t('privacy')}</FooterLink>
+              <FooterLink href={navLink('/')} disabled>{t('disclosures')}</FooterLink>
+              <FooterLink href={navLink('/')} disabled>{t('riskWarning')}</FooterLink>
             </ul>
           </div>
 
@@ -88,8 +88,8 @@ export default function Footer({ locale }: FooterProps) {
               {t('support')}
             </h4>
             <ul className="space-y-2.5">
-              <FooterLink href={navLink('/')}>{t('help')}</FooterLink>
-              <FooterLink href={navLink('/')}>{t('status')}</FooterLink>
+              <FooterLink href={navLink('/')} disabled>{t('help')}</FooterLink>
+              <FooterLink href={navLink('/')} disabled>{t('status')}</FooterLink>
               <FooterLink href="mailto:support@tabyn.kz">support@tabyn.kz</FooterLink>
             </ul>
           </div>
@@ -114,7 +114,24 @@ export default function Footer({ locale }: FooterProps) {
   );
 }
 
-function FooterLink({ href, children }: { href: string; children: React.ReactNode }) {
+function FooterLink({
+  href,
+  children,
+  disabled,
+}: {
+  href: string;
+  children: React.ReactNode;
+  disabled?: boolean;
+}) {
+  if (disabled) {
+    return (
+      <li>
+        <span className="text-[13px] text-text-tertiary opacity-50 cursor-not-allowed select-none">
+          {children}
+        </span>
+      </li>
+    );
+  }
   return (
     <li>
       <Link

@@ -1,11 +1,13 @@
 'use client';
 
-import { useMemo, use } from 'react';
+import { useMemo, use, useEffect, useState } from 'react';
 import { useTranslations } from 'next-intl';
 import Link from 'next/link';
 import { DEMO_INVESTMENTS } from '@/lib/demo-data';
 import Button from '@/components/ui/button';
 import Badge from '@/components/ui/badge';
+import Input from '@/components/ui/input';
+import { createClient } from '@/lib/supabase';
 import {
   TrendingUp,
   Wallet,
@@ -22,8 +24,15 @@ import {
   Hash,
   Scale,
   PieChart as PieIcon,
+  User,
+  KeyRound,
+  Trash2,
+  X,
+  Mail,
 } from 'lucide-react';
 import { clsx } from 'clsx';
+
+const supabase = createClient();
 
 export default function DashboardClient({
   params,
@@ -36,6 +45,42 @@ export default function DashboardClient({
   const tDue = useTranslations('dueDiligence');
 
   const DEMO_BALANCE = 305000;
+
+  const [authUser, setAuthUser] = useState<{ id: string; email?: string; user_metadata: Record<string, string> } | null>(null);
+  const [topUpOpen, setTopUpOpen] = useState(false);
+  const [profileModal, setProfileModal] = useState<null | 'name' | 'password' | 'delete'>(null);
+  const [nameValue, setNameValue] = useState('');
+  const [passwordValue, setPasswordValue] = useState('');
+  const [saving, setSaving] = useState(false);
+  const [savedKey, setSavedKey] = useState<string | null>(null);
+
+  useEffect(() => {
+    supabase.auth.getUser().then(({ data }) => {
+      if (data.user) {
+        setAuthUser(data.user as typeof authUser);
+        setNameValue(data.user.user_metadata?.full_name ?? '');
+      }
+    });
+  }, []);
+
+  const handleSaveName = async () => {
+    setSaving(true);
+    await supabase.auth.updateUser({ data: { full_name: nameValue } });
+    setAuthUser((prev) => prev ? { ...prev, user_metadata: { ...prev.user_metadata, full_name: nameValue } } : prev);
+    setSaving(false);
+    setSavedKey('name');
+    setTimeout(() => { setSavedKey(null); setProfileModal(null); }, 1200);
+  };
+
+  const handleSavePassword = async () => {
+    if (!passwordValue) return;
+    setSaving(true);
+    await supabase.auth.updateUser({ password: passwordValue });
+    setSaving(false);
+    setPasswordValue('');
+    setSavedKey('password');
+    setTimeout(() => { setSavedKey(null); setProfileModal(null); }, 1200);
+  };
 
   const totalInvested = DEMO_INVESTMENTS.reduce((s, i) => s + i.amount, 0);
   const activeInvested = DEMO_INVESTMENTS.filter((i) => i.status === 'active')
@@ -140,6 +185,61 @@ export default function DashboardClient({
         </div>
       </header>
 
+      {/* Profile card */}
+      {authUser && (
+        <section className="surface-card rounded-[16px] p-5 md:p-6 mb-8">
+          <div className="flex items-center justify-between mb-4">
+            <div className="text-[11px] uppercase tracking-[0.1em] text-text-tertiary font-semibold">
+              {t('profile.title')}
+            </div>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-5">
+            <div>
+              <div className="text-[11px] text-text-tertiary mb-1">{t('profile.name')}</div>
+              <div className="text-[14px] font-medium text-text-primary truncate">
+                {authUser.user_metadata?.full_name || '—'}
+              </div>
+            </div>
+            <div>
+              <div className="text-[11px] text-text-tertiary mb-1">{t('profile.role')}</div>
+              <div className="text-[14px] font-medium text-text-primary capitalize">
+                {authUser.user_metadata?.role === 'farmer' ? t('profile.roleFarmer') : t('profile.roleInvestor')}
+              </div>
+            </div>
+            <div>
+              <div className="text-[11px] text-text-tertiary mb-1">{t('profile.email')}</div>
+              <div className="text-[14px] font-medium text-text-primary truncate flex items-center gap-1.5">
+                <Mail className="w-3.5 h-3.5 text-text-tertiary shrink-0" />
+                {authUser.email || '—'}
+              </div>
+            </div>
+          </div>
+          <div className="flex flex-wrap gap-2 border-t border-border-700 pt-4">
+            <button
+              onClick={() => { setNameValue(authUser.user_metadata?.full_name ?? ''); setProfileModal('name'); }}
+              className="inline-flex items-center gap-1.5 text-[12px] text-text-secondary hover:text-text-primary border border-border-700 hover:border-border-600 rounded-[8px] px-3 py-1.5 transition-colors"
+            >
+              <User className="w-3.5 h-3.5" />
+              {t('profile.changeName')}
+            </button>
+            <button
+              onClick={() => { setPasswordValue(''); setProfileModal('password'); }}
+              className="inline-flex items-center gap-1.5 text-[12px] text-text-secondary hover:text-text-primary border border-border-700 hover:border-border-600 rounded-[8px] px-3 py-1.5 transition-colors"
+            >
+              <KeyRound className="w-3.5 h-3.5" />
+              {t('profile.changePassword')}
+            </button>
+            <button
+              onClick={() => setProfileModal('delete')}
+              className="inline-flex items-center gap-1.5 text-[12px] text-destructive hover:text-destructive/80 border border-destructive/30 hover:border-destructive/50 rounded-[8px] px-3 py-1.5 transition-colors"
+            >
+              <Trash2 className="w-3.5 h-3.5" />
+              {t('profile.deleteAccount')}
+            </button>
+          </div>
+        </section>
+      )}
+
       {/* KPI row */}
       <section aria-label={t('kpiLabel')} className="mb-8">
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-px bg-border-700 rounded-[16px] overflow-hidden border border-border-700">
@@ -167,7 +267,7 @@ export default function DashboardClient({
             icon={Wallet}
             label={t('walletBalance')}
             value={`₸${DEMO_BALANCE.toLocaleString('ru-RU')}`}
-            helper={<button className="text-[12px] text-brand hover:text-brand-hover">{t('topUp')}</button>}
+            helper={<button onClick={() => setTopUpOpen(true)} className="text-[12px] text-brand hover:text-brand-hover">{t('topUp')}</button>}
           />
         </div>
       </section>
@@ -570,6 +670,102 @@ export default function DashboardClient({
           </ul>
         </SideCard>
       </section>
+
+      {/* Top-up modal */}
+      {topUpOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-bg-950/70 backdrop-blur-[4px]">
+          <div role="dialog" aria-modal="true" className="surface-elevated w-full max-w-sm rounded-[18px] overflow-hidden">
+            <div className="flex items-center justify-between px-5 py-4 border-b border-border-700">
+              <div className="text-[15px] font-semibold text-text-primary">{t('topUpModal.title')}</div>
+              <button onClick={() => setTopUpOpen(false)} className="w-8 h-8 rounded-[8px] text-text-tertiary hover:text-text-primary hover:bg-surface-800 inline-flex items-center justify-center">
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+            <div className="px-5 py-6">
+              <p className="text-[14px] text-text-secondary leading-relaxed">{t('topUpModal.body')}</p>
+            </div>
+            <div className="px-5 py-4 border-t border-border-700">
+              <Button variant="primary" size="md" fullWidth onClick={() => setTopUpOpen(false)}>{t('topUpModal.close')}</Button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Profile modals */}
+      {profileModal === 'name' && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-bg-950/70 backdrop-blur-[4px]">
+          <div role="dialog" aria-modal="true" className="surface-elevated w-full max-w-sm rounded-[18px] overflow-hidden">
+            <div className="flex items-center justify-between px-5 py-4 border-b border-border-700">
+              <div className="text-[15px] font-semibold text-text-primary">{t('profile.changeNameTitle')}</div>
+              <button onClick={() => setProfileModal(null)} className="w-8 h-8 rounded-[8px] text-text-tertiary hover:text-text-primary hover:bg-surface-800 inline-flex items-center justify-center">
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+            {savedKey === 'name' ? (
+              <div className="px-5 py-8 text-center text-[14px] text-positive">{t('profile.saved')}</div>
+            ) : (
+              <>
+                <div className="px-5 py-5">
+                  <Input id="new-name" label={t('profile.newName')} value={nameValue} onChange={(e) => setNameValue(e.target.value)} />
+                </div>
+                <div className="px-5 py-4 border-t border-border-700 flex gap-2">
+                  <Button variant="ghost" size="md" fullWidth onClick={() => setProfileModal(null)}>✕</Button>
+                  <Button variant="primary" size="md" fullWidth loading={saving} onClick={handleSaveName}>
+                    {saving ? t('profile.saving') : t('profile.save')}
+                  </Button>
+                </div>
+              </>
+            )}
+          </div>
+        </div>
+      )}
+
+      {profileModal === 'password' && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-bg-950/70 backdrop-blur-[4px]">
+          <div role="dialog" aria-modal="true" className="surface-elevated w-full max-w-sm rounded-[18px] overflow-hidden">
+            <div className="flex items-center justify-between px-5 py-4 border-b border-border-700">
+              <div className="text-[15px] font-semibold text-text-primary">{t('profile.changePasswordTitle')}</div>
+              <button onClick={() => setProfileModal(null)} className="w-8 h-8 rounded-[8px] text-text-tertiary hover:text-text-primary hover:bg-surface-800 inline-flex items-center justify-center">
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+            {savedKey === 'password' ? (
+              <div className="px-5 py-8 text-center text-[14px] text-positive">{t('profile.saved')}</div>
+            ) : (
+              <>
+                <div className="px-5 py-5">
+                  <Input id="new-password" label={t('profile.newPassword')} type="password" value={passwordValue} onChange={(e) => setPasswordValue(e.target.value)} />
+                </div>
+                <div className="px-5 py-4 border-t border-border-700 flex gap-2">
+                  <Button variant="ghost" size="md" fullWidth onClick={() => setProfileModal(null)}>✕</Button>
+                  <Button variant="primary" size="md" fullWidth loading={saving} onClick={handleSavePassword} disabled={!passwordValue}>
+                    {saving ? t('profile.saving') : t('profile.save')}
+                  </Button>
+                </div>
+              </>
+            )}
+          </div>
+        </div>
+      )}
+
+      {profileModal === 'delete' && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-bg-950/70 backdrop-blur-[4px]">
+          <div role="dialog" aria-modal="true" className="surface-elevated w-full max-w-sm rounded-[18px] overflow-hidden">
+            <div className="flex items-center justify-between px-5 py-4 border-b border-border-700">
+              <div className="text-[15px] font-semibold text-text-primary">{t('profile.deleteAccount')}</div>
+              <button onClick={() => setProfileModal(null)} className="w-8 h-8 rounded-[8px] text-text-tertiary hover:text-text-primary hover:bg-surface-800 inline-flex items-center justify-center">
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+            <div className="px-5 py-6">
+              <p className="text-[14px] text-text-secondary leading-relaxed">{t('profile.deleteAccountNote')}</p>
+            </div>
+            <div className="px-5 py-4 border-t border-border-700">
+              <Button variant="primary" size="md" fullWidth onClick={() => setProfileModal(null)}>{t('topUpModal.close')}</Button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

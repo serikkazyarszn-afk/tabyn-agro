@@ -444,6 +444,31 @@
       "vetPassports": "Сборник ветпаспортов",
       "contracts": "Активные договоры",
       "payoutStatements": "Выписки по выплатам"
+    },
+    "profile": {
+      "title": "Аккаунт",
+      "name": "ФИО",
+      "role": "Роль",
+      "email": "Email",
+      "roleInvestor": "Инвестор",
+      "roleFarmer": "Фермер",
+      "changeName": "Изменить имя",
+      "changePassword": "Сменить пароль",
+      "deleteAccount": "Удалить аккаунт",
+      "changeNameTitle": "Изменить имя",
+      "changePasswordTitle": "Сменить пароль",
+      "newName": "Новое имя",
+      "newPassword": "Новый пароль",
+      "confirmPassword": "Подтвердите пароль",
+      "save": "Сохранить",
+      "saving": "Сохранение…",
+      "deleteAccountNote": "Для удаления аккаунта напишите на support@tabyn.kz",
+      "saved": "Сохранено"
+    },
+    "topUpModal": {
+      "title": "Пополнение кошелька",
+      "body": "Пополнение через банковский перевод и Kaspi Pay скоро будет доступно. Напишите на support@tabyn.kz для ручного пополнения.",
+      "close": "Закрыть"
     }
   },
   "farmer": {

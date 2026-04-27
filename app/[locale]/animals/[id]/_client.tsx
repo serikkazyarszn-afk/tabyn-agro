@@ -1,10 +1,13 @@
 'use client';
 
-import { useMemo, useState, use } from 'react';
+import { useMemo, useState, use, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
 import Link from 'next/link';
-import { notFound } from 'next/navigation';
+import { notFound, useRouter } from 'next/navigation';
 import { DEMO_ANIMALS } from '@/lib/demo-data';
+import { createClient } from '@/lib/supabase';
+
+const supabase = createClient();
 import Badge from '@/components/ui/badge';
 import Button from '@/components/ui/button';
 import Input from '@/components/ui/input';
@@ -65,8 +68,22 @@ export default function AnimalDetailClient({
   const animal = DEMO_ANIMALS.find((a) => a.id === id);
   if (!animal) notFound();
 
+  const router = useRouter();
   const [tab, setTab] = useState<Tab>('overview');
   const [showModal, setShowModal] = useState(false);
+  const [user, setUser] = useState<{ id: string } | null>(null);
+
+  useEffect(() => {
+    supabase.auth.getUser().then(({ data }) => setUser(data.user));
+  }, []);
+
+  const handleOpenInvest = () => {
+    if (!user) {
+      router.push(`/${locale}/login`);
+      return;
+    }
+    setShowModal(true);
+  };
 
   const statusLabels = {
     available: tFeat('available'),
@@ -225,7 +242,7 @@ export default function AnimalDetailClient({
               fillPct={fillPct}
               slotsRemaining={slotsRemaining}
               risk={risk}
-              onOpen={() => setShowModal(true)}
+              onOpen={handleOpenInvest}
             />
 
             {/* Trust summary */}

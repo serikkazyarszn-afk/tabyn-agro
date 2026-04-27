@@ -15,6 +15,7 @@ import {
 
 interface HeroProps {
   locale: string;
+  user?: { id: string } | null;
 }
 
 /**
@@ -25,7 +26,7 @@ interface HeroProps {
  *   2. Proof strip on the right (asset passport card)
  *   3. Ambient horizon gradient — not a background photo
  */
-export default function Hero({ locale }: HeroProps) {
+export default function Hero({ locale, user }: HeroProps) {
   const t = useTranslations('hero');
   const navLink = (href: string) => `/${locale}${href}`;
 
@@ -85,7 +86,7 @@ export default function Hero({ locale }: HeroProps) {
 
           {/* CTAs */}
           <div className="mt-8 flex flex-col sm:flex-row gap-3">
-            <Link href={navLink('/signup')}>
+            <Link href={user ? navLink('/animals') : navLink('/signup')}>
               <Button size="lg" variant="primary" fullWidth className="sm:w-auto group">
                 {t('cta')}
                 <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5" />

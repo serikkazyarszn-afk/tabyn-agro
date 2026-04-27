@@ -444,6 +444,31 @@
       "vetPassports": "Vet passports bundle",
       "contracts": "Active agreements",
       "payoutStatements": "Payout statements"
+    },
+    "profile": {
+      "title": "Account",
+      "name": "Full name",
+      "role": "Role",
+      "email": "Email",
+      "roleInvestor": "Investor",
+      "roleFarmer": "Farmer",
+      "changeName": "Edit name",
+      "changePassword": "Change password",
+      "deleteAccount": "Delete account",
+      "changeNameTitle": "Change name",
+      "changePasswordTitle": "Change password",
+      "newName": "New name",
+      "newPassword": "New password",
+      "confirmPassword": "Confirm password",
+      "save": "Save",
+      "saving": "Saving…",
+      "deleteAccountNote": "To delete your account, email support@tabyn.kz",
+      "saved": "Saved"
+    },
+    "topUpModal": {
+      "title": "Wallet top-up",
+      "body": "Bank transfer and Kaspi Pay top-up coming soon. Contact support@tabyn.kz to top up manually.",
+      "close": "Close"
     }
   },
   "farmer": {
