@@ -72,9 +72,19 @@ export default function AnimalDetailClient({
   const [tab, setTab] = useState<Tab>('overview');
   const [showModal, setShowModal] = useState(false);
   const [user, setUser] = useState<{ id: string } | null>(null);
+  const [isFarmer, setIsFarmer] = useState(false);
 
   useEffect(() => {
-    supabase.auth.getUser().then(({ data }) => setUser(data.user));
+    supabase.auth.getUser().then(({ data }) => {
+      const u = data.user;
+      setUser(u);
+      if (u) {
+        supabase.from('profiles').select('role').eq('id', u.id).single()
+          .then(({ data: profile }) => {
+            if (profile?.role === 'farmer') setIsFarmer(true);
+          });
+      }
+    });
   }, []);
 
   const handleOpenInvest = () => {
@@ -237,13 +247,15 @@ export default function AnimalDetailClient({
         {/* Right: invest card */}
         <aside className="lg:col-span-4">
           <div className="lg:sticky lg:top-24 space-y-4">
-            <InvestCard
-              animal={animal}
-              fillPct={fillPct}
-              slotsRemaining={slotsRemaining}
-              risk={risk}
-              onOpen={handleOpenInvest}
-            />
+            {!isFarmer && (
+              <InvestCard
+                animal={animal}
+                fillPct={fillPct}
+                slotsRemaining={slotsRemaining}
+                risk={risk}
+                onOpen={handleOpenInvest}
+              />
+            )}
 
             {/* Trust summary */}
             <div className="surface-card rounded-[16px] p-5">
@@ -266,7 +278,7 @@ export default function AnimalDetailClient({
         </aside>
       </div>
 
-      {showModal && (
+      {showModal && !isFarmer && (
         <InvestModal
           animal={animal}
           onClose={() => setShowModal(false)}
