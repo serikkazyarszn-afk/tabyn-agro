@@ -799,7 +799,7 @@ function InvestModal({
       <div
         role="dialog"
         aria-modal="true"
-        className="surface-elevated w-full max-w-lg rounded-[18px] overflow-hidden"
+        className="surface-elevated w-full max-w-lg rounded-[18px] overflow-hidden max-h-[90dvh] flex flex-col"
       >
         <div className="flex items-center justify-between px-5 md:px-6 py-4 border-b border-border-700">
           <div>
@@ -833,7 +833,7 @@ function InvestModal({
           </div>
         ) : (
           <>
-            <div className="px-5 md:px-6 py-5 space-y-4">
+            <div className="px-5 md:px-6 py-5 space-y-4 flex-1 overflow-y-auto">
               <Input
                 id="amount"
                 label={t('investModal.amount')}
