@@ -181,8 +181,7 @@ export default function Navbar({ locale, user: initialUser }: NavbarProps) {
                   size="sm"
                   onClick={async () => {
                     await supabase.auth.signOut();
-                    router.push(navLink('/'));
-                    router.refresh();
+                    window.location.href = `/${locale}/`;
                   }}
                   aria-label={t('logout')}
                 >
@@ -287,8 +286,7 @@ export default function Navbar({ locale, user: initialUser }: NavbarProps) {
                 fullWidth
                 onClick={async () => {
                   await supabase.auth.signOut();
-                  router.push(navLink('/'));
-                  router.refresh();
+                  window.location.href = `/${locale}/`;
                 }}
               >
                 <LogOut className="w-4 h-4" />

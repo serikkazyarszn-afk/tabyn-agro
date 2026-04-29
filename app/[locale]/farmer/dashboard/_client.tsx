@@ -1,12 +1,14 @@
 'use client';
 
-import { useState, useMemo, use } from 'react';
+import { useState, useMemo, use, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
 import Link from 'next/link';
 import { DEMO_ANIMALS } from '@/lib/demo-data';
 import { Animal, AnimalStatus } from '@/lib/types';
 import Badge from '@/components/ui/badge';
 import Button from '@/components/ui/button';
+import Input from '@/components/ui/input';
+import { createClient } from '@/lib/supabase';
 import {
   Plus,
   TrendingUp,
@@ -22,6 +24,11 @@ import {
   Hash,
   AlertTriangle,
   Sparkles,
+  User,
+  Mail,
+  Lock,
+  Trash2,
+  Pencil,
 } from 'lucide-react';
 import { clsx } from 'clsx';
 
@@ -43,6 +50,7 @@ export default function FarmerDashboardClient({
   const t = useTranslations('farmer.dashboard');
   const tDue = useTranslations('dueDiligence');
   const tFeat = useTranslations('featuredAnimals');
+  const tProfile = useTranslations('dashboard');
 
   // Show farmer f1's animals as demo
   const [animals, setAnimals] = useState<Animal[]>(
@@ -52,6 +60,49 @@ export default function FarmerDashboardClient({
   const [updateAnimalId, setUpdateAnimalId] = useState<string | null>(null);
   const [updateText, setUpdateText] = useState('');
   const [updateSent, setUpdateSent] = useState<string | null>(null);
+
+  // Profile state
+  const [authName, setAuthName] = useState('');
+  const [authEmail, setAuthEmail] = useState('');
+  const [showNameModal, setShowNameModal] = useState(false);
+  const [showPasswordModal, setShowPasswordModal] = useState(false);
+  const [newName, setNewName] = useState('');
+  const [newPassword, setNewPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [saving, setSaving] = useState(false);
+  const [saved, setSaved] = useState(false);
+
+  useEffect(() => {
+    const supabase = createClient();
+    supabase.auth.getUser().then(({ data: { user } }) => {
+      if (user) {
+        setAuthEmail(user.email ?? '');
+        supabase.from('profiles').select('full_name').eq('id', user.id).single()
+          .then(({ data }) => {
+            setAuthName(data?.full_name ?? user.user_metadata?.full_name ?? '');
+          });
+      }
+    });
+  }, []);
+
+  const handleSaveName = async () => {
+    if (!newName.trim()) return;
+    setSaving(true);
+    await new Promise((r) => setTimeout(r, 800));
+    setAuthName(newName.trim());
+    setSaving(false);
+    setSaved(true);
+    setTimeout(() => { setSaved(false); setShowNameModal(false); setNewName(''); }, 1400);
+  };
+
+  const handleSavePassword = async () => {
+    if (!newPassword.trim()) return;
+    setSaving(true);
+    await new Promise((r) => setTimeout(r, 800));
+    setSaving(false);
+    setSaved(true);
+    setTimeout(() => { setSaved(false); setShowPasswordModal(false); setNewPassword(''); setConfirmPassword(''); }, 1400);
+  };
 
   const updateStatus = (id: string, newStatus: AnimalStatus) => {
     setAnimals((prev) => prev.map((a) => (a.id === id ? { ...a, status: newStatus } : a)));
@@ -153,6 +204,55 @@ export default function FarmerDashboardClient({
             accent="gold"
             helper={t('projectedPayoutNote')}
           />
+        </div>
+      </section>
+
+      {/* Profile card */}
+      <section className="surface-card rounded-[16px] p-5 md:p-6 mb-8">
+        <div className="flex items-center justify-between mb-4">
+          <div>
+            <div className="text-[11px] uppercase tracking-[0.1em] text-text-tertiary">
+              {tProfile('profile.title')}
+            </div>
+            <h2 className="text-[14px] font-semibold text-text-primary mt-0.5">
+              {tProfile('profile.title')}
+            </h2>
+          </div>
+          <User className="w-4 h-4 text-brand" />
+        </div>
+
+        <div className="flex items-center gap-4 mb-5">
+          <div className="w-12 h-12 rounded-full bg-brand/15 border border-brand/30 flex items-center justify-center text-brand text-[18px] font-semibold shrink-0">
+            {authName ? authName.charAt(0).toUpperCase() : 'Ф'}
+          </div>
+          <div className="min-w-0">
+            <div className="text-[15px] font-semibold text-text-primary truncate">
+              {authName || '—'}
+            </div>
+            <Badge variant="brand" size="sm">{tProfile('profile.roleFarmer')}</Badge>
+            <div className="flex items-center gap-1.5 mt-1.5">
+              <Mail className="w-3 h-3 text-text-tertiary shrink-0" />
+              <span className="text-[12px] text-text-secondary truncate">{authEmail || '—'}</span>
+            </div>
+          </div>
+        </div>
+
+        <div className="flex flex-wrap gap-2">
+          <Button variant="secondary" size="sm" onClick={() => { setNewName(authName); setShowNameModal(true); }}>
+            <Pencil className="w-3.5 h-3.5" />
+            {tProfile('profile.changeName')}
+          </Button>
+          <Button variant="secondary" size="sm" onClick={() => setShowPasswordModal(true)}>
+            <Lock className="w-3.5 h-3.5" />
+            {tProfile('profile.changePassword')}
+          </Button>
+          <button
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-[8px] text-[12px] font-medium text-red-400 hover:bg-red-400/10 transition-colors"
+            onClick={() => alert(tProfile('profile.deleteAccountNote'))}
+          >
+            <Trash2 className="w-3.5 h-3.5" />
+            {tProfile('profile.deleteAccount')}
+          </button>
         </div>
       </section>
 
@@ -440,6 +540,86 @@ export default function FarmerDashboardClient({
           </ul>
         )}
       </section>
+
+      {/* Edit name modal */}
+      {showNameModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-bg-950/70 backdrop-blur-[4px]">
+          <div className="surface-elevated w-full max-w-sm rounded-[18px] overflow-hidden">
+            <div className="px-5 py-4 border-b border-border-700">
+              <div className="text-[15px] font-semibold text-text-primary">
+                {tProfile('profile.changeNameTitle')}
+              </div>
+            </div>
+            <div className="px-5 py-5">
+              <Input
+                id="new-name"
+                label={tProfile('profile.newName')}
+                value={newName}
+                onChange={(e) => setNewName(e.target.value)}
+              />
+            </div>
+            <div className="px-5 py-4 border-t border-border-700 flex gap-2">
+              <Button variant="ghost" size="md" fullWidth onClick={() => setShowNameModal(false)}>
+                {t('cancel')}
+              </Button>
+              <Button
+                variant="primary"
+                size="md"
+                fullWidth
+                loading={saving}
+                onClick={handleSaveName}
+                disabled={!newName.trim() || saving}
+              >
+                {saved ? tProfile('profile.saved') : saving ? tProfile('profile.saving') : tProfile('profile.save')}
+              </Button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Change password modal */}
+      {showPasswordModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-bg-950/70 backdrop-blur-[4px]">
+          <div className="surface-elevated w-full max-w-sm rounded-[18px] overflow-hidden">
+            <div className="px-5 py-4 border-b border-border-700">
+              <div className="text-[15px] font-semibold text-text-primary">
+                {tProfile('profile.changePasswordTitle')}
+              </div>
+            </div>
+            <div className="px-5 py-5 space-y-4">
+              <Input
+                id="new-password"
+                label={tProfile('profile.newPassword')}
+                type="password"
+                value={newPassword}
+                onChange={(e) => setNewPassword(e.target.value)}
+              />
+              <Input
+                id="confirm-password"
+                label={tProfile('profile.confirmPassword')}
+                type="password"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+              />
+            </div>
+            <div className="px-5 py-4 border-t border-border-700 flex gap-2">
+              <Button variant="ghost" size="md" fullWidth onClick={() => setShowPasswordModal(false)}>
+                {t('cancel')}
+              </Button>
+              <Button
+                variant="primary"
+                size="md"
+                fullWidth
+                loading={saving}
+                onClick={handleSavePassword}
+                disabled={!newPassword.trim() || saving}
+              >
+                {saved ? tProfile('profile.saved') : saving ? tProfile('profile.saving') : tProfile('profile.save')}
+              </Button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

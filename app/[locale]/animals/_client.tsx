@@ -394,8 +394,8 @@ export default function AnimalsCatalogClient({
         </div>
       )}
 
-      {/* Farmer CTA */}
-      <div className="mt-16 rounded-[18px] bg-surface-1 border border-border-subtle p-8 text-center">
+      {/* Farmer CTA — hidden for logged-in investors */}
+      {userRole !== 'investor' && <div className="mt-16 rounded-[18px] bg-surface-1 border border-border-subtle p-8 text-center">
         <h3 className="text-[18px] font-semibold mb-2">{t('farmerCta.title')}</h3>
         <p className="text-text-secondary text-[14px] mb-5">{t('farmerCta.subtitle')}</p>
         <Link
@@ -404,7 +404,7 @@ export default function AnimalsCatalogClient({
         >
           {userRole === 'farmer' ? t('farmerCta.buttonFarmer') : t('farmerCta.button')}
         </Link>
-      </div>
+      </div>}
 
       {/* Mobile filter drawer */}
       {drawerOpen && (

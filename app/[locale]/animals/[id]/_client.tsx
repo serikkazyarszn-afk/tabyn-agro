@@ -795,11 +795,11 @@ function InvestModal({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-4 bg-bg-950/70 backdrop-blur-[4px]">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-bg-950/70 backdrop-blur-[4px]">
       <div
         role="dialog"
         aria-modal="true"
-        className="surface-elevated w-full max-w-lg rounded-t-[20px] sm:rounded-[18px] overflow-hidden"
+        className="surface-elevated w-full max-w-lg rounded-[18px] overflow-hidden"
       >
         <div className="flex items-center justify-between px-5 md:px-6 py-4 border-b border-border-700">
           <div>
