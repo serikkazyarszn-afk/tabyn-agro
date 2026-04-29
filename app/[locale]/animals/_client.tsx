@@ -69,11 +69,13 @@ export default function AnimalsCatalogClient({
   const [density, setDensity] = useState<Density>('comfortable');
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [userRole, setUserRole] = useState<string | null>(null);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
     const supabase = createClient();
     supabase.auth.getUser().then(({ data: { user } }) => {
       if (user) {
+        setIsLoggedIn(true);
         supabase.from('profiles').select('role').eq('id', user.id).single()
           .then(({ data }) => setUserRole(data?.role ?? null));
       }
@@ -399,10 +401,10 @@ export default function AnimalsCatalogClient({
         <h3 className="text-[18px] font-semibold mb-2">{t('farmerCta.title')}</h3>
         <p className="text-text-secondary text-[14px] mb-5">{t('farmerCta.subtitle')}</p>
         <Link
-          href={userRole === 'farmer' ? `/${locale}/farmer/animals/new` : `/${locale}/signup`}
+          href={isLoggedIn ? `/${locale}/farmer/animals/new` : `/${locale}/signup`}
           className="inline-flex items-center gap-2 px-6 py-3 bg-brand text-text-primary text-[14px] font-semibold rounded-xl hover:opacity-90 transition-opacity"
         >
-          {userRole === 'farmer' ? t('farmerCta.buttonFarmer') : t('farmerCta.button')}
+          {isLoggedIn ? t('farmerCta.buttonFarmer') : t('farmerCta.button')}
         </Link>
       </div>}
 
