@@ -175,38 +175,6 @@ export default function FarmerDashboardClient({
         </Link>
       </header>
 
-      {/* KPI row */}
-      <section className="mb-8">
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-px bg-border-700 rounded-[16px] overflow-hidden border border-border-700">
-          <KPI
-            icon={Package}
-            label={t('totalAnimals')}
-            value={String(totalAnimals)}
-            helper={`${fullyFunded} ${t('fullyFundedShort')}`}
-          />
-          <KPI
-            icon={Users}
-            label={t('totalInvestors')}
-            value={String(totalInvestors)}
-            accent="brand"
-            helper={`${animals.filter(a => a.slots_filled > 0).length} ${t('activeListings')}`}
-          />
-          <KPI
-            icon={TrendingUp}
-            label={t('active')}
-            value={String(growing)}
-            helper={`${sold} ${t('completed')}`}
-          />
-          <KPI
-            icon={CheckCircle}
-            label={t('projectedPayout')}
-            value={`₸${projectedPayout.toLocaleString('ru-RU')}`}
-            accent="gold"
-            helper={t('projectedPayoutNote')}
-          />
-        </div>
-      </section>
-
       {/* Profile card */}
       <section className="surface-card rounded-[16px] p-5 md:p-6 mb-8">
         <div className="flex items-center justify-between mb-4">
@@ -253,6 +221,38 @@ export default function FarmerDashboardClient({
             <Trash2 className="w-3.5 h-3.5" />
             {tProfile('profile.deleteAccount')}
           </button>
+        </div>
+      </section>
+
+      {/* KPI row */}
+      <section className="mb-8">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-px bg-border-700 rounded-[16px] overflow-hidden border border-border-700">
+          <KPI
+            icon={Package}
+            label={t('totalAnimals')}
+            value={String(totalAnimals)}
+            helper={`${fullyFunded} ${t('fullyFundedShort')}`}
+          />
+          <KPI
+            icon={Users}
+            label={t('totalInvestors')}
+            value={String(totalInvestors)}
+            accent="brand"
+            helper={`${animals.filter(a => a.slots_filled > 0).length} ${t('activeListings')}`}
+          />
+          <KPI
+            icon={TrendingUp}
+            label={t('active')}
+            value={String(growing)}
+            helper={`${sold} ${t('completed')}`}
+          />
+          <KPI
+            icon={CheckCircle}
+            label={t('projectedPayout')}
+            value={`₸${projectedPayout.toLocaleString('ru-RU')}`}
+            accent="gold"
+            helper={t('projectedPayoutNote')}
+          />
         </div>
       </section>
 
